@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pattern.singleton.SingletonTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-07-24T02:07:16" hostname="6161990srcui-MacBookPro.local" time="0.001">
+  <properties/>
+  <testcase name="자바의_Calendar_객체도_싱글턴객체이다()" classname="pattern.singleton.SingletonTest" time="0.001"/>
+  <testcase name="싱글톤_패턴을_이용해_하나의_객체를_공유한다()" classname="pattern.singleton.SingletonTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pattern.builder.PeopleBuilderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-07-24T02:07:16" hostname="6161990srcui-MacBookPro.local" time="0.0">
+  <properties/>
+  <testcase name="인종이_아시아인인_builder에_구체적_정보를_덧붙여_생성합니다()" classname="pattern.builder.PeopleBuilderTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
