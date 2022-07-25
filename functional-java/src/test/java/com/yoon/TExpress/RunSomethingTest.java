@@ -1,5 +1,6 @@
 package com.yoon.TExpress;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RunSomethingTest {
@@ -8,40 +9,46 @@ public class RunSomethingTest {
     void Functional_Interface_익명_내부_클래스로_구현한다() {
         RunSomething runSomething = new RunSomething() {
             @Override
-            public void doSomething() {
-                System.out.println("Hi");
+            public String doSomething() {
+                return "Hi";
             }
         };
+
+        String actual = runSomething.doSomething();
+
+        Assertions.assertEquals(actual, "Hi");
     }
 
     @Test
     void 람다_표현식() {
-        RunSomething runSomething = () -> System.out.println("Hi");
+        RunSomething runSomething = () ->"Hi2";
+
+        String actual = runSomething.doSomething();
+
+        Assertions.assertEquals(actual, "Hi2");
     }
 
     @Test
     void Functional_Interface_익명_내부_클래스로_구현한다2() {
         RunSomething runSomething = new RunSomething() {
             @Override
-            public void doSomething() {
-                System.out.println("Hi");
-                System.out.println("YoonJi");
+            public String doSomething() {
+                return "Hi YoonJi";
             }
         };
+
+        String actual = runSomething.doSomething();
+
+        Assertions.assertEquals(actual, "Hi YoonJi");
     }
 
     @Test
     void 람다_표현식2() {
-        RunSomething runSomething = () -> {
-            System.out.println("Hi");
-            System.out.println("YoonJi");
-        };
-    }
+        RunSomething runSomething = () -> "Hi" + " YoonJi2";
 
-    @Test
-    void Functional_Interface() {
-        RunSomething runSomething = () -> System.out.println("Hi");
-        runSomething.doSomething();
+        String actual = runSomething.doSomething();
+
+        Assertions.assertEquals(actual, "Hi YoonJi2");
     }
 
 

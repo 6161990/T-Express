@@ -3,7 +3,7 @@ package com.yoon.TExpress;
 @FunctionalInterface
 public interface RunSomething {
 
-    void doSomething();
+    String doSomething();
     /**
      * 함수형 인터페이스는 반드시 추상 메소드가 하나여야한다.
      * static, default 메소드가 있어도 함수형 인터페이스 라고 할 수 있다.
