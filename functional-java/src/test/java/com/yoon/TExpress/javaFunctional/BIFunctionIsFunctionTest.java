@@ -12,8 +12,6 @@ public class BIFunctionIsFunctionTest {
 
     @Test
     void BIFunction() {
-        BIFunctionIsFunction sut = new BIFunctionIsFunction();
-
 /**     리팩토링 to 16 line
         String actual = sut.powToString(2, 4, (a1, a2) -> Math.pow(a1, a2), (r) -> "Result: " + String.valueOf(r));
  * */
