@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
-public class ConsumerIsFunction {
+public class ConsumerFunction2 {
 
     @Test
     void T타입을_받아서_아무값도_리턴하지않는_소비형_함수인터페이스() {
@@ -59,6 +59,7 @@ public class ConsumerIsFunction {
 
         addNumber.andThen(printList).accept(fruits);
         /**
+         * a.andThen(b) : a 가 먼저 연산됨.
          * addNumber.andThen(printList).accept(fruits)를 호출하면
          * addNumber()가 수행된 이후에 printList()가 수행.
          * 두개의 메소드로 전달되는 인자는 fruits로, 동일한 객체가 전달됨
