@@ -8,10 +8,10 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SupplierIsFunctionTest {
+public class SupplierFunction3 {
 
     @Test
-    void Supplier() {
+    void Supplier_인자를_받지_않고_T_객체를_리턴하는_함수형_인터페이스() {
         Supplier<String> supplier = () -> "HelloWorld";
 
         String actual = supplier.get();
@@ -20,7 +20,7 @@ public class SupplierIsFunctionTest {
     }
 
     @Test
-    void Supplier는_제네릭을_구현되어있어_어떤객체이든_리턴할_수_있다() {
+    void Supplier는_제네릭으로_구현되어있어_어떤객체이든_리턴할_수_있다() {
         Supplier<Item> supplier = () -> new Item(10, "Hello");
 
         Item actual = supplier.get();
@@ -30,7 +30,7 @@ public class SupplierIsFunctionTest {
 
     @Test
     void Supplier_with_method_reference() {
-        Supplier<String> supplier = SupplierIsFunctionTest::getHelloWorld;
+        Supplier<String> supplier = SupplierFunction3::getHelloWorld;
 
         String actual = supplier.get();
 

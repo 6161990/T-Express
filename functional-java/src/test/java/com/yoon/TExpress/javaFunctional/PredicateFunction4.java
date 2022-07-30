@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class PredicateIsFunctionTest {
+public class PredicateFunction4 {
 
     @Test
     void Predicate_T_T타입의_값을_받아서_boolean을_리턴하는_함수_인터페이스() {
