@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class BIFunctionIsFunctionTest {
+public class BIFunction3 {
 
     @Test
-    void BIFunction() {
+    void BIFunction_2개의_인자_Type_T_U를_받고_1개의_객체R_를_리턴하는_함수형_인터페이스() {
 /**     리팩토링 to 16 line
         String actual = sut.powToString(2, 4, (a1, a2) -> Math.pow(a1, a2), (r) -> "Result: " + String.valueOf(r));
  * */
