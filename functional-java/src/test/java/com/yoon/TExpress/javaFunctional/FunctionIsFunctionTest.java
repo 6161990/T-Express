@@ -34,7 +34,7 @@ class FunctionIsFunctionTest {
         Function<Integer, Integer> plus = (i) -> i + 1;
         Function<Integer, Integer> multiply = (i) -> i * 2;
 
-        Function<Integer, Integer> multiplyAndPlus = plus.compose(multiply);
+        Function<Integer, Integer> multiplyAndPlus = plus.compose(multiply); // a.compose(b) : b 부터 연산
         Integer actual = multiplyAndPlus.apply(2);
 
         Assertions.assertEquals(actual, 5);
@@ -46,7 +46,7 @@ class FunctionIsFunctionTest {
         Function<Integer, Integer> plus = (i) -> i + 1;
         Function<Integer, Integer> multiply = (i) -> i * 2;
 
-        Function<Integer, Integer> plusAndMultiply = plus.andThen(multiply);
+        Function<Integer, Integer> plusAndMultiply = plus.andThen(multiply); // a.andThen(b) : a 부터 연산
         Integer actual = plusAndMultiply.apply(2);
 
         Assertions.assertEquals(actual, 6);
