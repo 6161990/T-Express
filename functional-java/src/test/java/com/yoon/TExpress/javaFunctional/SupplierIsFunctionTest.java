@@ -68,13 +68,21 @@ public class SupplierIsFunctionTest {
                 .forEach(System.out::println);
     }
 
-    private static class Item {
+    static class Item {
         private final String name;
         private final int age;
 
         public Item(int age, String name) {
             this.age = age;
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getAge() {
+            return age;
         }
 
         @Override
