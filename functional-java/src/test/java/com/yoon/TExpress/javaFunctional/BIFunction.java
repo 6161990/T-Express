@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class BIFunction5 {
+public class BIFunction {
 
     @Test
     void BIFunction_2개의_인자_Type_T_U를_받고_1개의_객체R_를_리턴하는_함수형_인터페이스() {

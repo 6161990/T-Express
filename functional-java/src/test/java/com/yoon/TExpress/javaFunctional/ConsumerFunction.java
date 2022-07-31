@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
-public class ConsumerFunction2 {
+public class ConsumerFunction {
 
     @Test
     void T타입을_받아서_아무값도_리턴하지않는_소비형_함수인터페이스() {

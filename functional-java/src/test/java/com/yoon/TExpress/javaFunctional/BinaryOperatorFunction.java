@@ -1,6 +1,6 @@
 package com.yoon.TExpress.javaFunctional;
 
-import com.yoon.TExpress.javaFunctional.SupplierFunction3.Item;
+import com.yoon.TExpress.javaFunctional.SupplierFunction.Item;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import java.util.function.BinaryOperator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BinaryOperatorFunction7 {
+public class BinaryOperatorFunction {
 
     /**
      * BinaryOperator :

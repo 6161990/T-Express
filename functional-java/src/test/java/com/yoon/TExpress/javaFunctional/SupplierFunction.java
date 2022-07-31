@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SupplierFunction3 {
+public class SupplierFunction {
 
     @Test
     void Supplier_인자를_받지_않고_T_객체를_리턴하는_함수형_인터페이스() {
@@ -30,7 +30,7 @@ public class SupplierFunction3 {
 
     @Test
     void Supplier_with_method_reference() {
-        Supplier<String> supplier = SupplierFunction3::getHelloWorld;
+        Supplier<String> supplier = SupplierFunction::getHelloWorld;
 
         String actual = supplier.get();
 

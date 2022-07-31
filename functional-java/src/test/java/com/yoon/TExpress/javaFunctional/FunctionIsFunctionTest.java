@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
-class FunctionIsFunction1 {
+class FunctionIsFunctionTest {
 
     @DisplayName("Function<T,R> - apply")
     @Test

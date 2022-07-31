@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.UnaryOperator;
 
-public class UnaryOperatorFunction6 {
+public class UnaryOperatorFunction {
 
     /**
      * UnaryOperator
