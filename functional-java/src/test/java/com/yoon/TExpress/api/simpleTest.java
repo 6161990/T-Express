@@ -68,7 +68,7 @@ public class simpleTest {
         name.forEach(System.out::println);
     }
 
-    private List<String> getExamList() {
+    public List<String> getExamList() {
         List<String> name = new ArrayList<>();
         name.add("yoonji");
         name.add("sarang");
