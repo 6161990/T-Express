@@ -11,5 +11,7 @@ public class OrderedEvent {
     OrderId orderId;
     List<OrderedItem> orderedItems;
 
-  
+    public ProductOptionDetail[] getProductDetailToArray() {
+        return orderedItems.stream().map(OrderedItem::getProductOptionDetails).toArray(ProductOptionDetail[]::new);
+    }
 }
