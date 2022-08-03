@@ -39,6 +39,7 @@ public class RunSomethingTest {
 
         String actual = runSomething.doSomething();
 
+
         Assertions.assertEquals(actual, "Hi YoonJi");
     }
 
