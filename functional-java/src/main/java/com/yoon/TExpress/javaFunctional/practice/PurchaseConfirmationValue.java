@@ -7,9 +7,4 @@ public class PurchaseConfirmationValue {
     PurchaseConfirmationType type;
     Object value;
 
-    public <T> T getValue(Class<T> aClass) {
-        return aClass.cast(value);
-    }
-
-
 }

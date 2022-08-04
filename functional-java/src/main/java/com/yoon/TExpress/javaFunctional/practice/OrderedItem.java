@@ -13,9 +13,4 @@ public class OrderedItem {
     int quantity;
     List<ProductOptionDetail> productOptionDetails;
 
-    public TaxType getTaxType(PurchaseConfirmationType type){
-        return this.getProductOptionDetails().stream().filter(l->l.isEqualBy(type.toString()))
-                .map(ProductOptionDetail::getTaxType)
-                .findAny().orElseThrow(() -> new IllegalArgumentException("Nothing equal type"));
-    }
 }

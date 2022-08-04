@@ -16,8 +16,4 @@ public class AllocatableItem {
         this.price = price;
     }
 
-    AllocatableItem abs() {
-        return AllocatableItem.of(this.getValue(), Math.abs(getPrice()));
-    }
-
 }
