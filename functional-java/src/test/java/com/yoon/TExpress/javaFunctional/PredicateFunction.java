@@ -60,8 +60,11 @@ public class PredicateFunction {
 
         stream.filter(Predicate.isEqual(5))
                 .forEach(System.out::println);
-        stream.filter(Predicate.isEqual(7))
-                .forEach(System.out::println);
+/** stream has already been operated upon or closed
+ java.lang.IllegalStateException: stream has already been operated upon or closed
+
+ *  stream.filter(Predicate.isEqual(7))
+                .forEach(System.out::println);*/
     }
 
     @Test
