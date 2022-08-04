@@ -16,7 +16,7 @@ public class OrderStreamPractice {
     OrderedEvent ordered;
     List<AllocatableItem> items = new ArrayList<>();
 
-    @Test
+
     void before() {
         ordered.getOrderedItems().stream().map(OrderedItem::getProductOptionDetails)
                 .forEach(detail -> detail.forEach(l-> l.getProps().forEach(props -> items.add(AllocatableItem.of(
@@ -25,7 +25,7 @@ public class OrderStreamPractice {
                 ));
     }
 
-    @Test
+
     void after1() {
         for (OrderedItem orderedItem : ordered.getOrderedItems()) { // orderItems [] 하나씩
             List<ProductOptionDetail> detail = orderedItem.getProductOptionDetails(); // orderItems[i] 에서 details 꺼내어
@@ -37,7 +37,6 @@ public class OrderStreamPractice {
         }
     }
 
-    @Test
     void after2() {
         ordered.getOrderedItems().forEach(p-> p.getProductOptionDetails().forEach(l -> {
             for (Props props : l.getProps())
@@ -45,7 +44,6 @@ public class OrderStreamPractice {
         }));
     }
 
-    @Test
     void after3() {
         Arrays.stream(ordered.getProductDetailToArray()).forEach(l->{
             for (Props props : l.getProps())
