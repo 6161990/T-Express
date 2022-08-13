@@ -45,4 +45,26 @@ public class CompletableFutureTest {
 
         future.get();
     }
+
+    @Test
+    void then_compose_결과_값으로_조합하여_실행() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        });
+
+        CompletableFuture<String> future = hello.thenCompose(this::getFutureWorld);
+
+        System.out.println(future.get());
+
+    }
+
+    private CompletableFuture<String> getFutureWorld(String message) {
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("World " + Thread.currentThread().getName());
+            return message + "World";
+        });
+    }
+
+
 }
