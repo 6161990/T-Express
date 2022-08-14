@@ -59,6 +59,21 @@ public class CompletableFutureTest {
 
     }
 
+    @Test
+    void then_combine_결과_값으로_결합하여_실행() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        });
+
+        CompletableFuture<String> yoonJi = getFutureWorld("YoonJi");
+
+        CompletableFuture<String> future = hello.thenCombine(yoonJi, (h, w) -> h + " " + w);
+        /**  hello 의 결과 world 의 결과를 각각 받아서 새로운 결과 를 출력*/
+
+        System.out.println(future.get());
+    }
+
     private CompletableFuture<String> getFutureWorld(String message) {
         return CompletableFuture.supplyAsync(() -> {
             System.out.println("World " + Thread.currentThread().getName());
