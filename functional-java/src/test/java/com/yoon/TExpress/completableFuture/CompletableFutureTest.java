@@ -2,8 +2,11 @@ package com.yoon.TExpress.completableFuture;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class CompletableFutureTest {
 
@@ -72,6 +75,64 @@ public class CompletableFutureTest {
         /**  hello 의 결과 world 의 결과를 각각 받아서 새로운 결과 를 출력*/
 
         System.out.println(future.get());
+    }
+
+    @Test
+    void 두_개_이상일때_여러_테스크를_합쳐가지고_실행_allOf() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        });
+
+        CompletableFuture<String> world = getFutureWorld("!!");
+
+        List<CompletableFuture<String>> futures = Arrays.asList(hello, world);
+        CompletableFuture[] array = futures.toArray(new CompletableFuture[futures.size()]);
+        CompletableFuture<List<String>> listCompletableFuture = CompletableFuture.allOf(array)
+                .thenApply(v -> futures.stream()
+                        .map(CompletableFuture::join)
+                        .collect(Collectors.toList()));
+
+        listCompletableFuture.get().forEach(System.out::println);
+
+        /** 둘 중 아무거나 하나 먼저 오는 결과를 받아와서 처리 */
+        CompletableFuture<Void> thenAccept = CompletableFuture.anyOf(hello, world).thenAccept(System.out::println);
+        thenAccept.get();
+    }
+
+    @Test
+    void 에러가_발생했을_때의_처리_exceptionnally() throws ExecutionException, InterruptedException {
+        boolean throwError = true;
+
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            if(throwError){
+                throw new IllegalArgumentException();
+            }
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        }).exceptionally(ex -> {
+            System.out.println(ex);
+            return "Error!";
+        });
+
+        System.out.println(hello.get());
+    }
+
+    @Test
+    void 에러가_발생했을_때의_처리2_handle() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        }).handle((result, ex) -> {
+            if (ex != null) {
+                System.out.println(ex);
+                return "Error!";
+            }
+            return result;
+        });
+
+        /** 에러가 발생했을 경우와, 아닌 경우를 한꺼번에 핸들링하는 handle .  */
+        System.out.println(hello.get());
     }
 
     private CompletableFuture<String> getFutureWorld(String message) {
