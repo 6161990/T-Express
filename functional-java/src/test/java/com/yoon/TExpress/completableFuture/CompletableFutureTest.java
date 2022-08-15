@@ -1,5 +1,6 @@
 package com.yoon.TExpress.completableFuture;
 
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -78,6 +79,20 @@ public class CompletableFutureTest {
     }
 
     @Test
+    void example() throws ExecutionException, InterruptedException {
+        CompletableFuture<Sample> person1 = CompletableFuture
+                .supplyAsync(() -> new Sample("person1", "대구", 35));
+
+
+        CompletableFuture<Sample> person2 = CompletableFuture
+                .supplyAsync(() -> new Sample("person2", "서울", 25));
+
+        CompletableFuture<String> future = person1.thenCombine(person2, (p1, p2) -> "합친 나이" + (p1.age + p2.age));
+
+        System.out.println(future.get());
+    }
+
+    @Test
     void 두_개_이상일때_여러_테스크를_합쳐가지고_실행_allOf() throws ExecutionException, InterruptedException {
         CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
             System.out.println("Hello " + Thread.currentThread().getName());
@@ -140,6 +155,13 @@ public class CompletableFutureTest {
             System.out.println("World " + Thread.currentThread().getName());
             return message + "World";
         });
+    }
+
+    @AllArgsConstructor
+    class Sample {
+        String name;
+        String address;
+        Integer age;
     }
 
 
