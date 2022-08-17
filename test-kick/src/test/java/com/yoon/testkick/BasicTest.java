@@ -4,9 +4,12 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+/** 각 테스트의 underscore 를 빈칸으로 replace.*/
 class BasicTest {
 
     @Test
+    @DisplayName(" 🤢 ")
     void basic_test_1() {
         Basic basic = new Basic();
         assertNotNull(basic);
