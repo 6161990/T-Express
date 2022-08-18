@@ -1,7 +1,6 @@
 package com.yoon.testkick;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 public class BasicClass {
@@ -17,6 +16,15 @@ public class BasicClass {
         this(StudyStatus.DRAFT);
     }
 
+    public BasicClass(StudyStatus status, int limit, LocalDateTime passedAt, ClassId classId, IndexValue iv, List<Book> books) {
+        this.status = status;
+        this.limit = limit;
+        this.passedAt = passedAt;
+        this.classId = classId;
+        this.iv = iv;
+        this.books = books;
+    }
+
     public BasicClass(StudyStatus status) {
         this.status = status;
     }
@@ -28,21 +36,6 @@ public class BasicClass {
         this.limit = limit;
     }
 
-    public void setPassedAt(LocalDateTime passedAt) {
-        this.passedAt = passedAt;
-    }
-
-    public void setClassId(ClassId classId) {
-        this.classId = classId;
-    }
-
-    public void setIv(IndexValue iv) {
-        this.iv = iv;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
 
     public StudyStatus getStatus() {
         return status;
@@ -53,10 +46,7 @@ public class BasicClass {
     }
 
     public boolean isNotPassed() {
-        if(passedAt != null){
-            return true;
-        }
-        return false;
+        return passedAt == null;
     }
 
     public ClassId getClassId() {
