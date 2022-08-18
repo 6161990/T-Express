@@ -1,22 +1,27 @@
 package com.yoon.testkick;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@AllArgsConstructor
 public class BasicAssertion {
 
-    private List<BasicClass> basicClasses;
+    private final List<BasicClass> basicClasses;
+
+    public BasicAssertion(List<BasicClass> basicClasses) {
+        this.basicClasses = basicClasses;
+    }
 
     public static BasicAssertion assertNotPassThat(
             List<BasicClass> actual,
-            ClassId classId){
+            ClassId classId) {
         assertThat(actual).isNotEmpty();
 
         return new BasicAssertion(actual)
