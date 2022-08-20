@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -54,4 +55,5 @@ public class BIFunction {
         Assertions.assertEquals(map.get(7), "Hello Peter!");
         Assertions.assertEquals(map.get(5), "Hello Philip!");
     }
+
 }
