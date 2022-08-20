@@ -19,9 +19,12 @@ public class OrderStreamPractice {
 
     void before() {
         ordered.getOrderedItems().stream().map(OrderedItem::getProductOptionDetails)
-                .forEach(detail -> detail.forEach(l-> l.getProps().forEach(props -> items.add(AllocatableItem.of(
+                .forEach(detail ->
+                        detail
+                                .forEach(l-> l.getProps()
+                                        .forEach(props -> items.add(AllocatableItem.of(
                         PurchaseConfirmationValue.of(PurchaseConfirmationType.valueOf(props.getName()), props.getValue()),
-                        l.getPrice() / l.getProps().size())))
+                        l.getPrice() / detail.size())))
                 ));
     }
 
@@ -31,7 +34,7 @@ public class OrderStreamPractice {
             List<ProductOptionDetail> detail = orderedItem.getProductOptionDetails(); // orderItems[i] 에서 details 꺼내어
             for (ProductOptionDetail l : detail) {
                 for (Props props : l.getProps()) {
-                    items.add(of(of(valueOf(props.getName()), props.getValue()), l.getPrice() / l.getProps().size()));
+                    items.add(of(of(valueOf(props.getName()), props.getValue()), l.getPrice() / detail.size()));
                 }
             }
         }
