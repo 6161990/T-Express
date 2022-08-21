@@ -1,5 +1,7 @@
-package com.yoon.testkick;
+package com.yoon.testkick.jUnit;
 
+import com.yoon.testkick.jUnit.BasicClass;
+import com.yoon.testkick.jUnit.StudyStatus;
 import org.junit.jupiter.api.*;
 
 import java.time.Duration;

@@ -1,11 +1,11 @@
-package com.yoon.testkick;
+package com.yoon.testkick.jUnit;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yoon.testkick.BasicAssertion.assertNotPassThat;
+import static com.yoon.testkick.jUnit.BasicAssertion.assertNotPassThat;
 import static java.time.LocalDateTime.now;
 
 public class BasicAssertionTest {

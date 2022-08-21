@@ -1,4 +1,4 @@
-package com.yoon.testkick;
+package com.yoon.testkick.jUnit;
 
 import org.assertj.core.api.Assertions;
 
