@@ -1,11 +1,8 @@
 package com.yoon.testkick;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
