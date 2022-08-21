@@ -3,16 +3,17 @@ package com.yoon.testkick.jUnit;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.JRE;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.*;
 
 class ConditionTest {
 
-    @DisplayName("assumeTrue 일 때만 아래 코드를 실행한다.")
+    @DisplayName("assumeTrue 일 때만 테스트 코드를 실행한다.")
     @Test
     void assumeTrue_test() {
         String user = System.getenv("USER");
@@ -25,7 +26,7 @@ class ConditionTest {
     }
 
 
-    @DisplayName("assumeTrue 일 때만 아래 코드를 실행한다.2")
+    @DisplayName("assumeTrue 일 때만 테스트 코드를 실행한다.2")
     @Test
     void assumeFalse_test() {
         String user = System.getenv("USER");
@@ -37,7 +38,7 @@ class ConditionTest {
         assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
-    @DisplayName("assumingThat 이 true 일 때만 뒤 코드를 실행한다.")
+    @DisplayName("assumingThat 이 true 일 때만 테스트 코드를 실행한다.")
     @Test
     void assumingThat_test() {
         String user = System.getenv("USER");
@@ -49,7 +50,7 @@ class ConditionTest {
         });
     }
 
-    @DisplayName("assumingThat 이 true 일 때만 뒤 코드를 실행한다2.")
+    @DisplayName("assumingThat 이 true 일 때만 테스트 코드를 실행한다2.")
     @Test
     void assumingThat_test2() {
         String user = System.getenv("USER");
@@ -59,6 +60,42 @@ class ConditionTest {
             BasicClass basicClass = new BasicClass();
             assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
         });
+    }
+
+    @DisplayName("enabledOnOs 이 true 일 때만 테스트 실행한다.")
+    @Test
+    @EnabledOnOs(OS.MAC)
+    void enabledOnOs_test1() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+    @DisplayName("enabledOnOs 이 true 일 때만 테스트 실행한다.2")
+    @Test
+    @EnabledOnOs(OS.LINUX)
+    void enabledOnOs_test2() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+    @DisplayName("EnabledOnJre 이 true 일 때만 테스트 실행한다.")
+    @Test
+    @EnabledOnJre(JRE.JAVA_11)
+    void enabledOnJre_test() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+    @DisplayName("EnabledOnJre 이 true 일 때만 테스트 실행한다.")
+    @Test
+    @EnabledOnJre(JRE.JAVA_8)
+    void enabledOnJre_test2() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
 }
