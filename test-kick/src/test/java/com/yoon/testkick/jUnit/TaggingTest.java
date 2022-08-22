@@ -26,5 +26,17 @@ class TaggingTest {
         assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
+    @FastTest
+    void fast_tag_test_with_annotation() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
 
+    @SlowTest
+    void slow_tag_test_with_annotation() {
+        System.out.println("EXECUTE");
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
 }
