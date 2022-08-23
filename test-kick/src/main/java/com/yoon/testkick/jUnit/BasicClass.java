@@ -6,6 +6,7 @@ import java.util.List;
 public class BasicClass {
 
     private StudyStatus status;
+    private String name;
     private int limit;
     private LocalDateTime passedAt;
     private ClassId classId;
@@ -16,8 +17,9 @@ public class BasicClass {
         this(StudyStatus.DRAFT);
     }
 
-    public BasicClass(StudyStatus status, int limit, LocalDateTime passedAt, ClassId classId, IndexValue iv, List<Book> books) {
+    public BasicClass(StudyStatus status, String name, int limit, LocalDateTime passedAt, ClassId classId, IndexValue iv, List<Book> books) {
         this.status = status;
+        this.name = name;
         this.limit = limit;
         this.passedAt = passedAt;
         this.classId = classId;
@@ -36,9 +38,12 @@ public class BasicClass {
         this.limit = limit;
     }
 
-
     public StudyStatus getStatus() {
         return status;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getLimit() {
@@ -59,5 +64,14 @@ public class BasicClass {
 
     public List<Book> getBooks() {
         return books;
+    }
+
+    @Override
+    public String toString() {
+        return "BasicClass{" +
+                "status=" + status +
+                ", name='" + name + '\'' +
+                ", limit=" + limit +
+                '}';
     }
 }
