@@ -15,8 +15,6 @@ class RepeatTest {
     void repeat_test(RepetitionInfo repetitionInfo) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @DisplayName("반복 테스트")
@@ -24,8 +22,6 @@ class RepeatTest {
     void repeat_test2(RepetitionInfo repetitionInfo) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(repetitionInfo.getCurrentRepetition() + "/" + repetitionInfo.getTotalRepetitions());
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @ParameterizedTest
@@ -33,8 +29,6 @@ class RepeatTest {
     void repeat_test3(String message) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(message);
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @DisplayName("반복 테스트")
@@ -43,8 +37,6 @@ class RepeatTest {
     void repeat_test4(String message) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(message);
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @ParameterizedTest
@@ -53,8 +45,6 @@ class RepeatTest {
     void repeat_test5(String message) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(message);
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @ParameterizedTest
@@ -62,8 +52,6 @@ class RepeatTest {
     void repeat_test6(String message) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(message);
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
     @ParameterizedTest(name = "{index} message={0}")
@@ -71,10 +59,13 @@ class RepeatTest {
     void repeat_test7(Integer limit) {
         System.out.println("REPEAT-REPEAT!");
         System.out.println(limit);
-        BasicClass basicClass = new BasicClass();
-        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
 
-
+    @ParameterizedTest(name = "{index} message={0}")
+    @ValueSource(ints = {10, 20, 40})
+    void repeat_test8(Integer limit) {
+        System.out.println("REPEAT-REPEAT!");
+        System.out.println(limit);
+    }
 
 }
