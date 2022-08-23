@@ -2,6 +2,9 @@ package com.yoon.testkick.jUnit;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,4 +46,35 @@ class RepeatTest {
         BasicClass basicClass = new BasicClass();
         assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
     }
+
+    @ParameterizedTest
+    @EmptySource
+    @NullSource
+    void repeat_test5(String message) {
+        System.out.println("REPEAT-REPEAT!");
+        System.out.println(message);
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void repeat_test6(String message) {
+        System.out.println("REPEAT-REPEAT!");
+        System.out.println(message);
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+    @ParameterizedTest(name = "{index} message={0}")
+    @ValueSource(ints = {10, 20, 40})
+    void repeat_test7(Integer limit) {
+        System.out.println("REPEAT-REPEAT!");
+        System.out.println(limit);
+        BasicClass basicClass = new BasicClass();
+        assertEquals(StudyStatus.DRAFT, basicClass.getStatus(), "Basic 을 처음만들면 상태값이 DRAFT 여야한다.");
+    }
+
+
+
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import static com.yoon.testkick.jUnit.BasicAssertion.assertNotPassThat;
 import static java.time.LocalDateTime.now;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasicAssertionTest {
 
@@ -16,9 +17,10 @@ public class BasicAssertionTest {
         List<Book> books = new ArrayList<>();
         Book b1= new Book(Genre.MODERN, 0, 2, now());
         books.add(b1);
-        BasicClass a1 = new BasicClass(StudyStatus.STARTED, 2, null, ClassId.of("id"), IndexValue.of(IndexType.RED, "redred"), books);
+        BasicClass a1 = new BasicClass(StudyStatus.STARTED, "math",2, null, ClassId.of("id"), IndexValue.of(IndexType.RED, "redred"), books);
         actual.add(a1);
 
         assertNotPassThat(actual, ClassId.of("id")).hasSize(1);
     }
+
 }
