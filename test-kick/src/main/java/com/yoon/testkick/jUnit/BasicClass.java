@@ -38,6 +38,11 @@ public class BasicClass {
         this.limit = limit;
     }
 
+    public BasicClass(int limit, String name) {
+        this.limit = limit;
+        this.name = name;
+    }
+
     public StudyStatus getStatus() {
         return status;
     }
@@ -69,8 +74,7 @@ public class BasicClass {
     @Override
     public String toString() {
         return "BasicClass{" +
-                "status=" + status +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", limit=" + limit +
                 '}';
     }
