@@ -7,7 +7,6 @@ import java.util.List;
 
 import static com.yoon.testkick.jUnit.BasicAssertion.assertNotPassThat;
 import static java.time.LocalDateTime.now;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasicAssertionTest {
 
