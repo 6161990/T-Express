@@ -43,7 +43,7 @@ class BasicClassTest {
 
     @Test
     void basic_test_2_1() {
-        BasicClass basicClass = new BasicClass(-7);
+        BasicClass basicClass = new BasicClass(7);
 
         assertAll(
                 () -> assertNotNull(basicClass),

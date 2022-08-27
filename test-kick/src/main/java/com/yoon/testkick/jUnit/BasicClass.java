@@ -35,6 +35,7 @@ public class BasicClass {
         if(limit <= -10){
             throw new IllegalArgumentException("limit은 0보다 커야한다");
         }
+        this.status = StudyStatus.DRAFT;
         this.limit = limit;
     }
 
