@@ -20,4 +20,11 @@ public class ExtensionTest {
         System.out.println("Basic basic_test_2");
     }
 
+    @Test
+    @SlowTest
+    void basic_test_3() throws InterruptedException {
+        Thread.sleep(1005L);
+        System.out.println("Basic basic_test_3_already @SlowTest");
+    }
+
 }
