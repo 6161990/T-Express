@@ -22,7 +22,7 @@ class ConditionTest {
     }
 
 
-    @DisplayName("assumeTrue 일 때만 테스트 코드를 실행한다.2")
+    @DisplayName("assumeTrue 일 때만 테스트 코드를 실행한다-false 일 경우")
     @Test
     void assumeFalse_test() {
         String user = System.getenv("USER");
@@ -46,7 +46,7 @@ class ConditionTest {
         });
     }
 
-    @DisplayName("assumingThat 이 true 일 때만 테스트 코드를 실행한다2.")
+    @DisplayName("assumingThat 이 true 일 때만 테스트 코드를 실행한다-false 일 경우")
     @Test
     void assumingThat_test2() {
         String user = System.getenv("USER");
