@@ -2,8 +2,9 @@ package com.yoon.testkick.mockito.member;
 
 import com.yoon.testkick.mockito.domain.Member;
 
-public interface MemberService {
-    void validate(Long memberId) throws InvalidMemberException;
+import java.util.Optional;
 
-    Member findById(Long memberId) throws MemberNotFoundException;
+public interface MemberService {
+
+    Optional<Member> findById(Long memberId) throws MemberNotFoundException;
 }
