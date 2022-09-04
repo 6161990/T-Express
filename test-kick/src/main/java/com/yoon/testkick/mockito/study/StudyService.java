@@ -1,4 +1,8 @@
-package com.yoon.testkick.mockito;
+package com.yoon.testkick.mockito.study;
+
+import com.yoon.testkick.mockito.domain.Member;
+import com.yoon.testkick.mockito.domain.Study;
+import com.yoon.testkick.mockito.member.MemberService;
 
 public class StudyService {
 

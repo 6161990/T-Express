@@ -1,4 +1,6 @@
-package com.yoon.testkick.mockito;
+package com.yoon.testkick.mockito.member;
+
+import com.yoon.testkick.mockito.domain.Member;
 
 public interface MemberService {
     void validate(Long memberId) throws InvalidMemberException;

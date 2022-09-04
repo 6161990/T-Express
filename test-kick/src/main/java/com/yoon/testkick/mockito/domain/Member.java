@@ -1,4 +1,4 @@
-package com.yoon.testkick.mockito;
+package com.yoon.testkick.mockito.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
