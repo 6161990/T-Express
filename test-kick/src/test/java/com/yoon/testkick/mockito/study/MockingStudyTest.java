@@ -16,7 +16,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class StudyServiceTest {
+class MockingStudyTest {
 
     @Mock
     MemberService memberService;
