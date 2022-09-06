@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -79,4 +80,61 @@ class StudyServiceTest {
         assertEquals("jin@gmail.com", memberService.findById(2L).get().getEmail());
     }
 
+    @Test
+    void stubbing_test_4_with_throw() {
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("jin@gmail.com");
+
+        when(memberService.findById(1L)).thenThrow(new RuntimeException());
+
+        assertThrows(RuntimeException.class, ()-> {
+            memberService.findById(1L);
+        });
+    }
+
+    @Test
+    void stubbing_test_5_with_throw_void_method() {
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("jin@gmail.com");
+
+        doThrow(new RuntimeException()).when(memberService).validate(1L);
+
+        assertThrows(RuntimeException.class, ()-> {
+            memberService.validate(1L);
+        });
+
+        memberService.validate(2L);
+    }
+
+    @Test
+    void stubbing_test_6_with_many_times() {
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        assertNotNull(studyService);
+
+        Member member = new Member();
+        member.setId(1L);
+        member.setEmail("jin@gmail.com");
+
+        when(memberService.findById(any()))
+                .thenReturn(Optional.of(member))
+                .thenThrow(new RuntimeException())
+                .thenReturn(Optional.empty());
+
+        Optional<Member> byId = memberService.findById(1L);
+        assertEquals("jin@gmail.com", byId.get().getEmail());
+
+        assertThrows(RuntimeException.class, ()-> {
+            memberService.findById(2L);
+        });
+
+        assertEquals(Optional.empty(), memberService.findById(3L));
+    }
 }
