@@ -27,9 +27,11 @@ class StudyServiceTest {
     @Test
     void stubbing_practice() {
         StudyService studyService = new StudyService(memberService, repository);
+
         Member member = new Member();
-        when(memberService.findById(1L)).thenReturn(Optional.of(member));
         Study study = new Study(10, "테스트");
+
+        when(memberService.findById(1L)).thenReturn(Optional.of(member));
         when(repository.save(study)).thenReturn(study);
 
         Study resultStudy = studyService.createNewStudy(1L, study);
