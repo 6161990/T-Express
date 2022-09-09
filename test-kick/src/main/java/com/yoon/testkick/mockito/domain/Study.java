@@ -27,19 +27,13 @@ public class Study {
         this.name = name;
     }
 
-    public Study(int limit) {
-        if (limit < 0) {
-            throw new IllegalArgumentException("limit은 0보다 커야 한다.");
-        }
-        this.limitCount = limit;
+    public void open() {
+        publish();
     }
 
-    public void publish() {
+    private void publish() {
         this.openedDateTime = LocalDateTime.now();
         this.status = StudyStatus.OPENED;
     }
 
-    public void open() {
-        publish();
-    }
 }
