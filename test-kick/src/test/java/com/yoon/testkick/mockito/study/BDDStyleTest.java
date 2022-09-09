@@ -11,8 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
@@ -52,6 +51,7 @@ class BDDStyleTest {
     void openStudy() {
         StudyService sut = new StudyService(memberService, studyRepository);
         Study study = new Study(10, "java");
+        assertNull(study.getOpenedDateTime());
         given(studyRepository.save(study)).willReturn(study);
 
         sut.openStudy(study);
