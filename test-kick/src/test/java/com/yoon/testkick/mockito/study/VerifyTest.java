@@ -116,8 +116,7 @@ public class VerifyTest {
         verify(memberService, times(1)).findById(member.getId());
         verify(memberService, times(1)).notify(study);
         verify(memberService, times(1)).notify(member);
-        verify(memberService, never()).validate(any());
 
-        verifyNoInteractions(memberService);
+        verifyNoMoreInteractions(memberService);
     }
 }
