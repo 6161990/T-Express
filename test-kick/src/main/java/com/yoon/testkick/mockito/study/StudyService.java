@@ -28,4 +28,11 @@ public class StudyService {
         memberService.notify(member.get());
         return newStudy;
     }
+
+    public Study openStudy(Study study){
+        study.open();
+        Study saved = repository.save(study);
+        memberService.notify(saved);
+        return saved;
+    }
 }

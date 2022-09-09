@@ -10,10 +10,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class BDDStyleTest {
@@ -44,5 +46,18 @@ class BDDStyleTest {
         then(memberService).should().notify(study);
         then(memberService).should().notify(member);
         then(memberService).shouldHaveNoMoreInteractions();
+    }
+
+    @Test
+    void openStudy() {
+        StudyService sut = new StudyService(memberService, studyRepository);
+        Study study = new Study(10, "java");
+        given(studyRepository.save(study)).willReturn(study);
+
+        sut.openStudy(study);
+
+        assertNotNull(study.getOpenedDateTime());
+        assertThat(study.getStatus()).isEqualTo(StudyStatus.OPENED);
+        then(memberService).should(times(1)).notify(study);
     }
 }
