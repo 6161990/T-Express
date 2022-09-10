@@ -41,7 +41,7 @@ class BDDStyleTest {
 
         sut.createNewStudy(member.getId(), study);
 
-        assertEquals(member, study.getOwner());
+        assertEquals(member.getId(), study.getOwnerId());
         then(memberService).should().notify(study);
         then(memberService).should().notify(member);
         then(memberService).shouldHaveNoMoreInteractions();

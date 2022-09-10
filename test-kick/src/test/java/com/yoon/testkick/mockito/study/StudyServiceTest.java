@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +30,7 @@ class StudyServiceTest {
         StudyService studyService = new StudyService(memberService, repository);
 
         Member member = new Member();
+        member.setId(1L);
         Study study = new Study(10, "테스트");
 
         when(memberService.findById(1L)).thenReturn(Optional.of(member));
@@ -36,7 +38,7 @@ class StudyServiceTest {
 
         Study resultStudy = studyService.createNewStudy(1L, study);
 
-        assertNotNull(resultStudy.getOwner());
-        assertThat(resultStudy.getOwner()).isEqualTo(member);
+        assertNotNull(resultStudy.getOwnerId());
+        assertThat(resultStudy.getOwnerId()).isEqualTo(member.getId());
     }
 }
