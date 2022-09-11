@@ -5,6 +5,9 @@ import com.yoon.testkick.mockito.domain.Study;
 import com.yoon.testkick.mockito.member.MemberService;
 import com.yoon.testkick.mockito.study.StudyRepository;
 import com.yoon.testkick.mockito.study.StudyService;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Optional;
 
@@ -31,6 +35,19 @@ class StudyServiceTestWTestContainer {
 
     @Autowired
     StudyRepository studyRepository;
+
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
+            .withDatabaseName("studytest");
+
+    @BeforeAll
+    static void beforeAll() {
+        postgreSQLContainer.start();
+    }
+
+    @AfterAll
+    static void afterAll(){
+        postgreSQLContainer.stop();
+    }
 
     @Test
     void createNewStudy() {
