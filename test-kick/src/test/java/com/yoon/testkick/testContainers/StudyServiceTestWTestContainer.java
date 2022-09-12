@@ -42,11 +42,13 @@ class StudyServiceTestWTestContainer {
 
     @Container
     static GenericContainer postgreSQLContainer = new GenericContainer("postgres")
+            .withExposedPorts(5432)
             .withEnv("POSTGRES_DB","studytest");
 
     @BeforeEach
     void setUp() {
-        studyRepository.deleteAll();;
+        System.out.println(postgreSQLContainer.getMappedPort(5432));
+        studyRepository.deleteAll();
     }
 
     /**
