@@ -5,6 +5,7 @@ import com.yoon.testkick.mockito.domain.Study;
 import com.yoon.testkick.mockito.member.MemberService;
 import com.yoon.testkick.mockito.study.StudyRepository;
 import com.yoon.testkick.mockito.study.StudyService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 @Testcontainers
+@Slf4j
 class StudyServiceTestWTestContainer {
 
     @Mock
@@ -43,7 +45,7 @@ class StudyServiceTestWTestContainer {
     @Container
     static GenericContainer postgreSQLContainer = new GenericContainer("postgres")
             .withExposedPorts(5432)
-            .withEnv("POSTGRES_DB","studytest");
+            .withEnv("POSTGRES_DB", "studytest");
 
     @BeforeEach
     void setUp() {
@@ -51,13 +53,14 @@ class StudyServiceTestWTestContainer {
         studyRepository.deleteAll();
     }
 
-    /**
- *  @BeforeAll
+
+    @BeforeAll
     static void beforeAll() {
-        postgreSQLContainer.start();
+        Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
+        postgreSQLContainer.followOutput(logConsumer);
     }
 
-    @AfterAll
+/*    @AfterAll
     static void afterAll(){
         postgreSQLContainer.stop();
     }*/
