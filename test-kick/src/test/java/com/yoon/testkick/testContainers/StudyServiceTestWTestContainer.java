@@ -22,6 +22,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -52,9 +53,8 @@ class StudyServiceTestWTestContainer {
     Environment environment;
 
     @Container
-    static GenericContainer postgreSQLContainer = new GenericContainer("postgres")
-            .withExposedPorts(5432)
-            .withEnv("POSTGRES_DB", "studytest");
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres")
+            .withDatabaseName("studytest");
 
     @BeforeEach
     void setUp() {
@@ -65,6 +65,7 @@ class StudyServiceTestWTestContainer {
 
     @BeforeAll
     static void beforeAll() {
+        postgreSQLContainer.start();
         Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
         postgreSQLContainer.followOutput(logConsumer);
     }
@@ -97,8 +98,8 @@ class StudyServiceTestWTestContainer {
 
         @Override
         public void initialize(ConfigurableApplicationContext applicationContext) {
-//            TestPropertyValues.of("container.port=" + postgreSQLContainer.getMappedPort(5432))
-//                    .applyTo(applicationContext.getEnvironment());
+            TestPropertyValues.of("container.port=" + postgreSQLContainer.getMappedPort(5432))
+                    .applyTo(applicationContext.getEnvironment());
         }
     }
 }
