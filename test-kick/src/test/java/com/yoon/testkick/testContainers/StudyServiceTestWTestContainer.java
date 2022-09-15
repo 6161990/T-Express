@@ -6,6 +6,7 @@ import com.yoon.testkick.mockito.member.MemberService;
 import com.yoon.testkick.mockito.study.StudyRepository;
 import com.yoon.testkick.mockito.study.StudyService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,10 +75,10 @@ class StudyServiceTestWTestContainer {
     }
 
 
-/*    @AfterAll
+    @AfterAll
     static void afterAll(){
         postgreSQLContainer.stop();
-    }*/
+    }
 
     @Test
     void createNewStudy() {
