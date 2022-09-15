@@ -6,7 +6,6 @@ import com.yoon.testkick.mockito.member.MemberService;
 import com.yoon.testkick.mockito.study.StudyRepository;
 import com.yoon.testkick.mockito.study.StudyService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
@@ -52,6 +52,8 @@ class StudyServiceTestWTestContainer {
     @Autowired
     Environment environment;
 
+    @Value("${container.port}") int port;
+
     @Container
     static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres")
             .withDatabaseName("studytest");
@@ -59,6 +61,7 @@ class StudyServiceTestWTestContainer {
     @BeforeEach
     void setUp() {
         System.out.println(environment.getProperty("container.port"));
+        System.out.println(port);
         studyRepository.deleteAll();
     }
 
