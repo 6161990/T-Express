@@ -61,6 +61,26 @@ class StudyServiceTestWTestContainer {
     static DockerComposeContainer composeContainer = new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
             .withExposedService("study-db", 5432);
 
+    @BeforeEach
+    void setUp() {
+        System.out.println(environment.getProperty("container.port"));
+        System.out.println(port);
+        studyRepository.deleteAll();
+    }
+
+
+    @BeforeAll
+    static void beforeAll() {
+        composeContainer.start();
+        Slf4jLogConsumer logConsumer = new Slf4jLogConsumer(log);
+    }
+
+
+    @AfterAll
+    static void afterAll(){
+        composeContainer.stop();
+    }
+
     @Test
     void createNewStudy() {
         StudyService studyService = new StudyService(memberService, studyRepository);
