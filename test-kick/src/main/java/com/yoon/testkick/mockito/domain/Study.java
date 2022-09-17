@@ -26,6 +26,15 @@ public class Study {
         this.name = name;
     }
 
+    public Study(Long id, StudyStatus status, int limitCount, String name, LocalDateTime openedDateTime, Long ownerId) {
+        this.id = id;
+        this.status = status;
+        this.limitCount = limitCount;
+        this.name = name;
+        this.openedDateTime = openedDateTime;
+        this.ownerId = ownerId;
+    }
+
     public void open() {
         publish();
     }

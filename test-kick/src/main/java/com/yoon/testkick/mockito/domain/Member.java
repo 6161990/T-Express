@@ -20,4 +20,8 @@ public class Member {
 
     private String email;
 
+    public Member(Long id, String email) {
+        this.id = id;
+        this.email = email;
+    }
 }
