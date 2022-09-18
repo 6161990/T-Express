@@ -32,6 +32,8 @@ dependencies {
     testImplementation 'com.h2database:h2'
     testImplementation 'org.testcontainers:junit-jupiter:1.15.1'
     testImplementation 'org.testcontainers:postgresql:1.15.1'
+    implementation 'de.codecentric:chaos-monkey-spring-boot:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.3'
 }
 
 tasks.named('test') {
