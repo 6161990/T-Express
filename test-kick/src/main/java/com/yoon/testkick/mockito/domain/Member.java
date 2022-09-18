@@ -14,8 +14,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Member {
 
-    @Id
-    @GeneratedValue
+    @Id //@GeneratedValue
     private Long id;
 
     private String email;
