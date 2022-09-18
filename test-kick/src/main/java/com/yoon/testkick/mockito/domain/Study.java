@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter @Setter @NoArgsConstructor
 public class Study {
 
-    @Id @GeneratedValue
+    @Id //@GeneratedValue
     private Long id;
     private StudyStatus status = StudyStatus.DRAFT;
     private int limitCount;
