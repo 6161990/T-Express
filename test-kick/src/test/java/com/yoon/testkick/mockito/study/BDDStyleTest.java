@@ -2,6 +2,7 @@ package com.yoon.testkick.mockito.study;
 
 import com.yoon.testkick.mockito.domain.Member;
 import com.yoon.testkick.mockito.domain.Study;
+import com.yoon.testkick.mockito.domain.StudyStatus;
 import com.yoon.testkick.mockito.member.MemberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
