@@ -2,6 +2,7 @@ package com.yoon.testkick.mockito.study;
 
 import com.yoon.testkick.mockito.domain.Member;
 import com.yoon.testkick.mockito.domain.Study;
+import com.yoon.testkick.mockito.domain.StudyStatus;
 import com.yoon.testkick.mockito.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

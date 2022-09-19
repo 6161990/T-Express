@@ -1,7 +1,6 @@
 package com.yoon.testkick.mockito.domain;
 
 
-import com.yoon.testkick.mockito.study.StudyStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
