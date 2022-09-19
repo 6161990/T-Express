@@ -34,6 +34,8 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql:1.15.1'
     implementation 'de.codecentric:chaos-monkey-spring-boot:2.6.1'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.3'
+
+    implementation 'com.tngtech.archunit:archunit-junit5-engine:1.0.0-rc1'
 }
 
 tasks.named('test') {
