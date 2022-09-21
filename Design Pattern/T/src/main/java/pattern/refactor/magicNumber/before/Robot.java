@@ -1,5 +1,8 @@
 package pattern.refactor.magicNumber.before;
 
+import static pattern.refactor.magicNumber.before.Robot.Command.STOP;
+import static pattern.refactor.magicNumber.before.Robot.Command.WALK;
+
 public class Robot {
 
     public static final int COMMAND_WALK = 0;
@@ -7,6 +10,12 @@ public class Robot {
     public static final int COMMAND_JUMP = 2;
 
     public static final int ZERO = 0;
+
+    public enum Command {
+        WALK,
+        STOP,
+        JUMP
+    }
 
     public String name;
 
@@ -20,6 +29,18 @@ public class Robot {
         }else if(command == COMMAND_STOP){
             System.out.println(name + " stop");
         }else if(command == COMMAND_JUMP){
+            System.out.println(name + " jump");
+        }else {
+            System.out.println("ERROR");
+        }
+    }
+
+    public void order2(Command command){
+        if(command == WALK){
+            System.out.println(name + " walk");
+        }else if(command == STOP){
+            System.out.println(name + " stop");
+        }else if(command == Command.JUMP){
             System.out.println(name + " jump");
         }else {
             System.out.println("ERROR");
