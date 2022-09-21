@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pattern.factoryMethod.FactoryMethodTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-07-24T02:07:16" hostname="6161990srcui-MacBookPro.local" time="0.003">
-  <properties/>
-  <testcase name="첫_판매시_세차와_넘버링을_서비스합니다()" classname="pattern.factoryMethod.FactoryMethodTest" time="0.002"/>
-  <testcase name="차주인의_이름으로_차를_가져옵니다_없으면_생성합니다()" classname="pattern.factoryMethod.FactoryMethodTest" time="0.0"/>
-  <testcase name="factoryMethod패턴을_이용해_Car를_생성한다()" classname="pattern.factoryMethod.FactoryMethodTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

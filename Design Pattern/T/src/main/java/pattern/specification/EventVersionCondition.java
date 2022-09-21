@@ -1,11 +1,19 @@
 package pattern.specification;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Value(staticConstructor = "of")
 public class EventVersionCondition implements Specification<Event> {
 
     EventVersion expected;
+
+    public static EventVersionCondition of(EventVersion eventType){
+        return new EventVersionCondition(eventType);
+    }
+
+    public EventVersionCondition(EventVersion expected) {
+        this.expected = expected;
+    }
 
     @Override
     public boolean isSatisfy(Event factor) {

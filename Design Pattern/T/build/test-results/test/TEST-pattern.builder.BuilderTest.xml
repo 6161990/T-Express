@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pattern.builder.BuilderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-07-24T02:07:16" hostname="6161990srcui-MacBookPro.local" time="0.011">
-  <properties/>
-  <testcase name="빌더패턴을_이용해_다양한_피자_인스턴스를_생성합니다2()" classname="pattern.builder.BuilderTest" time="0.007"/>
-  <testcase name="빌더패턴을_이용해_다양한_피자_인스턴스를_생성합니다()" classname="pattern.builder.BuilderTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

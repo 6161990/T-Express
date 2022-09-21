@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="pattern.decorator.DecoratorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-07-24T02:07:16" hostname="6161990srcui-MacBookPro.local" time="0.062">
-  <properties/>
-  <testcase name="케냐커피로_라떼를_만듭니다()" classname="pattern.decorator.DecoratorTest" time="0.059"/>
-  <testcase name="케냐커피로_모카라떼를_만듭니다()" classname="pattern.decorator.DecoratorTest" time="0.001"/>
-  <testcase name="에티오피아커피로_모카라떼를_만듭니다()" classname="pattern.decorator.DecoratorTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
