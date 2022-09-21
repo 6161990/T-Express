@@ -16,4 +16,15 @@ class RobotTest {
 
         robot.order(100);
     }
+
+    @Test
+    void afterTest() {
+        Robot robot = new Robot("HAKER");
+
+        robot.order(Robot.COMMAND_WALK);
+        robot.order(Robot.COMMAND_STOP);
+        robot.order(Robot.COMMAND_JUMP);
+
+        robot.order(100);
+    }
 }
