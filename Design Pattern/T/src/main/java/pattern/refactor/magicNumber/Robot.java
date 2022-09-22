@@ -1,7 +1,7 @@
-package pattern.refactor.magicNumber.before;
+package pattern.refactor.magicNumber;
 
-import static pattern.refactor.magicNumber.before.Robot.Command.STOP;
-import static pattern.refactor.magicNumber.before.Robot.Command.WALK;
+import static pattern.refactor.magicNumber.Robot.Command.STOP;
+import static pattern.refactor.magicNumber.Robot.Command.WALK;
 
 public class Robot {
 

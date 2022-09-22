@@ -1,9 +1,8 @@
-package pattern.refactor.magicNumber.before;
+package pattern.refactor.magicNumber;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pattern.refactor.magicNumber.before.Robot.Command.*;
 
 class RobotTest {
 
@@ -33,9 +32,9 @@ class RobotTest {
     void afterTest2() {
         Robot robot = new Robot("HAKER");
 
-        robot.order2(WALK);
-        robot.order2(STOP);
-        robot.order2(JUMP);
+        robot.order2(Robot.Command.WALK);
+        robot.order2(Robot.Command.STOP);
+        robot.order2(Robot.Command.JUMP);
 
         // robot.order2(100); 컴파일 에러
     }
