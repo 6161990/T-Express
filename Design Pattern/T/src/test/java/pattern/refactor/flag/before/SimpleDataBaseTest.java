@@ -1,7 +1,6 @@
-package pattern.refactor.flag;
+package pattern.refactor.flag.before;
 
 import org.junit.jupiter.api.Test;
-import pattern.refactor.flag.before.SimpleDataBase;
 
 import java.io.FileReader;
 import java.io.IOException;
