@@ -22,4 +22,9 @@ class FindIntTest {
     void findAfter2() {
         assertTrue(FindInt.findAfter2(data, 10));
     }
+
+    @Test
+    void findAfter3() {
+        assertTrue(FindInt.findAfter3(data, 10));
+    }
 }

@@ -40,5 +40,15 @@ public class FindInt {
         return found;
     }
 
+    /** Refactor After 3 */
+    public static boolean findAfter3(int[] data, int number) {
+
+        for (int i = 0; i < data.length; i++) {
+            if(data[i] == number) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
