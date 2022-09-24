@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/** After 1 */
 public class SimpleDataBase {
 
     private Map<String, String> map = new HashMap<>();
