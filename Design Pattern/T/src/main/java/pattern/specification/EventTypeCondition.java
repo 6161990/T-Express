@@ -1,8 +1,5 @@
 package pattern.specification;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 public class EventTypeCondition implements Specification<Event> {
 
     EventType expected;
