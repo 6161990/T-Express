@@ -1,7 +1,9 @@
 package pattern.refactor.flag;
 
 public class FindInt {
-    public static boolean find(int[] data, int number) {
+
+    /** Refactor Before */
+    public static boolean findBefore(int[] data, int number) {
         boolean flag = false;
 
         for (int i = 0; i <data.length; i++) {
@@ -11,4 +13,32 @@ public class FindInt {
         }
         return flag;
     }
+
+    /** Refactor After 1 */
+    public static boolean findAfter(int[] data, int number) {
+        boolean found = false;
+
+        for (int i = 0; i < data.length; i++) {
+            if(data[i] == number){
+                found = true;
+                return found;
+            }
+        }
+            return found;
+    }
+
+    /** Refactor After 2 */
+    public static boolean findAfter2(int[] data, int number) {
+        boolean found = false;
+
+        for (int i = 0; i < data.length; i++) {
+            if(data[i] == number){
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+
 }

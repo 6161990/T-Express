@@ -16,3 +16,6 @@
 *.lock
 *.bin
 *.lock
+Design Pattern/T/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+*.bin
+*.lock
