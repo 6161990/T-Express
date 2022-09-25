@@ -2,6 +2,7 @@ package com.yoon.TExpress.modernJavaInAction.one;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AppleFilter {
 
@@ -26,10 +27,6 @@ public class AppleFilter {
         }
         return result;
     }
-    public interface Predicate<T>{
-        boolean test(T t);
-    }
-
 
     static List<Apple> filterApples(List<Apple> inventory,
                                     Predicate<Apple> predicate){
