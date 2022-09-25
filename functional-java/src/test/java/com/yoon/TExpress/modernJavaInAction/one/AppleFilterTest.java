@@ -51,4 +51,13 @@ class AppleFilterTest {
 
         assertThat(heavyAndGreenResult).containsExactly(APPLE2);
     }
+
+    @Test
+    void after_withLambdas() {
+        List<Apple> greenApplesResult = filterApples(List.of(APPLE), (Apple a) -> "GREEN".equals(a.getColor()));
+        List<Apple> heavyApplesResult = filterApples(List.of(APPLE), (Apple a) -> a.getWeight() > 150);
+
+        assertThat(greenApplesResult).containsExactly(APPLE);
+        assertThat(heavyApplesResult).isEmpty();
+    }
 }
