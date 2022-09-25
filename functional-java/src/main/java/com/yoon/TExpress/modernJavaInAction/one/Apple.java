@@ -25,4 +25,13 @@ public class Apple {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public static boolean isGreenApple(Apple apple){
+        return "GREEN".equals(apple.getColor());
+    }
+
+    public static boolean isHeavyApple(Apple apple){
+        return apple.getWeight() > 150;
+    }
+
 }
