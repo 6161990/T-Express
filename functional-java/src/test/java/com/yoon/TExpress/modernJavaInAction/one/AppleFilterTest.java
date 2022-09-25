@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.yoon.TExpress.modernJavaInAction.one.AppleFilter.filterApples;
+import static com.yoon.TExpress.modernJavaInAction.one.AppleFilter.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AppleFilterTest {
@@ -27,5 +27,28 @@ class AppleFilterTest {
 
         assertThat(greenApplesResult).containsExactly(APPLE);
         assertThat(heavyApplesResult).isEmpty();
+    }
+
+    @Test
+    void after2_andFilter() {
+        Apple APPLE2 = new Apple(160, "GREEN");
+        List<Apple> heavyAndGreenResult = andFilterDefaultHeavy(List.of(APPLE, APPLE2), Apple::isGreenApple);
+
+        assertThat(heavyAndGreenResult).containsExactly(APPLE2);
+    }
+
+    @Test
+    void after3_orFilter() {
+        List<Apple> heavyAndGreenResult = orFilterDefaultHeavy(List.of(APPLE), Apple::isGreenApple);
+
+        assertThat(heavyAndGreenResult).containsExactly(APPLE);
+    }
+
+    @Test
+    void after4_negativeFilter() {
+        Apple APPLE2 = new Apple(120, "RED");
+        List<Apple> heavyAndGreenResult = negativeFilterDefaultHeavy(List.of(APPLE2), Apple::isGreenApple);
+
+        assertThat(heavyAndGreenResult).containsExactly(APPLE2);
     }
 }
