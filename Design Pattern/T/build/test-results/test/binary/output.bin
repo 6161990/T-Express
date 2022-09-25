@@ -1,11 +1,11 @@
-2[ Person :  name ="Nana" mail ="nana@gamil.com" ]
+1[ Person : name ="Nana" mail ="nana@gamil.com" ]
 display : Nana
 display : nana@gamil.com
 
-0[ Person :  name ="Soo" mail ="soo@gamil.com" ]
+/[ Person : name ="Soo" mail ="soo@gamil.com" ]
 display : Soo
 display : soo@gamil.com
 
-)[ Person :  name ="Jin" mail ="(none)" ]
+([ Person : name ="Jin" mail ="(none)" ]
 display : Jin
 

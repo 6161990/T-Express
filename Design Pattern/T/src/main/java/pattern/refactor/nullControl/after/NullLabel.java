@@ -10,4 +10,9 @@ public class NullLabel extends Label{
     public boolean isNull() {
         return true;
     }
+
+    @Override
+    public void display() {
+        /** NullLabel 에서는 아무것도 안함. */
+    }
 }
