@@ -15,18 +15,6 @@ public class Item {
         this.price = price;
     }
 
-    public int getTypeCode() {
-        return typeCode;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
     @Override
     public String toString() {
         return typeCode +
