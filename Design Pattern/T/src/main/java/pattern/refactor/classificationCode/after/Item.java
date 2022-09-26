@@ -5,18 +5,14 @@ public class Item {
     public static final int TYPECODE_DVD = ItemType.DVD.getTypeCode();
     public static final int TYPECODE_SOFTWARE = ItemType.SOFTWARE.getTypeCode();
 
-    private final int typeCode;
+    private final ItemType itemType;
     private final String title;
     private final int price;
 
-    public Item(int typeCode, String title, int price) {
-        this.typeCode = typeCode;
+    public Item(ItemType itemType, String title, int price) {
+        this.itemType = itemType;
         this.title = title;
         this.price = price;
-    }
-
-    public int getTypeCode() {
-        return typeCode;
     }
 
     public String getTitle() {
@@ -29,7 +25,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return typeCode +
+        return itemType.getTypeCode() +
                 ", " + title +
                 ", " + price ;
     }
