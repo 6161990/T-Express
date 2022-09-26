@@ -15,12 +15,4 @@ public class ItemType {
         return typeCode;
     }
 
-    public ItemType getItemType(int typeCode){
-        switch (typeCode){
-            case 0 : return BOOK;
-            case 1 : return DVD;
-            case 2 : return SOFTWARE;
-            default : return null;
-        }
-    }
 }
