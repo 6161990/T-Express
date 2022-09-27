@@ -1,9 +1,7 @@
 package pattern.refactor.typeCodeWithSub.after;
 
 public abstract class Customer {
-    private int customerType;
     private String customerName;
-    private String customerGrade;
     protected int bonusPoint;
 
     public Customer(String customerName) {
