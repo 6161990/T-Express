@@ -17,10 +17,20 @@ public class AppleFilter {
         return result;
     }
 
-    public static List<Apple> filterGreenApples(List<Apple> inventory, Color color){
+    public static List<Apple> filterApples(List<Apple> inventory, Color color){
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory){
             if(color.equals(apple.getColor())){
+                result.add(apple);
+            }
+        }
+        return result;
+    }
+
+    public static List<Apple> filterApples(List<Apple> inventory, Color color, int weight, boolean flag){
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : inventory){
+            if(flag && color.equals(apple.getColor()) || !flag && apple.getWeight() > weight){
                 result.add(apple);
             }
         }
