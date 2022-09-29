@@ -4,13 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.yoon.TExpress.modernJavaInAction.two.Color.GREEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppleFilterTest {
 
-    private static final Apple APPLE = new Apple(140, Color.GREEN);
+    private static final Apple APPLE = new Apple(140, GREEN);
     private static final Apple APPLE2 = new Apple(170, Color.RED);
-    private static final Apple APPLE3 = new Apple(170, Color.GREEN);
+    private static final Apple APPLE3 = new Apple(170, GREEN);
 
     @Test
     void before() {
@@ -29,7 +30,7 @@ public class AppleFilterTest {
 
     @Test
     void after2_가능한_모든속성으로_필터링한다() {
-        List<Apple> colorAppleResult = AppleFilter.filterApples(List.of(APPLE), Color.GREEN, 0, true);
+        List<Apple> colorAppleResult = AppleFilter.filterApples(List.of(APPLE), GREEN, 0, true);
         List<Apple> weightAppleResult = AppleFilter.filterApples(List.of(APPLE), null, 170, false);
 
         assertThat(colorAppleResult).containsExactly(APPLE);
@@ -67,5 +68,17 @@ public class AppleFilterTest {
 
         assertThat(simples).containsExactly("An apple of" + APPLE.getWeight() + "g");
         assertThat(fancies).containsExactly("This " + APPLE2.getColor()  + " Heavy Apple");
+    }
+
+    @Test
+    void after5_익명클래스를_사용해볼때() {
+        List<Apple> apples = AppleFilter.filterApples(List.of(APPLE), new PredicateAppleFilter() {
+            @Override
+            public boolean test(Apple apple) {
+                return GREEN.equals(apple.getColor());
+            }
+        });
+
+        assertThat(apples).containsExactly(APPLE);
     }
 }
