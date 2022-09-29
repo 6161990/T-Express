@@ -36,4 +36,14 @@ public class AppleFilter {
         }
         return result;
     }
+
+    public static List<Apple> filterApples(List<Apple> inventory, PredicateAppleFilter appleFilter){
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : inventory){
+            if(appleFilter.test(apple)){
+                result.add(apple);
+            }
+        }
+        return result;
+    }
 }

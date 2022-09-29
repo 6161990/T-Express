@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AppleFilterTest {
 
     private static final Apple APPLE = new Apple(140, Color.GREEN);
+    private static final Apple APPLE2 = new Apple(170, Color.RED);
 
     @Test
     void before() {
@@ -34,6 +35,17 @@ public class AppleFilterTest {
         assertThat(weightAppleResult).containsExactly();
     }
 
+    @Test
+    void after3_동작_파라미터화한다() {
+        AppleGreenColorPredicate appleGreenColorPredicate =  new AppleGreenColorPredicate();
+        AppleHeavyWeightPredicate appleHeavyWeightPredicate =  new AppleHeavyWeightPredicate();
+
+        List<Apple> colorAppleResult = AppleFilter.filterApples(List.of(APPLE), appleGreenColorPredicate);
+        List<Apple> weightAppleResult = AppleFilter.filterApples(List.of(APPLE2), appleHeavyWeightPredicate);
+
+        assertThat(colorAppleResult).containsExactly(APPLE);
+        assertThat(weightAppleResult).containsExactly(APPLE2);
+    }
 
 
 }
