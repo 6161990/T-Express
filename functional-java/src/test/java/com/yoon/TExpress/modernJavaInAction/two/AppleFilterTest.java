@@ -10,6 +10,7 @@ public class AppleFilterTest {
 
     private static final Apple APPLE = new Apple(140, Color.GREEN);
     private static final Apple APPLE2 = new Apple(170, Color.RED);
+    private static final Apple APPLE3 = new Apple(170, Color.GREEN);
 
     @Test
     void before() {
@@ -47,5 +48,12 @@ public class AppleFilterTest {
         assertThat(weightAppleResult).containsExactly(APPLE2);
     }
 
+    @Test
+    void after4_apple_속성과_관련한_모든_변화에_대응할_수_있는_유연한_코드() {
+        AppleGreenAndHeavyWeightPredicate andPredicate = new AppleGreenAndHeavyWeightPredicate();
 
+        List<Apple> colorAppleResult = AppleFilter.filterApples(List.of(APPLE3), andPredicate);
+
+        assertThat(colorAppleResult).containsExactly(APPLE3);
+    }
 }
