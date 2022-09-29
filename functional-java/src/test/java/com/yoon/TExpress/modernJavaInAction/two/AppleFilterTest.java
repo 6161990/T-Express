@@ -3,6 +3,7 @@ package com.yoon.TExpress.modernJavaInAction.two;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.yoon.TExpress.modernJavaInAction.two.Color.GREEN;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,7 +73,7 @@ public class AppleFilterTest {
 
     @Test
     void after5_익명클래스를_사용해볼때() {
-        List<Apple> apples = AppleFilter.filterApples(List.of(APPLE), new PredicateAppleFilter() {
+        List<Apple> apples = AppleFilter.filterApples(List.of(APPLE), new PredicateAppleFilter<Apple>() {
             @Override
             public boolean test(Apple apple) {
                 return GREEN.equals(apple.getColor());
@@ -86,8 +87,41 @@ public class AppleFilterTest {
     @Test
     void after5_1_람다를_사용해볼때() {
         List<Apple> apples = AppleFilter.filterApples(List.of(APPLE),
-                (PredicateAppleFilter) apple -> GREEN.equals(apple.getColor()));
+                (PredicateAppleFilter<Apple>) apple -> GREEN.equals(apple.getColor()));
 
         assertThat(apples).containsExactly(APPLE);
     }
+
+    @Test
+    void after6_리스트형식으로_추상화() {
+        List<String> apples = AppleFilter.filter(List.of("string1"), new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return s.equals("string1");
+            }
+        });
+
+        assertThat(apples).containsExactly("string1");
+
+        List<Integer> integerApples = AppleFilter.filter(List.of(1), new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer s) {
+                return s == 1;
+            }
+        });
+
+        assertThat(integerApples).containsExactly(1);
+
+        List<Apple> weightFilterApples = AppleFilter.filter(List.of(APPLE), new Predicate<Apple>() {
+            @Override
+            public boolean test(Apple s) {
+                return s.getWeight() > 50;
+            }
+        });
+
+        assertThat(weightFilterApples).containsExactly(APPLE);
+
+    }
+
+
 }

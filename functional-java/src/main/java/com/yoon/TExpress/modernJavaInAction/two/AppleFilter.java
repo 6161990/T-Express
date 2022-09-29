@@ -2,6 +2,7 @@ package com.yoon.TExpress.modernJavaInAction.two;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.yoon.TExpress.modernJavaInAction.two.Color.GREEN;
 
@@ -52,6 +53,16 @@ public class AppleFilter {
         for (Apple apple : inventory){
             String accept = appleFormatter.accept(apple);
             result.add(accept);
+        }
+        return result;
+    }
+
+    public static <T> List<T> filter(List<T> list, Predicate<T> p){
+        List<T> result = new ArrayList<>();
+        for (T e : list){
+            if(p.test(e)){
+                result.add(e);
+            }
         }
         return result;
     }
