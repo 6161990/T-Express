@@ -56,4 +56,16 @@ public class AppleFilterTest {
 
         assertThat(colorAppleResult).containsExactly(APPLE3);
     }
+
+    @Test
+    void Q() {
+        AppleSimpleFormatter simpleFormatter = new AppleSimpleFormatter();
+        AppleFancyFormatter fancyFormatter = new AppleFancyFormatter();
+
+        List<String> simples = AppleFilter.filterApples(List.of(APPLE), simpleFormatter);
+        List<String> fancies = AppleFilter.filterApples(List.of(APPLE2), fancyFormatter);
+
+        assertThat(simples).containsExactly("An apple of" + APPLE.getWeight() + "g");
+        assertThat(fancies).containsExactly("This " + APPLE2.getColor()  + " Heavy Apple");
+    }
 }

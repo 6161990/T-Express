@@ -46,4 +46,14 @@ public class AppleFilter {
         }
         return result;
     }
+
+    public static List<String> filterApples(List<Apple> inventory, AppleFormatter appleFormatter){
+        List<String> result = new ArrayList<>();
+        for (Apple apple : inventory){
+            String accept = appleFormatter.accept(apple);
+            result.add(accept);
+        }
+        return result;
+    }
+
 }
