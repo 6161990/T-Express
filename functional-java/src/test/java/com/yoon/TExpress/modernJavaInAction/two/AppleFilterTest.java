@@ -81,4 +81,13 @@ public class AppleFilterTest {
 
         assertThat(apples).containsExactly(APPLE);
     }
+
+
+    @Test
+    void after5_1_람다를_사용해볼때() {
+        List<Apple> apples = AppleFilter.filterApples(List.of(APPLE),
+                (PredicateAppleFilter) apple -> GREEN.equals(apple.getColor()));
+
+        assertThat(apples).containsExactly(APPLE);
+    }
 }
