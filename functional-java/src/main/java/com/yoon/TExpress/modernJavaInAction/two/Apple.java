@@ -1,6 +1,6 @@
 package com.yoon.TExpress.modernJavaInAction.two;
 
-public class Apple {
+public class Apple implements Comparable<Apple> {
 
     private int weight;
     private Color color;
@@ -27,4 +27,8 @@ public class Apple {
     }
 
 
+    @Override
+    public int compareTo(Apple a1) {
+        return a1.getWeight();
+    }
 }
