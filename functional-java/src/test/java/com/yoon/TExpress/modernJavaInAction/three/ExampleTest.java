@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -48,5 +49,16 @@ public class ExampleTest {
 
     private void accept(Apple apple, Consumer<Apple> appleConsumer) {
         appleConsumer.accept(apple);
+    }
+
+    @Test
+    void FunctionTest() {
+        int function = function("Today is be happy !!! :)", (String s) -> s.length());
+
+        assertThat(function).isEqualTo(24);
+    }
+
+    private int function(String sentence, Function<String, Integer> function) {
+        return function.apply(sentence);
     }
 }
