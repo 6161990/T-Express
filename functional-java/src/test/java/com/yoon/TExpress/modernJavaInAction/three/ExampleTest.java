@@ -1,7 +1,6 @@
 package com.yoon.TExpress.modernJavaInAction.three;
 
 import com.yoon.TExpress.modernJavaInAction.two.Apple;
-import com.yoon.TExpress.modernJavaInAction.two.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -60,7 +59,7 @@ public class ExampleTest {
     }
 
     @Test
-    void BinaryOperator() {
+    void BinaryOperatorTest() {
         int result = binaryOper(1, 4, (Integer a, Integer b) -> a * b);
 
         assertThat(result).isEqualTo(4);
@@ -68,5 +67,19 @@ public class ExampleTest {
 
     private int binaryOper(int i, int i1, BinaryOperator<Integer> binaryOperator) {
         return binaryOperator.apply(i, i1);
+    }
+
+    @Test
+    void BiFunctionTest() {
+        Apple apple = new Apple(120, GREEN);
+        Apple apple2 = new Apple(64, GREEN);
+
+        Integer b = compareWeight(apple, apple2, (Apple a1, Apple a2) -> Integer.compare(a1.getWeight(), a2.getWeight()));
+
+        assertThat(b).isEqualTo(1);
+    }
+
+    private Integer compareWeight(Apple apple, Apple apple2, BiFunction<Apple, Apple, Integer> compare) {
+        return compare.apply(apple, apple2); /**  비교시 앞에 값이 크면 1 */
     }
 }

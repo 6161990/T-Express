@@ -3,6 +3,7 @@ package com.yoon.TExpress.modernJavaInAction.two;
 public class Apple implements Comparable<Apple> {
 
     private int weight;
+    private String weightString;
     private Color color;
 
     public Apple(int weight, Color color) {
@@ -10,8 +11,21 @@ public class Apple implements Comparable<Apple> {
         this.color = color;
     }
 
+    public Apple(String weightString, Color color) {
+        this.weightString = weightString;
+        this.color = color;
+    }
+
     public int getWeight() {
-        return weight;
+        return this.weight;
+    }
+
+    public String getWeightString() {
+        return weightString;
+    }
+
+    public void setWeightString(String weightString) {
+        this.weightString = weightString;
     }
 
     public void setWeight(int weight) {
