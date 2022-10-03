@@ -5,10 +5,7 @@ import com.yoon.TExpress.modernJavaInAction.two.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static com.yoon.TExpress.modernJavaInAction.two.Color.GREEN;
 import static com.yoon.TExpress.modernJavaInAction.two.Color.RED;
@@ -60,5 +57,16 @@ public class ExampleTest {
 
     private int function(String sentence, Function<String, Integer> function) {
         return function.apply(sentence);
+    }
+
+    @Test
+    void BinaryOperator() {
+        int result = binaryOper(1, 4, (Integer a, Integer b) -> a * b);
+
+        assertThat(result).isEqualTo(4);
+    }
+
+    private int binaryOper(int i, int i1, BinaryOperator<Integer> binaryOperator) {
+        return binaryOperator.apply(i, i1);
     }
 }
