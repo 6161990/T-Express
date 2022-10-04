@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -18,6 +19,25 @@ class DateTimeFormat {
 
         LocalDate parse = LocalDate.parse("02/21/1995", mmddyyyy);
         System.out.println(parse); // 1995-02-21
+    }
+
+    @Test
+    void parseAndCompareMonthTime() {
+        String stringTime = "2022-3";
+
+        int splitIndex = stringTime.indexOf('-');
+
+        String key = stringTime.substring(0, splitIndex);
+        String value = stringTime.substring(splitIndex + 1);
+        LocalDate localDate = LocalDate.of(Integer.parseInt(key), Integer.parseInt(value), 1);
+
+        DateTimeFormatter yyyymm = DateTimeFormatter.ofPattern("yyyy-MM");
+        LocalDateTime localDate1 = LocalDateTime.of(2021, 3, 1, 0, 0, 0);
+        long passingByTime = localDate1.until(localDate, ChronoUnit.MONTHS); // 과거로부터 현재까지 12
+
+        System.out.println("passingByTime : " + passingByTime);
+
+        System.out.println(localDate.format(yyyymm));
     }
 
     @Test
