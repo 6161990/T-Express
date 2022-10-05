@@ -38,4 +38,16 @@ class AllStepTest {
             return o1.getWeight().compareTo(o2.getWeight());
         }
     }
+
+    @Test
+    void Step2_익명클래스사용() {
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
+            }
+        });
+
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
+    }
 }
