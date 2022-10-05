@@ -50,4 +50,11 @@ class AllStepTest {
 
         System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
     }
+
+    @Test
+    void Step3_람다표현식사용() {
+        inventory.sort((Apple o1, Apple o2) -> o1.getWeight().compareTo(o2.getWeight()));
+
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
+    }
 }
