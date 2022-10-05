@@ -8,9 +8,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class AllStepTest {
 
@@ -71,7 +73,6 @@ class AllStepTest {
         System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
     }
 
-
     @Test
     void Step5_Comparator_조합() {
         inventory.sort(comparing(Apple::getWeight));
@@ -88,6 +89,19 @@ class AllStepTest {
         System.out.println(inventory);
     }
 
+    @Test
+    void Step6_Function_조합_andThen_compose() {
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> g = x -> x * 2;
+        Function<Integer, Integer> h = f.andThen(g); // andThen
+
+        Integer actual = h.apply(1);
+        assertThat(actual).isEqualTo(4);
+
+        Function<Integer, Integer> h1 = f.compose(g); // compose
+        Integer actual2 = h1.apply(1);
+        assertThat(actual2).isEqualTo(3);
+    }
 
 
 }
