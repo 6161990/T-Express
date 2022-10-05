@@ -64,6 +64,11 @@ class AllStepTest {
         System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
     }
 
-    
+    @Test
+    void Step4_메서드참조사용() {
+        inventory.sort(comparing(Apple::getWeight));
+
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
+    }
 
 }
