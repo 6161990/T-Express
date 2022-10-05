@@ -93,4 +93,16 @@ class MethodReference {
 
         assertThat(orange).isEqualTo(new Orange(340));
     }
+
+    @Test
+    void when_three_arguments_FunctionTest() {
+        TriFunction<Integer, Integer, Integer, Order> orderFactory = Order::new;
+        Order order = orderFactory.apply(2000, 1, 100);
+
+        assertThat(order.getDiscountPrice()).isEqualTo(100);
+    }
+
+    public interface TriFunction<T, U, V, R> {
+        R apply(T t, U u, V v);
+    }
 }
