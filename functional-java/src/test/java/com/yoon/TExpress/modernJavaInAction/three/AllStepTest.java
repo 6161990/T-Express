@@ -10,6 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.*;
+
 class AllStepTest {
 
     private List<Apple> inventory = new ArrayList<>();
@@ -52,9 +54,16 @@ class AllStepTest {
     }
 
     @Test
-    void Step3_람다표현식사용() {
+    void Step3_람다표현식사용_단계병() {
         inventory.sort((Apple o1, Apple o2) -> o1.getWeight().compareTo(o2.getWeight()));
+
+        inventory.sort((o1, o2) -> o1.getWeight().compareTo(o2.getWeight()));
+
+        inventory.sort(Comparator.comparing(apple -> apple.getWeight()));
 
         System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
     }
+
+    
+
 }
