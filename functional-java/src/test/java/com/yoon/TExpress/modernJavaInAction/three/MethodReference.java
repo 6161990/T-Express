@@ -96,7 +96,8 @@ class MethodReference {
 
     @Test
     void when_three_arguments_FunctionTest() {
-        TriFunction<Integer, Integer, Integer, Order> orderFactory = Order::new;
+        TriFunction<Integer, Integer, Integer, Order> orderFactory
+                = (amount, count, discountPrice) -> new Order(amount, count, discountPrice);
         Order order = orderFactory.apply(2000, 1, 100);
 
         assertThat(order.getDiscountPrice()).isEqualTo(100);
