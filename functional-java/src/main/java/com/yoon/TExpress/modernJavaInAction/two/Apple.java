@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Apple implements Fruit {
 
-    private int weight;
+    private Integer weight;
     private String weightString;
     private Color color;
 
@@ -26,7 +26,7 @@ public class Apple implements Fruit {
         this.weight = weight;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return this.weight;
     }
 
