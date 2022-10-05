@@ -1,12 +1,13 @@
 package com.yoon.TExpress.modernJavaInAction.three;
 
 import com.yoon.TExpress.modernJavaInAction.two.Apple;
-import org.assertj.core.api.Assertions;
+import com.yoon.TExpress.modernJavaInAction.two.Color;
+import com.yoon.TExpress.modernJavaInAction.two.Fruit;
+import com.yoon.TExpress.modernJavaInAction.two.Orange;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -64,5 +65,32 @@ class MethodReference {
         }
         return result;
     }
-    
+
+    @Test
+    void BiFunctionTest() {
+        BiFunction<Integer, Color, Apple> c3 = Apple::new;
+        Apple apply = c3.apply(110, Color.RED);
+
+        BiFunction<Integer, Color, Apple> c4 = (integer, color) -> new Apple(integer, color);
+        Apple apply1 = c4.apply(110, Color.RED);
+
+        assertThat(apply).isEqualTo(apply1);
+    }
+
+    static Map<String, Function<Integer, Fruit>> map = new HashMap<>();
+    static {
+        map.put("apple", Apple::new);
+        map.put("orange", Orange::new);
+    }
+
+    public static Fruit giveMeFruit(String fruit, Integer weight){
+        return map.get(fruit.toLowerCase()).apply(weight);
+    }
+
+    @Test
+    void notInstance_FunctionTest() {
+        Fruit orange = giveMeFruit("orange", 340);
+
+        assertThat(orange).isEqualTo(new Orange(340));
+    }
 }

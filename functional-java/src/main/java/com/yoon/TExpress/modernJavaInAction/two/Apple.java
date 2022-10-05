@@ -2,13 +2,13 @@ package com.yoon.TExpress.modernJavaInAction.two;
 
 import java.util.Objects;
 
-public class Apple implements Comparable<Apple> {
+public class Apple implements Fruit {
 
     private int weight;
     private String weightString;
     private Color color;
 
-    public Apple(int weight, Color color) {
+    public Apple(Integer weight, Color color) {
         this.weight = weight;
         this.color = color;
     }
@@ -22,7 +22,7 @@ public class Apple implements Comparable<Apple> {
 
     }
 
-    public Apple(int weight) {
+    public Apple(Integer weight) {
         this.weight = weight;
     }
 
@@ -51,7 +51,6 @@ public class Apple implements Comparable<Apple> {
     }
 
 
-    @Override
     public int compareTo(Apple a1) {
         return a1.getWeight();
     }
