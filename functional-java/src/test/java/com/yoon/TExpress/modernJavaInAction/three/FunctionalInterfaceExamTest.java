@@ -12,7 +12,7 @@ import static java.util.Arrays.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ExampleTest {
+public class FunctionalInterfaceExamTest {
 
     @Test
     void PredicateTest() {
