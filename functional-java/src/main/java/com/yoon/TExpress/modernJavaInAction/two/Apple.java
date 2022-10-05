@@ -16,6 +16,14 @@ public class Apple implements Comparable<Apple> {
         this.color = color;
     }
 
+    public Apple() {
+
+    }
+
+    public Apple(int weight) {
+        this.weight = weight;
+    }
+
     public int getWeight() {
         return this.weight;
     }
