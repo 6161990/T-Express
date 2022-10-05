@@ -71,4 +71,23 @@ class AllStepTest {
         System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
     }
 
+
+    @Test
+    void Step5_Comparator_조합() {
+        inventory.sort(comparing(Apple::getWeight));
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
+
+        inventory.sort(comparing(Apple::getWeight).reversed()); /** 역정렬 */
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.toList()));
+    }
+
+    @Test
+    void Step5_Comparator_연결() {
+        inventory.sort(comparing(Apple::getWeight).reversed().thenComparing(Apple::getColor)); /** 두 사과의 무게가 같으면 색깔별로 정렬*/
+
+        System.out.println(inventory);
+    }
+
+
+
 }

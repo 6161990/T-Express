@@ -67,4 +67,12 @@ public class Apple implements Fruit {
     public int hashCode() {
         return Objects.hash(weight);
     }
+
+    @Override
+    public String toString() {
+        return "Apple{" +
+                "weight=" + weight +
+                ", color=" + color +
+                '}';
+    }
 }
