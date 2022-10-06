@@ -56,7 +56,20 @@ public class StreamTest {
 
     @Test
     void step2() {
-        List<String> lowCaloricDishesName = menu.stream()
+        List<String> lowCaloricDishesName
+                = menu.stream()
+                .filter(d -> d.getCalories() < 400)
+                .sorted(comparing(Dish::getCalories))
+                .map(Dish::getName)
+                .collect(toList());
+
+        System.out.println(lowCaloricDishesName);
+    }
+
+    @Test
+    void step3() {
+        List<String> lowCaloricDishesName
+                = menu.parallelStream()
                 .filter(d -> d.getCalories() < 400)
                 .sorted(comparing(Dish::getCalories))
                 .map(Dish::getName)
