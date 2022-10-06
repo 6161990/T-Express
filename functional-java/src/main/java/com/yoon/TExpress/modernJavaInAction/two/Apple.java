@@ -8,6 +8,10 @@ public class Apple implements Fruit {
     private String weightString;
     private Color color;
 
+    public Apple() {
+
+    }
+
     public Apple(Integer weight, Color color) {
         this.weight = weight;
         this.color = color;
@@ -18,28 +22,12 @@ public class Apple implements Fruit {
         this.color = color;
     }
 
-    public Apple() {
-
-    }
-
     public Apple(Integer weight) {
         this.weight = weight;
     }
 
     public Integer getWeight() {
         return this.weight;
-    }
-
-    public String getWeightString() {
-        return weightString;
-    }
-
-    public void setWeightString(String weightString) {
-        this.weightString = weightString;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     public Color getColor() {
