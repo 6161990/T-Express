@@ -8,6 +8,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.toList;
+
 public class StreamTest {
 
     private static List<Dish> menu = new ArrayList<>();
@@ -52,6 +56,12 @@ public class StreamTest {
 
     @Test
     void step2() {
+        List<String> lowCaloricDishesName = menu.stream()
+                .filter(d -> d.getCalories() < 400)
+                .sorted(comparing(Dish::getCalories))
+                .map(Dish::getName)
+                .collect(toList());
 
+        System.out.println(lowCaloricDishesName);
     }
 }
