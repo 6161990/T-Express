@@ -3,7 +3,10 @@ package com.yoon.TExpress.modernJavaInAction.four;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamTest {
 
@@ -22,7 +25,33 @@ public class StreamTest {
     }
 
     @Test
-    void name() {
+    void step1() {
+        List<Dish> lowCaloricDishes = new ArrayList<>();
+
+        for (Dish dish : menu){
+            if(dish.getCalories() < 400){
+                lowCaloricDishes.add(dish);
+            }
+        }
+
+        Collections.sort(lowCaloricDishes, new Comparator<Dish>() {
+            @Override
+            public int compare(Dish o1, Dish o2) {
+                return Integer.compare(o1.getCalories(), o2.getCalories());
+            }
+        });
+
+        List<String> lowCaloricDishesName = new ArrayList<>();
+
+        for (Dish dish : lowCaloricDishes) {
+            lowCaloricDishesName.add(dish.getName());
+        }
+
+        System.out.println(lowCaloricDishesName);
+    }
+
+    @Test
+    void step2() {
 
     }
 }
