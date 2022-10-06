@@ -103,5 +103,33 @@ class AllStepTest {
         assertThat(actual2).isEqualTo(3);
     }
 
+    private static class Letter {
+        public static String addHeader(String text){
+            return "From YoonJi, Mario and Alan: " + text;
+        }
 
+        public static String addFooter(String text){
+            return text + " Kind regards";
+        }
+
+        public static String checkSpelling(String text){
+            return text.replaceAll("labda", "lambda");
+        }
+    }
+
+    @Test
+    void Step6_Function_조합_andThen_compose_Test() {
+        Function<String, String> addHeader = Letter::addHeader;
+        Function<String, String> transformationPipeline =
+                addHeader.andThen(Letter::checkSpelling)
+                        .andThen(Letter::addFooter);
+
+        String actual = transformationPipeline.apply("Hello. We study labda!");
+        assertThat(actual).isEqualTo("From YoonJi, Mario and Alan: Hello. We study lambda! Kind regards");
+
+        Function<String, String> transformationPipelineWithoutCheckSpelling =
+                addHeader.andThen(Letter::addFooter);
+        String actual2 = transformationPipelineWithoutCheckSpelling.apply("Hello. We study labda!");
+        assertThat(actual2).isEqualTo("From YoonJi, Mario and Alan: Hello. We study labda! Kind regards");
+    }
 }
