@@ -3,9 +3,9 @@ package pattern.factoryMethod;
 /**
  * Car 타입의 객체를 반환하는 팩토리 메소드를 선언한다.
  * 팩토리 메소드를 기본적으로 구현하는데,
- * 이 구현에서는 Car(concreate)를 반환한다.
+ * 이 구현에서는 Car( concrete ) 를 반환한다.
  *
- * Car의 생성을 위해 팩토리 메소드를 호출한다.
+ * Car 의 생성을 위해 팩토리 메소드를 호출한다.
  * */
 public abstract class CarFactory {
 
