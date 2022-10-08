@@ -89,4 +89,33 @@ public class StreamTest {
 
         System.out.println(highCaloricDishesNames); // [pork, beef, chicken]
     }
+
+    @Test
+    void step5() {
+        List<String> highCaloricDishesNames
+                = menu.stream()
+                .filter(d -> {
+                    System.out.println("filtering : " + d.getName());
+                    return d.getCalories() > 300;
+                })
+                .map(dish -> {
+                    System.out.println("mapping : " + dish.getName());
+                    return dish.getName();
+                })
+                .limit(3)
+                .collect(toList());
+
+        System.out.println(highCaloricDishesNames); // [pork, beef, chicken]
+    }
+
+    @Test
+    void step6() {
+        long count = menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .distinct()
+                .limit(3)
+                .count();
+
+        System.out.println(count); // 3
+    }
 }
