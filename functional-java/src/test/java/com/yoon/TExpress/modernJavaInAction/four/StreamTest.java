@@ -77,4 +77,16 @@ public class StreamTest {
 
         System.out.println(lowCaloricDishesName);
     }
+
+    @Test
+    void step4() {
+        List<String> highCaloricDishesNames
+                = menu.stream()
+                .filter(d -> d.getCalories() > 300)
+                .map(Dish::getName)
+                .limit(3)
+                .collect(toList());
+
+        System.out.println(highCaloricDishesNames); // [pork, beef, chicken]
+    }
 }
