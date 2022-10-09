@@ -9,6 +9,7 @@ import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.OTHER;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StreamTest {
 
@@ -239,4 +240,72 @@ public class StreamTest {
 
         collect.forEach(System.out::println);
     }
+
+    @Test
+    void step13_reduce1() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        int sum = 0;
+        for (int i: numbers) {
+            sum += i;
+        }
+
+        System.out.println(sum);
+    }
+
+    @Test
+    void step13_reduce2() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Integer sum = numbers.stream().reduce(0, (i1, i2) -> i1 + i2);
+
+        System.out.println(sum);
+    }
+
+    @Test
+    void step13_reduce2_1_withOptional() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Optional<Integer> sum = numbers.stream().reduce(Integer::sum);
+
+        System.out.println(sum.get());
+    }
+
+    @Test
+    void step13_reduce3() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Integer sum = numbers.stream().reduce(0, Integer::sum);
+
+        System.out.println(sum);
+    }
+
+    @Test
+    void step13_reduce4() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Integer sum = numbers.stream().reduce(1, (i1, i2) -> i1 * i2);
+
+        System.out.println(sum);
+    }
+
+    @Test
+    void step13_reduce_max() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Optional<Integer> sum = numbers.stream().reduce(Integer::max);
+
+        System.out.println(sum.get());
+    }
+
+    @Test
+    void step13_reduce_min() {
+        List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+        Optional<Integer> sum = numbers.stream().reduce(Integer::min);
+        Optional<Integer> sum2 = numbers.stream().reduce((x, y) -> x < y? x : y);
+
+        assertThat(sum).isEqualTo(sum2);
+    }
+
 }
