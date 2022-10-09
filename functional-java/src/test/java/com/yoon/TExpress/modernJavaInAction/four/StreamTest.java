@@ -211,4 +211,32 @@ public class StreamTest {
 
         System.out.println(collect); // List<String> [G, o, d, B, y, e, W, r, l]
     }
+
+
+    @Test
+    void step12_mapping_문제1() {
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3);
+        List<Integer> numbers2 = Arrays.asList(3, 4);
+
+        List<int[]> collect = numbers1.stream()
+                .flatMap(
+                        i -> numbers2.stream()
+                                .map(j -> new int[]{i, j}))
+                .collect(toList());
+
+        collect.forEach(System.out::println);
+    }
+
+    @Test
+    void step12_mapping_문제2() {
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3);
+        List<Integer> numbers2 = Arrays.asList(3, 4);
+
+        List<int[]> collect = numbers1.stream().flatMap(i ->
+                        numbers2.stream().filter(j -> (i + j) % 3 == 0)
+                                         .map(j -> new int[]{i, j}))
+                            .collect(toList());
+
+        collect.forEach(System.out::println);
+    }
 }
