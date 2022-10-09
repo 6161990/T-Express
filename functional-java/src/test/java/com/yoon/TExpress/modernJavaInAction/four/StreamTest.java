@@ -2,10 +2,8 @@ package com.yoon.TExpress.modernJavaInAction.four;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.OTHER;
@@ -157,4 +155,60 @@ public class StreamTest {
         System.out.println(dishes); // french fries
     }
 
+    private static List<String> words = new ArrayList<>();
+
+    static {
+        words.add("season fruit");
+        words.add("prawns");
+        words.add("rice");
+        words.add("chicken");
+        words.add("french fries");
+    }
+
+    @Test
+    void step10_map() {
+        List<Integer> wordLength = words.stream()
+                .map(String::length)
+                .collect(toList());
+
+        System.out.println(wordLength); // [12, 6, 4, 7, 12]
+    }
+
+    @Test
+    void step11_스트림_평면화_before() {
+        List<String[]> collect = words.stream()
+                .map(word -> word.split(""))
+                .distinct()
+                .collect(toList());
+
+        System.out.println(collect); // List<String[]>
+    }
+
+    String[] arrayOfWords = {"GoodBye","World"};
+
+    @Test
+    void step11_스트림_평면화_after1() {
+        List<String> words = Arrays.asList(arrayOfWords);
+
+        List<Stream<String>> collect = words.stream()
+                .map(word -> word.split(""))
+                .map(Arrays::stream)
+                .distinct()
+                .collect(toList());
+
+        System.out.println(collect); // List<Stream<String>>
+    }
+
+    @Test
+    void step11_스트림_평면화_after2() {
+        List<String> words = Arrays.asList(arrayOfWords);
+
+        List<String> collect = words.stream()
+                .map(word -> word.split(""))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .collect(toList());
+
+        System.out.println(collect); // List<String> [G, o, d, B, y, e, W, r, l]
+    }
 }
