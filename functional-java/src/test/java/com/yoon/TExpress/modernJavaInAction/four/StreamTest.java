@@ -112,10 +112,32 @@ public class StreamTest {
     void step6() {
         long count = menu.stream()
                 .filter(d -> d.getCalories() > 300)
-                .distinct()
+                .distinct() // 고유 요소로 필터링
                 .limit(3)
                 .count();
 
         System.out.println(count); // 3
     }
+
+    private static List<Dish> specialMenu = new ArrayList<>();
+
+    static {
+        specialMenu.add(new Dish("season fruit", true, 120, OTHER));
+        specialMenu.add(new Dish("prawns", false, 300, FISH));
+        specialMenu.add(new Dish("rice", true, 350, OTHER));
+        specialMenu.add(new Dish("chicken", false, 400, MEAT));
+        specialMenu.add(new Dish("french fries", true, 530, OTHER));
+    }
+
+    @Test
+    void step7_streamSlicing_takeWhile() {
+        List<Dish> dishes = specialMenu.stream()
+                .takeWhile(dish -> dish.getCalories() < 320) // '정렬된 리스트를' 돌면서 조건과 맞지 않으면 바로 return
+                .collect(toList());
+
+        System.out.println(dishes); // fruit , prawns
+    }
+
+
+
 }
