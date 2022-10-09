@@ -138,6 +138,13 @@ public class StreamTest {
         System.out.println(dishes); // fruit , prawns
     }
 
+    @Test
+    void step8_streamSlicing_dropWhile() {
+        List<Dish> dishes = specialMenu.stream()
+                .dropWhile(dish -> dish.getCalories() < 320) // 조건과 거짓이 되는 지점까지의 발견 요소를 모두 버림
+                .collect(toList());
 
+        System.out.println(dishes); // rice , chicken , french fries
+    }
 
 }
