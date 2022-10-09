@@ -147,4 +147,14 @@ public class StreamTest {
         System.out.println(dishes); // rice , chicken , french fries
     }
 
+    @Test
+    void step9_streamSlicing_skip() {
+        List<Dish> dishes = specialMenu.stream()
+                .filter(dish -> dish.getCalories() > 320)
+                .skip(2)
+                .collect(toList());
+
+        System.out.println(dishes); // french fries
+    }
+
 }
