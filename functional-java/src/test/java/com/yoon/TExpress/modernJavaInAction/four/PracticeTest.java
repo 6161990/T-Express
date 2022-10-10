@@ -103,4 +103,16 @@ public class PracticeTest {
 
         assertThat(actual.get()).isEqualTo(1000);
     }
+
+    @Test
+    void practice8() {
+        Optional<Integer> actual = transactions.stream().map(t -> t.getValue()).reduce(Integer::min);
+        Optional<Transaction> actual2 = transactions.stream().reduce((t1, t2) -> t1.getValue() < t2.getValue() ? t1 : t2);
+        Optional<Transaction> actual3 = transactions.stream().min(comparing(Transaction::getValue));
+
+        assertThat(actual.get()).isEqualTo(300);
+        assertThat(actual.get()).isEqualTo(actual2.get().getValue()).isEqualTo(actual3.get().getValue());
+    }
+
+
 }
