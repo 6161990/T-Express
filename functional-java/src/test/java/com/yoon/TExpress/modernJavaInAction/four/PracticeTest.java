@@ -81,4 +81,11 @@ public class PracticeTest {
 
         assertThat(actual).isEqualTo("AlanBrianMarioRaoul");
     }
+
+    @Test
+    void practice5() {
+        boolean actual = transactions.stream().anyMatch(t -> t.getTrader().getCity().equals("Milano"));
+
+        assertThat(actual).isFalse();
+    }
 }
