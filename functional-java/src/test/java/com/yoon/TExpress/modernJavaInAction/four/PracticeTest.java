@@ -43,4 +43,26 @@ public class PracticeTest {
                 new Transaction(brian, 2011, 300),
                 new Transaction(raoul, 2011, 400));
     }
+
+    @Test
+    void practice2() {
+        List<String> actual = transactions.stream()
+                .map(t -> t.getTrader().getCity())
+                .distinct()
+                .collect(toList());
+
+        assertThat(actual).containsExactly("Cambridge", "Milan");
+    }
+
+    @Test
+    void practice3() {
+        List<Trader> actual = transactions.stream()
+                .map(Transaction::getTrader)
+                .filter(t -> t.getCity().equals("Cambridge"))
+                .distinct()
+                .sorted(comparing(Trader::getName))
+                .collect(toList());
+
+        assertThat(actual).containsExactly(alan, brian, raoul);
+    }
 }
