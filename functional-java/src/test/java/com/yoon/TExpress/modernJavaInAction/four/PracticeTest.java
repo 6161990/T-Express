@@ -88,4 +88,11 @@ public class PracticeTest {
 
         assertThat(actual).isFalse();
     }
+
+    @Test
+    void practice6() {
+        transactions.stream().filter(t->t.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getValue)
+                .forEach(System.out::println);
+    }
 }
