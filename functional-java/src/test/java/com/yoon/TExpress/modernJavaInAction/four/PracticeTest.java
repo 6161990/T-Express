@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.*;
@@ -64,5 +65,20 @@ public class PracticeTest {
                 .collect(toList());
 
         assertThat(actual).containsExactly(alan, brian, raoul);
+    }
+
+    @Test
+    void practice4() {
+        String actual = transactions.stream().map(t -> t.getTrader().getName())
+                .distinct()
+                .sorted()
+                .reduce("", new BinaryOperator<String>() {
+                    @Override
+                    public String apply(String n1, String n2) {
+                        return n1 + n2;
+                    }
+                });
+
+        assertThat(actual).isEqualTo("AlanBrianMarioRaoul");
     }
 }
