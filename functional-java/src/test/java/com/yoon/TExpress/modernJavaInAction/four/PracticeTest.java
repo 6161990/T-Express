@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
@@ -94,5 +95,12 @@ public class PracticeTest {
         transactions.stream().filter(t->t.getTrader().getCity().equals("Cambridge"))
                 .map(Transaction::getValue)
                 .forEach(System.out::println);
+    }
+
+    @Test
+    void practice7() {
+        Optional<Integer> actual = transactions.stream().map(t -> t.getValue()).reduce(Integer::max);
+
+        assertThat(actual.get()).isEqualTo(1000);
     }
 }
