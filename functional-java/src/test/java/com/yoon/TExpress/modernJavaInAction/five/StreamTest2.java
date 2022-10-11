@@ -4,6 +4,7 @@ import com.yoon.TExpress.modernJavaInAction.four.Dish;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
@@ -202,5 +203,26 @@ public class StreamTest2 {
 
         assertThat(sum).isEqualTo(sum2);
     }
+
+    @Test
+    void step14_기본형_특화_스트림() {
+        int sum = specialMenu.stream()
+                .mapToInt(Dish::getCalories)
+                .sum();
+
+        assertThat(sum).isEqualTo(1700);
+    }
+
+    @Test
+    void step14_기본형_특화_스트림_to_객체스트림으로_복원하기() {
+        IntStream intStream = specialMenu.stream()
+                .mapToInt(Dish::getCalories);
+
+        Stream<Integer> boxed = intStream.boxed();
+        Integer sum = boxed.reduce(0, Integer::sum);
+
+        assertThat(sum).isEqualTo(1700);
+    }
+
 
 }
