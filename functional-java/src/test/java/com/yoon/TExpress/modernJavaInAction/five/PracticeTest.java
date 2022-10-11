@@ -1,16 +1,17 @@
-package com.yoon.TExpress.modernJavaInAction.four;
+package com.yoon.TExpress.modernJavaInAction.five;
 
+import com.yoon.TExpress.modernJavaInAction.four.Trader;
+import com.yoon.TExpress.modernJavaInAction.four.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
-import java.util.stream.Collectors;
 
-import static java.util.Comparator.*;
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
