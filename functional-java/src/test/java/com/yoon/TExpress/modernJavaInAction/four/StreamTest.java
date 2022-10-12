@@ -9,7 +9,6 @@ import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.OTHER;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class StreamTest {
 
