@@ -264,7 +264,7 @@ public class StreamTest2 {
 
         System.out.println("---");
 
-        // 개선 사항
+        // 개선 사항 -> 제곱근을 두번 계산 하니까! 
         Stream<double[]> pythagoreanTriples2 = IntStream.rangeClosed(1, 100).boxed()
                 .flatMap(realA -> IntStream.rangeClosed(realA, 100)
                         .mapToObj(b -> new double[]{realA, b, Math.sqrt(realA * realA + b * b)})
