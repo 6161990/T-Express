@@ -282,4 +282,21 @@ public class StreamTest2 {
 
         assertThat(sum).isEqualTo(36);
     }
+
+    @Test
+    void step18_스트림만들기_무한스트림() {
+        IntStream.iterate(0, n -> n < 100, n -> n + 4) // 두 번째 인자로 프레디케이트를 받을 수 있다.
+                .forEach(System.out::println);
+
+        /** 무한 스트림 생성 : 해당 예제는 중단 되지 않고 무한으로 스트림이 생성된다
+         * IntStream.iterate(0, n -> n + 4)
+                .filter(n -> n < 100)
+                .forEach(System.out::println); */
+
+        /** 이럴 때는 takeWhile 을 쓰면 된다*/
+        Stream.iterate(0, n -> n +4)
+                .takeWhile(n-> n < 100)
+                .forEach(System.out::println);
+
+    }
 }
