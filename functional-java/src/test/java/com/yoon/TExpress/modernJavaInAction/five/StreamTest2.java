@@ -224,5 +224,15 @@ public class StreamTest2 {
         assertThat(sum).isEqualTo(1700);
     }
 
+    @Test
+    void step15_기본값_OptionalInt() {
+        OptionalInt maxCalories = specialMenu.stream()
+                .mapToInt(Dish::getCalories)
+                .max();
 
+        int intMaxCalories = maxCalories.getAsInt();
+        int maxCaloriesNotEmpty = maxCalories.orElse(1);
+
+        assertThat(intMaxCalories).isEqualTo(maxCaloriesNotEmpty);
+    }
 }
