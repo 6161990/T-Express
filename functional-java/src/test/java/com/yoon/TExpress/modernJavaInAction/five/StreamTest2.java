@@ -264,7 +264,7 @@ public class StreamTest2 {
 
         System.out.println("---");
 
-        // 개선 사항 -> 제곱근을 두번 계산 하니까! 
+        // 개선 사항 -> 제곱근을 두번 계산 하니까!
         Stream<double[]> pythagoreanTriples2 = IntStream.rangeClosed(1, 100).boxed()
                 .flatMap(realA -> IntStream.rangeClosed(realA, 100)
                         .mapToObj(b -> new double[]{realA, b, Math.sqrt(realA * realA + b * b)})
@@ -272,5 +272,14 @@ public class StreamTest2 {
 
         pythagoreanTriples2.limit(5)
                 .forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
+    }
+
+    @Test
+    void step17_스트림만들기_배열() {
+        int[] numbers = {1,2,6,7,20};
+
+        int sum = Arrays.stream(numbers).sum();
+
+        assertThat(sum).isEqualTo(36);
     }
 }
