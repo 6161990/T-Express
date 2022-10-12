@@ -262,5 +262,15 @@ public class StreamTest2 {
         pythagoreanTriples.limit(5)
                 .forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
 
+        System.out.println("---");
+
+        // 개선 사항
+        Stream<double[]> pythagoreanTriples2 = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(realA -> IntStream.rangeClosed(realA, 100)
+                        .mapToObj(b -> new double[]{realA, b, Math.sqrt(realA * realA + b * b)})
+                        .filter(t -> t[2] % 1 == 0));
+
+        pythagoreanTriples2.limit(5)
+                .forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
     }
 }
