@@ -235,4 +235,32 @@ public class StreamTest2 {
 
         assertThat(intMaxCalories).isEqualTo(maxCaloriesNotEmpty);
     }
+
+    @Test
+    void step16_숫자범위_숫자스트림_활용예제_피타고라스() {
+        int a = 1; // 컴파일 오류 때문에 임시 a 생성
+        IntStream.rangeClosed(1, 100) // 숫자 범위
+                .filter(b -> Math.sqrt(a*a + b*b) % 1 == 0); // 피타고라스(세 수) 만들기 위한 필터링
+
+        Stream<int[]> stream1 = IntStream.rangeClosed(1, 100)
+                .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                .boxed()
+                .map(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}); // 집합 생성
+
+
+        Stream<int[]> stream = IntStream.rangeClosed(1, 100)
+                .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                .mapToObj(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)}); // b 값 생성
+
+        Stream<int[]> pythagoreanTriples = IntStream.rangeClosed(1, 100).boxed()
+                .flatMap(realA ->
+                        IntStream.rangeClosed(realA, 100)
+                                .filter(b -> Math.sqrt(realA * realA + b * b) % 1 == 0)
+                                .mapToObj(b -> new int[]{realA, b, (int) Math.sqrt(realA * realA + b * b)})
+                );
+
+        pythagoreanTriples.limit(5)
+                .forEach(t -> System.out.println(t[0] + ", " + t[1] + ", " + t[2]));
+
+    }
 }
