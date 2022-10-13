@@ -71,4 +71,15 @@ public class StreamCollectors {
         assertThat(summaryStatistics.toString())
                 .isEqualTo("IntSummaryStatistics{count=9, sum=4200, min=120, average=466.666667, max=800}");
     }
+
+    @Test
+    void step6_string() {
+        String shortMenu = menu.stream().map(Dish::getName).collect(joining());
+        String shortMenu2 = menu.stream().map(Dish::getName).collect(joining(", "));
+
+        assertThat(shortMenu).isEqualTo("porkbeefchickenfrench friesriceseason fruitpizzaprawnssalmon");
+        assertThat(shortMenu2).isEqualTo("pork, beef, chicken, french fries, rice, season fruit, pizza, prawns, salmon");
+    }
+
+
 }
