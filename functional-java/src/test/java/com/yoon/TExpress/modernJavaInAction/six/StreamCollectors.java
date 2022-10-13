@@ -81,5 +81,10 @@ public class StreamCollectors {
         assertThat(shortMenu2).isEqualTo("pork, beef, chicken, french fries, rice, season fruit, pizza, prawns, salmon");
     }
 
+    @Test
+    void step7_reducing_with_mapper_and_binaryOperator() {
+        Integer sum = menu.stream().collect(reducing(0, Dish::getCalories, (i, j) -> i + j));
 
+        assertThat(sum).isEqualTo(4200);
+    }
 }
