@@ -84,7 +84,7 @@ public class StreamCollectors {
     @Test
     void step7_reducing_with_mapper_and_binaryOperator() {
         Integer sum = menu.stream().collect(reducing(0, Dish::getCalories, (i, j) -> i + j));
-
+    /**                                         (리듀싱 연산의 시작값, 변환함수, BinaryOperator )*/
         assertThat(sum).isEqualTo(4200);
     }
 }
