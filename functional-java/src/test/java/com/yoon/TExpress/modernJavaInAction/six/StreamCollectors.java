@@ -3,10 +3,7 @@ package com.yoon.TExpress.modernJavaInAction.six;
 import com.yoon.TExpress.modernJavaInAction.four.Dish;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
@@ -67,5 +64,11 @@ public class StreamCollectors {
         assertThat(averageCalories).isEqualTo(466.6666666666667);
     }
 
+    @Test
+    void step5_summarizingInt() {
+        IntSummaryStatistics summaryStatistics = menu.stream().collect(summarizingInt(Dish::getCalories));
 
+        assertThat(summaryStatistics.toString())
+                .isEqualTo("IntSummaryStatistics{count=9, sum=4200, min=120, average=466.666667, max=800}");
+    }
 }
