@@ -87,4 +87,15 @@ public class StreamCollectors {
     /**                                         (리듀싱 연산의 시작값, 변환함수, BinaryOperator )*/
         assertThat(sum).isEqualTo(4200);
     }
+
+    @Test
+    void step8_reducing_with_하나의_인자의경우() {
+        Optional<Dish> collect
+                 = menu.stream().collect(reducing((d1, d2) -> d1.getCalories() > d2.getCalories() ? d1 : d2));
+/**                                     (리듀싱 연산의 시작값=스트림의 첫번째요소, 자신을 그대로 반환=함등함수 )
+ *      Optional 로 반환하는 이유 : 스트림의 요소가 없을 수도 있기 때문 */
+
+        System.out.println(collect);
+        assertThat(collect.get()).isEqualTo(4200);
+    }
 }
