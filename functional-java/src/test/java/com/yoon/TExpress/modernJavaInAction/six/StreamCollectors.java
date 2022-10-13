@@ -52,9 +52,11 @@ public class StreamCollectors {
     void step3_summingInt() {
         Integer totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
         Integer totalCalories2 = menu.stream().mapToInt(Dish::getCalories).sum();
+        Optional<Integer> totalCalories3 = menu.stream().map(Dish::getCalories).reduce(Integer::sum);
 
         assertThat(totalCalories).isEqualTo(4200);
         assertThat(totalCalories).isEqualTo(totalCalories2);
+        assertThat(totalCalories).isEqualTo(totalCalories3.get());
     }
 
     @Test
@@ -95,7 +97,6 @@ public class StreamCollectors {
 /**                                     (리듀싱 연산의 시작값=스트림의 첫번째요소, 자신을 그대로 반환=함등함수 )
  *      Optional 로 반환하는 이유 : 스트림의 요소가 없을 수도 있기 때문 */
 
-        System.out.println(collect);
-        assertThat(collect.get()).isEqualTo(4200);
+        assertThat(collect.get().getName()).isEqualTo("pork");
     }
 }
