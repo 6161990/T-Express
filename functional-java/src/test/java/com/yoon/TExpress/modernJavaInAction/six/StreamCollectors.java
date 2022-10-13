@@ -51,7 +51,7 @@ public class StreamCollectors {
     @Test
     void step3_summingInt() {
         Integer totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
-        Integer totalCalories2 = menu.stream().mapToInt(Dish::getCalories).sum();
+        int totalCalories2 = menu.stream().mapToInt(Dish::getCalories).sum();
         Optional<Integer> totalCalories3 = menu.stream().map(Dish::getCalories).reduce(Integer::sum);
 
         assertThat(totalCalories).isEqualTo(4200);
