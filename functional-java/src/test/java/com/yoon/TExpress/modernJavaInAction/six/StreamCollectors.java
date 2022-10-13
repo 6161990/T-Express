@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.OTHER;
-import static java.util.stream.Collectors.maxBy;
-import static java.util.stream.Collectors.summingInt;
+import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StreamCollectors {
@@ -60,4 +59,13 @@ public class StreamCollectors {
         assertThat(totalCalories).isEqualTo(4200);
         assertThat(totalCalories).isEqualTo(totalCalories2);
     }
+
+    @Test
+    void step4_averagingInt() {
+        Double averageCalories = menu.stream().collect(averagingInt(Dish::getCalories));
+
+        assertThat(averageCalories).isEqualTo(466.6666666666667);
+    }
+
+
 }
