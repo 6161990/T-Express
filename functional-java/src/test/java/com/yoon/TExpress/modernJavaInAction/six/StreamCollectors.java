@@ -4,11 +4,15 @@ import com.yoon.TExpress.modernJavaInAction.four.Dish;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.OTHER;
+import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.summingInt;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StreamCollectors {
@@ -35,5 +39,25 @@ public class StreamCollectors {
 
         assertThat(howManyDishes).isEqualTo(9);
         assertThat(howManyDishes).isEqualTo(howManyDishes2);
+    }
+
+    @Test
+    void step2_maxBy_minBy() {
+        Comparator<Dish> dishComparator = Comparator.comparingInt(Dish::getCalories);
+
+        Optional<Dish> mostCalorieDish = menu.stream().collect(maxBy(dishComparator));
+        Optional<Dish> mostCalorieDish2 = menu.stream().max(dishComparator);
+
+        assertThat(mostCalorieDish.get().getName()).isEqualTo("pork");
+        assertThat(mostCalorieDish2.get().getName()).isEqualTo("pork");
+    }
+
+    @Test
+    void step3_summingInt() {
+        Integer totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
+        Integer totalCalories2 = menu.stream().mapToInt(Dish::getCalories).sum();
+
+        assertThat(totalCalories).isEqualTo(4200);
+        assertThat(totalCalories).isEqualTo(totalCalories2);
     }
 }
