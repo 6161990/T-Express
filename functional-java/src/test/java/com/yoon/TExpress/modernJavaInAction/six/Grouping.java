@@ -4,12 +4,11 @@ import com.yoon.TExpress.modernJavaInAction.four.Dish;
 import com.yoon.TExpress.modernJavaInAction.four.FoodType;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.FISH;
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.*;
 
 public class Grouping {
@@ -27,6 +26,21 @@ public class Grouping {
         menu.add(new Dish("prawns", false, 300, FISH));
         menu.add(new Dish("salmon", false, 450, FISH));
     }
+
+    private static Map<String, List<String>> dishTags = new HashMap<>();
+
+    static {
+        dishTags.put("pork", asList("greasy", "salty"));
+        dishTags.put("beef", asList("salty", "roasted"));
+        dishTags.put("chicken", asList("fried", "crisp"));
+        dishTags.put("french fries", asList("greasy", "fried"));
+        dishTags.put("rice", asList("light", "natural"));
+        dishTags.put("season fruit", asList("fresh", "natural"));
+        dishTags.put("pizza", asList("tasty", "salty"));
+        dishTags.put("prawns", asList("tasty", "roasted"));
+        dishTags.put("salmon", asList("delicious", "fresh"));
+    }
+
 
     @Test
     void step1_grouping() {
@@ -57,5 +71,22 @@ public class Grouping {
                 filtering(dish -> dish.getCalories() > 500, toList())));
 
         System.out.println(map2); // FISH 요소 값이 없으면 FISH=[] 로 출력됨
+        // {MEAT=[Dish(name=pork, vegetarian=false, calories=800, type=MEAT), Dish(name=beef, vegetarian=false, calories=700, type=MEAT)], OTHER=[Dish(name=french fries, vegetarian=true, calories=530, type=OTHER), Dish(name=pizza, vegetarian=true, calories=550, type=OTHER)], FISH=[]}
+    }
+
+    @Test
+    void step4_grouping_with_mapping() {
+        Map<FoodType, List<String>> map
+                = menu.stream().collect(groupingBy(Dish::getType, mapping(Dish::getName, toList())));
+
+        System.out.println(map);
+        // {MEAT=[pork, beef, chicken], OTHER=[french fries, rice, season fruit, pizza], FISH=[prawns, salmon]}
+    }
+    @Test
+    void step5_grouping_with_mapping2() {
+        Map<FoodType, Set<String>> mapSet = menu.stream()
+                .collect(groupingBy(Dish::getType, flatMapping(dish -> dishTags.get(dish.getName()).stream(), toSet())));
+
+        System.out.println(mapSet);
     }
 }
