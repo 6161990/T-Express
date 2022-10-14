@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.FISH;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 public class Grouping {
 
@@ -33,5 +33,29 @@ public class Grouping {
         Map<FoodType, List<Dish>> map = menu.stream().collect(groupingBy(Dish::getType));
 
         System.out.println(map);
+    }
+
+    @Test
+    void step2_grouping() {
+        Map<CaloricLevel, List<Dish>> map = menu.stream().collect(groupingBy(dish -> {
+            if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+            else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+            else return CaloricLevel.FAT;
+        }));
+
+        System.out.println(map);
+    }
+
+    @Test
+    void step3_grouping_with_filter() {
+        Map<FoodType, List<Dish>> map = menu.stream().filter(dish -> dish.getCalories() > 500)
+                .collect(groupingBy(Dish::getType));
+
+        System.out.println(map); // FISH 요소 값이 없으면 FISH 출력되지 않음
+
+        Map<FoodType, List<Dish>> map2 = menu.stream().collect(groupingBy(Dish::getType,
+                filtering(dish -> dish.getCalories() > 500, toList())));
+
+        System.out.println(map2); // FISH 요소 값이 없으면 FISH=[] 로 출력됨
     }
 }
