@@ -62,7 +62,8 @@ public class Grouping {
 
     @Test
     void step3_grouping_with_filter() {
-        Map<FoodType, List<Dish>> map = menu.stream().filter(dish -> dish.getCalories() > 500)
+        Map<FoodType, List<Dish>> map = menu.stream()
+                .filter(dish -> dish.getCalories() > 500)
                 .collect(groupingBy(Dish::getType));
 
         System.out.println(map); // FISH 요소 값이 없으면 FISH 출력되지 않음
@@ -82,6 +83,7 @@ public class Grouping {
         System.out.println(map);
         // {MEAT=[pork, beef, chicken], OTHER=[french fries, rice, season fruit, pizza], FISH=[prawns, salmon]}
     }
+
     @Test
     void step5_grouping_with_mapping2() {
         Map<FoodType, Set<String>> mapSet = menu.stream()
