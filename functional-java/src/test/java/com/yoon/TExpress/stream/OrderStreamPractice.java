@@ -24,13 +24,13 @@ public class OrderStreamPractice {
         List<ProductOptionDetail> details = new ArrayList<>();
         List<Props> prop = new ArrayList<>();
         prop.add(new Props("COMMUNITY", "COMMUNITY-M1"));
-//        prop.add(new Props("MEETING", "MEETING1"));
+        prop.add(new Props("MEETING", "MEETING1"));
         List<Props> prop2 = new ArrayList<>();
         prop2.add(new Props("COMMUNITY", "COMMUNITY-M2"));
-//        prop2.add(new Props("MEETING", "MEETING2"));
+        prop2.add(new Props("MEETING", "MEETING2"));
         ProductOptionDetail productOption = new ProductOptionDetail("COMMUNITY_SERVICE", 2000, TaxType.VAT, prop);
         ProductOptionDetail productOption2 = new ProductOptionDetail("MEETING_SERVICE", 200, TaxType.VAT, prop2);
-//        details.add(productOption);
+        details.add(productOption);
         details.add(productOption2);
         OrderedItem item1 = new OrderedItem(ProductOptionId.of("productOptionId"), 2200, 1, details);
         orderedItems.add(item1);
@@ -83,7 +83,29 @@ public class OrderStreamPractice {
         System.out.println(propsList);
         List<List<Props>> propsListList = flatDetail.stream().map(e -> e.getProps()).collect(Collectors.toList());
         System.out.println(propsListList);
+    }
+
+    @Test
+    void after5_forEach_or_flatMap() {
+        ordered.getOrderedItems().stream()
+                .flatMap(i1 -> i1.getProductOptionDetails().stream())
+                .collect(Collectors.toList())
+                .forEach(i-> i.getProps().forEach(
+                props -> {
+                    items.add(of(of(valueOf(props.getName()), props.getValue()),
+                            i.getPrice() / i.getProps().size()));
+                }));
+
+        System.out.println(items);
+
+        System.out.println("------------------------------------");
+
+        List<AllocatableItem> items2 = new ArrayList<>();
+        ordered.getOrderedItems().forEach(p-> p.getProductOptionDetails().forEach(l -> {
+            for (Props props : l.getProps())
+                items2.add(of(of(valueOf(props.getName()), props.getValue()), l.getPrice() / l.getProps().size()));
+        }));
+        System.out.println(items2);
 
     }
-    
 }
