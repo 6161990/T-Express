@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +43,11 @@ public class OrderStreamPractice {
         ordered.getOrderedItems().stream().map(OrderedItem::getProductOptionDetails)
                 .forEach(detail ->
                         detail
-                                .forEach(l-> l.getProps()
+                                .forEach(l -> l.getProps()
                                         .forEach(props -> items.add(AllocatableItem.of(
-                        PurchaseConfirmationValue.of(PurchaseConfirmationType.valueOf(props.getName()), props.getValue()),
-                        l.getPrice() / detail.size())))
-                ));
+                                                PurchaseConfirmationValue.of(PurchaseConfirmationType.valueOf(props.getName()), props.getValue()),
+                                                l.getPrice() / detail.size())))
+                                ));
     }
 
     @Test
@@ -63,7 +64,7 @@ public class OrderStreamPractice {
 
     @Test
     void after2() {
-        ordered.getOrderedItems().forEach(p-> p.getProductOptionDetails().forEach(l -> {
+        ordered.getOrderedItems().forEach(p -> p.getProductOptionDetails().forEach(l -> {
             for (Props props : l.getProps())
                 items.add(of(of(valueOf(props.getName()), props.getValue()), l.getPrice() / l.getProps().size()));
         }));
@@ -90,22 +91,22 @@ public class OrderStreamPractice {
         ordered.getOrderedItems().stream()
                 .flatMap(i1 -> i1.getProductOptionDetails().stream())
                 .collect(Collectors.toList())
-                .forEach(i-> i.getProps().forEach(
-                props -> {
-                    items.add(of(of(valueOf(props.getName()), props.getValue()),
-                            i.getPrice() / i.getProps().size()));
-                }));
+                .forEach(i -> i.getProps().forEach(
+                        props -> {
+                            items.add(of(of(valueOf(props.getName()), props.getValue()),
+                                    i.getPrice() / i.getProps().size()));
+                        }));
 
         System.out.println(items);
 
         System.out.println("------------------------------------");
 
         List<AllocatableItem> items2 = new ArrayList<>();
-        ordered.getOrderedItems().forEach(p-> p.getProductOptionDetails().forEach(l -> {
+        ordered.getOrderedItems().forEach(p -> p.getProductOptionDetails().forEach(l -> {
             for (Props props : l.getProps())
                 items2.add(of(of(valueOf(props.getName()), props.getValue()), l.getPrice() / l.getProps().size()));
         }));
         System.out.println(items2);
-
     }
+
 }
