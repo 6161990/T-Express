@@ -91,4 +91,22 @@ public class Grouping {
 
         System.out.println(mapSet);
     }
+
+    @Test
+    void step6_multi_grouping() {
+        Map<FoodType, Map<CaloricLevel, List<Dish>>> dishedByTypeCaloricLevel = menu.stream().collect(
+                groupingBy(Dish::getType,
+                        groupingBy(dish -> {
+                            if (dish.getCalories() <= 400) {
+                                return CaloricLevel.DIET;
+                            } else if (dish.getCalories() <= 700) {
+                                return CaloricLevel.NORMAL;
+                            } else {
+                                return CaloricLevel.FAT;
+                            }
+                        }))
+        );
+
+        System.out.println(dishedByTypeCaloricLevel);
+    }
 }
