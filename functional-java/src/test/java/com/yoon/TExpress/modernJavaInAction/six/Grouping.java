@@ -190,4 +190,10 @@ public class Grouping {
         //{false={FISH=[prawns, salmon], MEAT=[pork, beef, chicken]}, true={OTHER=[french fries, rice, season fruit, pizza]}}
     }
 
+    @Test
+    void step14_partitioningBy_collectingAndThen_maxBy() {
+        Map<Boolean, Dish> mostCaloricPartitionedByVegetarian = menu.stream().collect(partitioningBy(Dish::isVegetarian, collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+
+        System.out.println(mostCaloricPartitionedByVegetarian); // {false=pork, true=pizza}
+    }
 }
