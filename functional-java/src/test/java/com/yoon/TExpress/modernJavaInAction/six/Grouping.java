@@ -115,6 +115,14 @@ public class Grouping {
         Map<FoodType, Long> collect = menu.stream().collect(groupingBy(Dish::getType, counting()));
 
         System.out.println(collect); // {OTHER=4, MEAT=3, FISH=2}
+    }
 
+    @Test
+    void step8_grouping() {
+        Map<FoodType, Optional<Dish>> collect
+                = menu.stream()
+                .collect(groupingBy(Dish::getType, maxBy(Comparator.comparing(Dish::getCalories))));
+
+        System.out.println(collect); // {MEAT=3, FISH=2, OTHER=4}
     }
 }
