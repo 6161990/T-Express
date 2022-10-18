@@ -171,4 +171,16 @@ public class Grouping {
         System.out.println(collect2);
         // {MEAT=[FAT, DIET, NORMAL], FISH=[DIET, NORMAL], OTHER=[DIET, NORMAL]}
     }
+
+    @Test
+    void step12_partitioningBy() {
+        Map<Boolean, List<Dish>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        System.out.println(partitionedMenu); // {false=[pork, beef, chicken, prawns, salmon], true=[french fries, rice, season fruit, pizza]}
+
+        List<Dish> vegetarianDishes = partitionedMenu.get(true);
+
+        System.out.println(vegetarianDishes); // [french fries, rice, season fruit, pizza]
+    }
+
+
 }
