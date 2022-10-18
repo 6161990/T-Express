@@ -150,11 +150,12 @@ public class Grouping {
 
     @Test
     void step11_groupingBy_other_collector_mapping() {
-        Map<FoodType, Set<CaloricLevel>> collect = menu.stream().collect(groupingBy(Dish::getType, mapping(dish -> {
+        Map<FoodType, Set<CaloricLevel>> collect = menu.stream().collect(groupingBy(Dish::getType,
+                mapping(dish -> {
             if (dish.getCalories() <= 400) return CaloricLevel.DIET;
             else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
-            else return CaloricLevel.FAT;
-        }, toSet())));
+            else return CaloricLevel.FAT; // 인자1. 스트림 인수 변환하는 함수
+        }, toSet()))); // 인자2. 변환 함수의 결과 객체 누적 컬렉터 
 
         System.out.println(collect);
         // {MEAT=[DIET, NORMAL, FAT], FISH=[DIET, NORMAL], OTHER=[DIET, NORMAL]}
