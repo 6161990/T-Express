@@ -147,4 +147,16 @@ public class Grouping {
         System.out.println(collect); // {OTHER=1550, MEAT=1900, FISH=750}
 
     }
+
+    @Test
+    void step11_groupingBy_other_collector_mapping() {
+        Map<FoodType, Set<CaloricLevel>> collect = menu.stream().collect(groupingBy(Dish::getType, mapping(dish -> {
+            if (dish.getCalories() <= 400) return CaloricLevel.DIET;
+            else if (dish.getCalories() <= 700) return CaloricLevel.NORMAL;
+            else return CaloricLevel.FAT;
+        }, toSet())));
+
+        System.out.println(collect);
+        // {MEAT=[DIET, NORMAL, FAT], FISH=[DIET, NORMAL], OTHER=[DIET, NORMAL]}
+    }
 }
