@@ -128,5 +128,14 @@ public class Grouping {
         System.out.println(collect); // {MEAT=Optional[Dish(name=pork, vegetarian=false, calories=800, type=MEAT)], FISH=Optional[Dish(name=salmon, vegetarian=false, calories=450, type=FISH)], OTHER=Optional[Dish(name=pizza, vegetarian=true, calories=550, type=OTHER)]}
     }
 
-    
+    @Test
+    void step9_collectingAndThen() {
+        Map<FoodType, Dish> collect
+                = menu.stream()
+                .collect(groupingBy(Dish::getType,
+                        collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+        // 컬렉터 결과를 다른 형식에 적용하기
+
+        System.out.println(collect);
+    }
 }
