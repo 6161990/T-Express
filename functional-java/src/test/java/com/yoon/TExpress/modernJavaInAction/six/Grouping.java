@@ -182,5 +182,12 @@ public class Grouping {
         System.out.println(vegetarianDishes); // [french fries, rice, season fruit, pizza]
     }
 
+    @Test
+    void step13_partitioningBy_with_grouping() {
+        Map<Boolean, Map<FoodType, List<Dish>>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
+
+        System.out.println(partitionedMenu);
+        //{false={FISH=[prawns, salmon], MEAT=[pork, beef, chicken]}, true={OTHER=[french fries, rice, season fruit, pizza]}}
+    }
 
 }
