@@ -9,6 +9,8 @@ import java.util.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.FISH;
 import static java.util.Arrays.asList;
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 
 public class Grouping {
@@ -118,16 +120,13 @@ public class Grouping {
     }
 
     @Test
-    void step8_grouping() {
+    void step8_grouping_optional() {
         Map<FoodType, Optional<Dish>> collect
                 = menu.stream()
-                .collect(groupingBy(Dish::getType, maxBy(Comparator.comparing(Dish::getCalories))));
+                .collect(groupingBy(Dish::getType, maxBy(comparing(Dish::getCalories))));
 
         System.out.println(collect); // {MEAT=Optional[Dish(name=pork, vegetarian=false, calories=800, type=MEAT)], FISH=Optional[Dish(name=salmon, vegetarian=false, calories=450, type=FISH)], OTHER=Optional[Dish(name=pizza, vegetarian=true, calories=550, type=OTHER)]}
     }
 
-    @Test
-    void step9_() {
-
-    }
+    
 }
