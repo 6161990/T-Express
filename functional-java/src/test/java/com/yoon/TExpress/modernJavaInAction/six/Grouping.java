@@ -138,4 +138,13 @@ public class Grouping {
 
         System.out.println(collect);
     }
+
+    @Test
+    void step10_groupingBy_other_collector() {
+        Map<FoodType, Integer> collect
+                = menu.stream().collect(groupingBy(Dish::getType, summingInt(Dish::getCalories)));
+
+        System.out.println(collect); // {OTHER=1550, MEAT=1900, FISH=750}
+
+    }
 }
