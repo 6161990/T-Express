@@ -114,6 +114,7 @@ public class Grouping {
     void step7_grouping_counting() {
         Map<FoodType, Long> collect = menu.stream().collect(groupingBy(Dish::getType, counting()));
 
-        System.out.println(collect);
+        System.out.println(collect); // {OTHER=4, MEAT=3, FISH=2}
+
     }
 }
