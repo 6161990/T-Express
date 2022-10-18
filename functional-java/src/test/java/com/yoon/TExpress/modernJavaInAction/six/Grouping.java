@@ -109,4 +109,11 @@ public class Grouping {
 
         System.out.println(dishedByTypeCaloricLevel);
     }
+
+    @Test
+    void step7_grouping_counting() {
+        Map<FoodType, Long> collect = menu.stream().collect(groupingBy(Dish::getType, counting()));
+
+        System.out.println(collect);
+    }
 }
