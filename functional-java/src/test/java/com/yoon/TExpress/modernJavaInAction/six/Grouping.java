@@ -178,13 +178,15 @@ public class Grouping {
         System.out.println(partitionedMenu); // {false=[pork, beef, chicken, prawns, salmon], true=[french fries, rice, season fruit, pizza]}
 
         List<Dish> vegetarianDishes = partitionedMenu.get(true);
+        List<Dish> Dishes = partitionedMenu.get(false);
 
         System.out.println(vegetarianDishes); // [french fries, rice, season fruit, pizza]
     }
 
     @Test
     void step13_partitioningBy_with_grouping() {
-        Map<Boolean, Map<FoodType, List<Dish>>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
+        Map<Boolean, Map<FoodType, List<Dish>>> partitionedMenu = menu.stream().collect(partitioningBy(Dish::isVegetarian,
+                                                                                        groupingBy(Dish::getType)));
 
         System.out.println(partitionedMenu);
         //{false={FISH=[prawns, salmon], MEAT=[pork, beef, chicken]}, true={OTHER=[french fries, rice, season fruit, pizza]}}
@@ -192,14 +194,17 @@ public class Grouping {
 
     @Test
     void step14_partitioningBy_collectingAndThen_maxBy() {
-        Map<Boolean, Dish> mostCaloricPartitionedByVegetarian = menu.stream().collect(partitioningBy(Dish::isVegetarian, collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
+        Map<Boolean, Dish> mostCaloricPartitionedByVegetarian = menu.stream()
+                .collect(partitioningBy(Dish::isVegetarian, collectingAndThen(maxBy(comparingInt(Dish::getCalories)), Optional::get)));
 
         System.out.println(mostCaloricPartitionedByVegetarian); // {false=pork, true=pizza}
     }
 
     @Test
     void step15_partitioningBy_twice() {
-        Map<Boolean, Map<Boolean, List<Dish>>> collect = menu.stream().collect(partitioningBy(Dish::isVegetarian, partitioningBy(dish -> dish.getCalories() > 500)));
+        Map<Boolean, Map<Boolean, List<Dish>>> collect = menu.stream().collect(
+                partitioningBy(Dish::isVegetarian,
+                partitioningBy(dish -> dish.getCalories() > 500)));
 
         System.out.println(collect);
         // {false={false=[chicken, prawns, salmon], true=[pork, beef]}, true={false=[rice, season fruit], true=[french fries, pizza]}}
