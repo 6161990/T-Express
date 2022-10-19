@@ -204,4 +204,12 @@ public class Grouping {
         System.out.println(collect);
         // {false={false=[chicken, prawns, salmon], true=[pork, beef]}, true={false=[rice, season fruit], true=[french fries, pizza]}}
     }
+
+    @Test
+    void step16_partitioningBy_with_counting() {
+        Map<Boolean, Long> collect = menu.stream().collect(partitioningBy(Dish::isVegetarian, counting()));
+
+        System.out.println(collect); // {false=5, true=4}
+    }
+
 }
