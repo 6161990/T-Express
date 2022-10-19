@@ -196,4 +196,12 @@ public class Grouping {
 
         System.out.println(mostCaloricPartitionedByVegetarian); // {false=pork, true=pizza}
     }
+
+    @Test
+    void step15_partitioningBy_twice() {
+        Map<Boolean, Map<Boolean, List<Dish>>> collect = menu.stream().collect(partitioningBy(Dish::isVegetarian, partitioningBy(dish -> dish.getCalories() > 500)));
+
+        System.out.println(collect);
+        // {false={false=[chicken, prawns, salmon], true=[pork, beef]}, true={false=[rice, season fruit], true=[french fries, pizza]}}
+    }
 }
