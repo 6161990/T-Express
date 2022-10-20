@@ -24,7 +24,7 @@ public class CustomCollector {
         menu.add(new Dish("prawns", false, 300, FISH));
         menu.add(new Dish("salmon", false, 450, FISH));
     }
-    
+
     @Test
     void step1_custom_collector() {
         List<Dish> collect = menu.stream().collect(new ToListCollector<>());
