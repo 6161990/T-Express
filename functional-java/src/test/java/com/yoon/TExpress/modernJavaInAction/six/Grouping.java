@@ -189,7 +189,7 @@ public class Grouping {
                                                                                         groupingBy(Dish::getType)));
 
         System.out.println(partitionedMenu);
-        //{false={FISH=[prawns, salmon], MEAT=[pork, beef, chicken]}, true={OTHER=[french fries, rice, season fruit, pizza]}}
+        // {false = {FISH=[prawns, salmon], MEAT=[pork, beef, chicken]}, true={OTHER=[french fries, rice, season fruit, pizza]}}
     }
 
     @Test
