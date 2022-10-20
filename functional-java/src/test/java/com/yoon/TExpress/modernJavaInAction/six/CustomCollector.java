@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.FISH;
@@ -31,5 +32,16 @@ public class CustomCollector {
 
         System.out.println(collect);
         // [pork, beef, chicken, french fries, rice, season fruit, pizza, prawns, salmon]
+    }
+
+    public static <A> List<A> customTakeWhile(List<A> list, Predicate<A> p){
+        int i = 0;
+        for (A item : list){
+            if(!p.test(item)){
+                return list.subList(0, i);
+            }
+            i++;
+        }
+        return list;
     }
 }
