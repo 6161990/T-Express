@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class StreamCollectors {
 
-    private static List<Dish> menu = new ArrayList<>();
+    public static List<Dish> menu = new ArrayList<>();
 
     static {
         menu.add(new Dish("pork", false, 800, MEAT));
