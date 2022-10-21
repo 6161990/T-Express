@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.*;
 import static com.yoon.TExpress.modernJavaInAction.four.FoodType.FISH;
@@ -34,14 +36,19 @@ public class CustomCollector {
         // [pork, beef, chicken, french fries, rice, season fruit, pizza, prawns, salmon]
     }
 
-    public static <A> List<A> customTakeWhile(List<A> list, Predicate<A> p){
-        int i = 0;
-        for (A item : list){
-            if(!p.test(item)){
-                return list.subList(0, i);
-            }
-            i++;
-        }
-        return list;
+    @Test
+    void step2_custom_collector() {
+        Map<Boolean, List<Integer>> booleanListMap = partitionPrimesWithCustomCollector(40);
+
+        List<Integer> list = booleanListMap.get(true);
+        List<Integer> list2 = booleanListMap.get(false);
+
+        System.out.println(list);
+        System.out.println(list2);
+    }
+
+    public Map<Boolean, List<Integer>> partitionPrimesWithCustomCollector(int n){
+        return IntStream.rangeClosed(2, n).boxed()
+                .collect(new PrimeNumbersCollector());
     }
 }
