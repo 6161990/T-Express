@@ -2,7 +2,7 @@ package pattern.refactor.factoryMethod.after;
 
 public class BronzeCustomer extends Customer {
 
-    public BronzeCustomer(String customerName) {
+    private BronzeCustomer(String customerName) {
         super(customerName);
     }
 
