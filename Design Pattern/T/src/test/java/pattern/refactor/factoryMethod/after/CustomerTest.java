@@ -3,15 +3,14 @@ package pattern.refactor.factoryMethod.after;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pattern.refactor.factoryMethod.after.Customer.*;
 
 class CustomerTest {
 
     @Test
     void after() {
-        Customer silverCustomer = Customer.create(BRONZE_CUSTOMER, "Soo");
-        Customer bronzeCustomer = Customer.create(SILVER_CUSTOMER, "James");
-        Customer goldCustomer = Customer.create(GOLD_CUSTOMER, "Amil");
+        Customer silverCustomer = SilverCustomer.create("Soo");
+        Customer bronzeCustomer = BronzeCustomer.create( "James");
+        Customer goldCustomer = GoldCustomer.create("Amil");
 
         int price = 10000;
 
