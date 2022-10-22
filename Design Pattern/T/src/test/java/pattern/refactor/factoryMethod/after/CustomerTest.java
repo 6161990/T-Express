@@ -3,6 +3,7 @@ package pattern.refactor.factoryMethod.after;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pattern.refactor.typeCodeWithSub.CustomerType.*;
 
 class CustomerTest {
 
@@ -14,9 +15,9 @@ class CustomerTest {
 
         int price = 10000;
 
-        assertThat(bronzeCustomer.getCustomerGrade()).isEqualTo("BRONZE");
-        assertThat(silverCustomer.getCustomerGrade()).isEqualTo("SILVER");
-        assertThat(goldCustomer.getCustomerGrade()).isEqualTo("GOLD");
+        assertThat(bronzeCustomer.getCustomerGrade()).isEqualTo(BRONZE);
+        assertThat(silverCustomer.getCustomerGrade()).isEqualTo(SILVER);
+        assertThat(goldCustomer.getCustomerGrade()).isEqualTo(GOLD);
 
         assertThat(bronzeCustomer.calcPrice(price)).isEqualTo(10000);
         assertThat(bronzeCustomer.calcBonusPoint(price)).isEqualTo(100);

@@ -1,5 +1,9 @@
 package pattern.refactor.typeCodeWithSub.after;
 
+import pattern.refactor.typeCodeWithSub.CustomerType;
+
+import static pattern.refactor.typeCodeWithSub.CustomerType.GOLD;
+
 public class GoldCustomer extends Customer {
 
     public GoldCustomer(String customerName) {
@@ -7,8 +11,8 @@ public class GoldCustomer extends Customer {
     }
 
     @Override
-    public String getCustomerGrade() {
-        return "GOLD";
+    public CustomerType getCustomerGrade() {
+        return GOLD;
     }
 
     @Override
