@@ -1,5 +1,7 @@
 package pattern.refactor.factoryMethod.after;
 
+import pattern.refactor.typeCodeWithSub.CustomerType;
+
 public abstract class Customer {
     private String customerName;
     protected int bonusPoint;
@@ -8,7 +10,7 @@ public abstract class Customer {
         this.customerName = customerName;
     }
 
-    public abstract String getCustomerGrade();
+    public abstract CustomerType getCustomerGrade();
     public abstract int calcPrice(int price);
     public abstract int calcBonusPoint(int price);
 

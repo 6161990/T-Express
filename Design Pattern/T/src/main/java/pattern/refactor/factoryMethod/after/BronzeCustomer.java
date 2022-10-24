@@ -1,5 +1,7 @@
 package pattern.refactor.factoryMethod.after;
 
+import pattern.refactor.typeCodeWithSub.CustomerType;
+
 public class BronzeCustomer extends Customer {
 
     private BronzeCustomer(String customerName) {
@@ -11,8 +13,8 @@ public class BronzeCustomer extends Customer {
     }
 
     @Override
-    public String getCustomerGrade() {
-        return "BRONZE";
+    public CustomerType getCustomerGrade() {
+        return CustomerType.BRONZE;
     }
 
     @Override
