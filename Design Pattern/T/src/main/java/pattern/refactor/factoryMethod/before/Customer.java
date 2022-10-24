@@ -1,5 +1,9 @@
 package pattern.refactor.factoryMethod.before;
 
+import pattern.refactor.typeCodeWithSub.CustomerType;
+
+import static pattern.refactor.typeCodeWithSub.CustomerType.*;
+
 public class Customer {
     private int customerType;
     private String customerName;
@@ -15,11 +19,11 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getCustomerGrade(){
+    public CustomerType getCustomerGrade(){
         switch (customerType){
-            case BRONZE_CUSTOMER: return "BRONZE";
-            case SILVER_CUSTOMER: return "SILVER";
-            case GOLD_CUSTOMER: return "GOLD";
+            case BRONZE_CUSTOMER: return BRONZE;
+            case SILVER_CUSTOMER: return SILVER;
+            case GOLD_CUSTOMER: return GOLD;
             default: return null;
         }
     }
