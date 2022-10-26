@@ -1,6 +1,21 @@
 package pattern.state.after;
 
+import java.util.Objects;
+
 public class AdvancedLevel extends PlayerLevel2 {
+
+    public static AdvancedLevel advancedLevel = new AdvancedLevel();
+
+    private AdvancedLevel() {
+    }
+
+    public static AdvancedLevel getAdvancedLevelInstance() {
+        if(Objects.isNull(advancedLevel)){
+            advancedLevel = new AdvancedLevel();
+        }
+        return advancedLevel;
+    }
+
     @Override
     public void run() {
         System.out.println("빨리 달립니다");

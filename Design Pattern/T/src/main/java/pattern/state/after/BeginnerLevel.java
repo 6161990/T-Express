@@ -1,6 +1,21 @@
 package pattern.state.after;
 
-public class BeginnerLevel extends PlayerLevel2{
+import java.util.Objects;
+
+public class BeginnerLevel extends PlayerLevel2 {
+
+    private static BeginnerLevel beginnerLevel = new BeginnerLevel();
+
+    private BeginnerLevel() {
+    }
+
+    public static BeginnerLevel getBeginnerLevelInstance() {
+        if(Objects.isNull(beginnerLevel)){
+            beginnerLevel = new BeginnerLevel();
+        }
+        return beginnerLevel;
+    }
+
     @Override
     public void run() {
         System.out.println("천천히 달립니다..");

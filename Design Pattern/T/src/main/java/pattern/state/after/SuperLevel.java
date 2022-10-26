@@ -1,6 +1,21 @@
 package pattern.state.after;
 
+import java.util.Objects;
+
 public class SuperLevel extends PlayerLevel2{
+
+    public static SuperLevel superLevel = new SuperLevel();
+
+    private SuperLevel() {
+    }
+
+    public static SuperLevel getSuperLevelInstance() {
+        if(Objects.isNull(superLevel)){
+            superLevel = new SuperLevel();
+        }
+        return superLevel;
+    }
+
     @Override
     public void run() {
         System.out.println("엄청 빨리 달립니다.");
