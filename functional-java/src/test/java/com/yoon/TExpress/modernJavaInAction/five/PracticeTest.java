@@ -17,23 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PracticeTest {
 
-    List<Transaction> transactions;
-    Trader raoul = new Trader("Raoul", "Cambridge");
-    Trader mario = new Trader("Mario", "Milan");
-    Trader alan = new Trader("Alan", "Cambridge");
-    Trader brian = new Trader("Brian", "Cambridge");
-
-    @BeforeEach
-    void setUp() {
-         transactions = Arrays.asList(
-                new Transaction(brian, 2011, 300),
-                new Transaction(raoul, 2012, 1000),
-                new Transaction(raoul, 2011, 400),
-                new Transaction(mario, 2012, 710),
-                new Transaction(mario, 2012, 700),
-                new Transaction(alan, 2012, 950)
-        );
-    }
+    public static Trader raoul = new Trader("Raoul", "Cambridge");
+    public static Trader mario = new Trader("Mario", "Milan");
+    public static Trader alan = new Trader("Alan", "Cambridge");
+    public static Trader brian = new Trader("Brian", "Cambridge");
+    public static List<Transaction> transactions = Arrays.asList(
+            new Transaction(brian, 2011, 300, "30"),
+            new Transaction(raoul, 2012, 1000, "E30"),
+            new Transaction(raoul, 2011, 400, "H10"),
+            new Transaction(mario, 2012, 710, "U90"),
+            new Transaction(mario, 2012, 700, "T20"),
+            new Transaction(alan, 2012, 950, "W40")
+    );
 
     @Test
     void practice1() {
@@ -43,8 +38,8 @@ public class PracticeTest {
                 .collect(toList());
 
         assertThat(actual).containsExactly(
-                new Transaction(brian, 2011, 300),
-                new Transaction(raoul, 2011, 400));
+                new Transaction(brian, 2011, 300, "30"),
+                new Transaction(raoul, 2011, 400, "H10"));
     }
 
     @Test
