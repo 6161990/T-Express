@@ -41,13 +41,12 @@ public class OrderStreamPractice {
     @Test
     void before() {
         ordered.getOrderedItems().stream().map(OrderedItem::getProductOptionDetails)
-                .forEach(detail ->
-                        detail
-                                .forEach(l -> l.getProps()
-                                        .forEach(props -> items.add(AllocatableItem.of(
-                                                PurchaseConfirmationValue.of(PurchaseConfirmationType.valueOf(props.getName()), props.getValue()),
-                                                l.getPrice() / detail.size())))
-                                ));
+                .forEach(detail -> detail
+                    .forEach(l -> l.getProps()
+                        .forEach(props -> items.add(AllocatableItem.of(
+                                PurchaseConfirmationValue.of(PurchaseConfirmationType.valueOf(props.getName()), props.getValue()),
+                                l.getPrice() / detail.size())))
+                    ));
     }
 
     @Test
