@@ -1,12 +1,17 @@
 package com.yoon.TExpress.modernJavaInAction.eight;
 
+import com.yoon.TExpress.modernJavaInAction.four.Transaction;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.yoon.TExpress.modernJavaInAction.five.PracticeTest.transactions;
+
 public class CollectionFactory {
+
 
     @Test
     void step1_list_factory_로_생성하면_변경_불가능하다() {
@@ -41,5 +46,47 @@ public class CollectionFactory {
         // friends.put("꿀꿀", 8); java.lang.UnsupportedOperationException
     }
 
+    @Test
+    void step5_removeIf_with_UnsupportedOperationException() {
+        for (Transaction transaction : transactions){
+            if(Character.isDigit(transaction.getReferenceCode().charAt(0))){
+                transactions.remove(transaction);
+            }
+        }
+
+        // 왜 에러가 나냐. 위 코드는 아래와 같이 해석된다
+        // 반복하면서 별도의 두 객체를 통해 컬렉션을 바꾸고 있음.
+        for(Iterator<Transaction> iterator = transactions.iterator(); // Iterator : 소스 질의
+                                    iterator.hasNext(); ){
+            Transaction transaction = iterator.next();
+            if(Character.isDigit(transaction.getReferenceCode().charAt(0))){
+                transactions.remove(transaction); // Collection : 요소 삭제
+            }
+        }
+
+        // 문제는 반복자의 상태는 컬렉션의 상태와 서로 동기화되지 않는다는 것.
+
+        System.out.println(transactions);
+    }
+
+    @Test
+    void step6_removeIf_solve_step5() {
+        for(Iterator<Transaction> iterator = transactions.iterator(); // Iterator 객체를 명시적으로 사용 !
+            iterator.hasNext(); ){
+            Transaction transaction = iterator.next();
+            if(Character.isDigit(transaction.getReferenceCode().charAt(0))){
+                iterator.remove(); //
+            }
+        }
+
+        System.out.println(transactions);
+    }
+
+    @Test
+    void step7_removeIf_최종개선() {
+        transactions.removeIf(transaction -> Character.isDigit(transaction.getReferenceCode().charAt(0)));
+
+        System.out.println(transactions);
+    }
 
 }
