@@ -3,10 +3,8 @@ package com.yoon.TExpress.modernJavaInAction.eight;
 import com.yoon.TExpress.modernJavaInAction.four.Transaction;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.yoon.TExpress.modernJavaInAction.five.PracticeTest.transactions;
 
@@ -89,4 +87,25 @@ public class CollectionFactory {
         System.out.println(transactions);
     }
 
+    @Test
+    void step8_replaceAll() {
+        List<String> referenceCodes = List.of("a13", "E15", "b50");
+
+        referenceCodes.stream().map(code -> Character.toUpperCase(code.charAt(0)) +
+                code.substring(1))
+                .collect(Collectors.toList())
+                .forEach(System.out::println); // 해당 코드는 새 문자열을 만든다.
+    }
+
+    @Test
+    void step9_replaceAll() {
+        List<String> referenceCodes = List.of("a13", "E15", "b50");
+
+        for(ListIterator<String> referenceCodesIterator = referenceCodes.listIterator();
+            referenceCodesIterator.hasNext(); ) {
+            String code = referenceCodesIterator.next();
+            referenceCodesIterator.set(Character.toUpperCase(code.charAt(0)) + code.substring(1));
+        }
+
+    }
 }
