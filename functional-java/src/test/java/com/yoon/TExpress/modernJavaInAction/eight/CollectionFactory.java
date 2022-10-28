@@ -1,15 +1,20 @@
 package com.yoon.TExpress.modernJavaInAction.eight;
 
+import com.yoon.TExpress.modernJavaInAction.four.Trader;
 import com.yoon.TExpress.modernJavaInAction.four.Transaction;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.yoon.TExpress.modernJavaInAction.five.PracticeTest.*;
 
 public class CollectionFactory {
 
+    private static List<Transaction> transactions = new ArrayList<>();
+    static {
+        transactions.add(new Transaction(new Trader("brian", "seattle"), 2011, 300, "30"));
+        transactions.add(new Transaction(new Trader("alan", "newYork"), 2012, 950, "W40"));
+    }
 
     @Test
     void step1_list_factory_로_생성하면_변경_불가능하다() {
@@ -82,10 +87,6 @@ public class CollectionFactory {
 
     @Test
     void step7_removeIf_최종개선() {
-        List<Transaction> transactions = Arrays.asList(
-                new Transaction(brian, 2011, 300, "30"),
-                new Transaction(alan, 2012, 950, "W40")
-        );
         transactions.removeIf(transaction -> Character.isDigit(transaction.getReferenceCode().charAt(0)));
 
         System.out.println(transactions);
@@ -103,7 +104,8 @@ public class CollectionFactory {
 
     @Test
     void step9_replaceAll() {
-        List<String> referenceCodes = List.of("a13", "E15", "b50");
+        String[] str = {"a13", "w15", "b50"};
+        List<String> referenceCodes = Arrays.stream(str).collect(Collectors.toList());
 
         for(ListIterator<String> iterator = referenceCodes.listIterator();
             iterator.hasNext(); ) {

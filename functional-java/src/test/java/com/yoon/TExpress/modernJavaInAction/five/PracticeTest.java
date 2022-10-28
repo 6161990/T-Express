@@ -22,7 +22,7 @@ public class PracticeTest {
     public static Trader alan = new Trader("Alan", "Cambridge");
     public static Trader brian = new Trader("Brian", "Cambridge");
     public static List<Transaction> transactions = Arrays.asList(
-            new Transaction(brian, 2011, 300, "30"),
+            new Transaction(brian, 2011, 300, "Y30"),
             new Transaction(raoul, 2012, 1000, "E30"),
             new Transaction(raoul, 2011, 400, "H10"),
             new Transaction(mario, 2012, 710, "U90"),
@@ -38,7 +38,7 @@ public class PracticeTest {
                 .collect(toList());
 
         assertThat(actual).containsExactly(
-                new Transaction(brian, 2011, 300, "30"),
+                new Transaction(brian, 2011, 300, "Y30"),
                 new Transaction(raoul, 2011, 400, "H10"));
     }
 
