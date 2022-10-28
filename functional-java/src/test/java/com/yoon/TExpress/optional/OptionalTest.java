@@ -149,9 +149,6 @@ public class OptionalTest {
         return new OnlineClass(10, "New", false);
     }
 
-
-
-
     public List<OnlineClass> getSpringClasses(){
     List<OnlineClass> springClasses = new ArrayList<>();
         springClasses.add(new OnlineClass(1, "spring boot", true));
