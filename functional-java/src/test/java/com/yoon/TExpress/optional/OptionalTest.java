@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,6 +94,16 @@ public class OptionalTest {
 
         // OnlineClass onlineClass = dong.orElseThrow(IllegalArgumentException::new);
         assertThatThrownBy(dong::orElseThrow).isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
+    void when_notPresent_wrapper_stream() {
+        List<OnlineClass> springClasses = getSpringClasses();
+
+        Optional<OnlineClass> dong = springClasses.stream().filter(oc -> oc.getTitle().startsWith("dong")).findFirst();
+        long actual = dong.stream().mapToLong(OnlineClass::getId).sum();
+
+        assertThat(actual).isEqualTo(0);
     }
 
     @Test
