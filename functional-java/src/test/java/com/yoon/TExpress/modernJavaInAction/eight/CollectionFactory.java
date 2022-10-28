@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.yoon.TExpress.modernJavaInAction.five.PracticeTest.transactions;
+import static com.yoon.TExpress.modernJavaInAction.five.PracticeTest.*;
 
 public class CollectionFactory {
 
@@ -73,7 +73,7 @@ public class CollectionFactory {
             iterator.hasNext(); ){
             Transaction transaction = iterator.next();
             if(Character.isDigit(transaction.getReferenceCode().charAt(0))){
-                iterator.remove(); //
+                iterator.remove();
             }
         }
 
@@ -82,6 +82,10 @@ public class CollectionFactory {
 
     @Test
     void step7_removeIf_최종개선() {
+        List<Transaction> transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300, "30"),
+                new Transaction(alan, 2012, 950, "W40")
+        );
         transactions.removeIf(transaction -> Character.isDigit(transaction.getReferenceCode().charAt(0)));
 
         System.out.println(transactions);
@@ -101,16 +105,16 @@ public class CollectionFactory {
     void step9_replaceAll() {
         List<String> referenceCodes = List.of("a13", "E15", "b50");
 
-        for(ListIterator<String> referenceCodesIterator = referenceCodes.listIterator();
-            referenceCodesIterator.hasNext(); ) {
-            String code = referenceCodesIterator.next();
-            referenceCodesIterator.set(Character.toUpperCase(code.charAt(0)) + code.substring(1));
+        for(ListIterator<String> iterator = referenceCodes.listIterator();
+            iterator.hasNext(); ) {
+            String code = iterator.next();
+            iterator.set(Character.toUpperCase(code.charAt(0)) + code.substring(1));
         }
     }
 
     private static Map<String, Integer> ageOfFriends = new HashMap<>();
     static {
-        ageOfFriends.put("kevin", 20);
+        ageOfFriends.put("kevin", 29);
         ageOfFriends.put("oliver", 27);
     }
 
@@ -126,5 +130,11 @@ public class CollectionFactory {
     @Test
     void step11_map_forEach_with_BiConsumer() {
         ageOfFriends.forEach((friend, age) -> System.out.println(friend + " is " + age + " years old."));
+    }
+
+    @Test
+    void step12_map_sorting() {
+        ageOfFriends.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEachOrdered(System.out::println);
+        ageOfFriends.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEachOrdered(System.out::println);
     }
 }
