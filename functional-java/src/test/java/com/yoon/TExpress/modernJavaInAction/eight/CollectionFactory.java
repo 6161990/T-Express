@@ -106,6 +106,25 @@ public class CollectionFactory {
             String code = referenceCodesIterator.next();
             referenceCodesIterator.set(Character.toUpperCase(code.charAt(0)) + code.substring(1));
         }
+    }
 
+    private static Map<String, Integer> ageOfFriends = new HashMap<>();
+    static {
+        ageOfFriends.put("kevin", 20);
+        ageOfFriends.put("oliver", 27);
+    }
+
+    @Test
+    void step10_map_forEach() {
+        for (Map.Entry<String, Integer> entry : ageOfFriends.entrySet()) {
+            String friend = entry.getKey();
+            Integer age = entry.getValue();
+            System.out.println(friend + " is " + age + " years old.");
+        }
+    }
+
+    @Test
+    void step11_map_forEach_with_BiConsumer() {
+        ageOfFriends.forEach((friend, age) -> System.out.println(friend + " is " + age + " years old."));
     }
 }
