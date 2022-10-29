@@ -50,4 +50,3 @@ out/
 .vscode/
 *.json
 .DS_Store
-./idea
