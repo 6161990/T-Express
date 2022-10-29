@@ -2,7 +2,10 @@ package com.yoon.TExpress.modernJavaInAction.eight;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LambdaTest {
 
@@ -15,7 +18,19 @@ public class LambdaTest {
         assertThat(5).isEqualTo(p2.getY());
     }
 
+    @Test
+    void step2_comparingTwoPoints() {
+        Point p1 = new Point(10, 15);
+        Point p2 = new Point(10, 20);
+
+        int compare = Point.compareByXAndThenY.compare(p1, p2);
+
+        assertTrue(compare < 0);
+    }
+
     private static class Point {
+        public final static Comparator<Point> compareByXAndThenY =
+                Comparator.comparing(Point::getX).thenComparing(Point::getY);
         private final int x;
         private final int y;
 
