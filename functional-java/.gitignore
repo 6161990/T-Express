@@ -49,5 +49,3 @@ out/
 ### VS Code ###
 .vscode/
 *.json
-.DS_Store
-./gradle
