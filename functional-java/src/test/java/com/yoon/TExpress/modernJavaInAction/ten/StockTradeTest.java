@@ -22,7 +22,7 @@ class StockTradeTest {
         order.addTrader(trade1);
 
         Trade trade2 = new Trade();
-        trade2.setTradeType(TradeType.BUY);
+        trade2.setTradeType(TradeType.SELL);
 
         Stock stock2 = new Stock();
         stock2.setSymbol("GOOGLE");
@@ -32,5 +32,20 @@ class StockTradeTest {
         trade2.setPrice(375.00);
         trade2.setQuantity(50);
         order.addTrader(trade2);
+    }
+
+    @Test
+    void step2_메서드체인() {
+        Order order = forCustomer("BigBank")
+                .buy(80)
+                .stock("IBM")
+                .on("NYSE")
+                .at(125_00)
+
+                .sell(50)
+                .stock("GOOGLE")
+                .on("NASDAQ")
+                .at(375_00)
+                .end();
     }
 }
