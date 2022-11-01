@@ -21,7 +21,7 @@ public class MethodChainingOrderBuilder {
     }
 
     public MethodChainingOrderBuilder addTrade(Trade trade) {
-        order.addTrader(trade);
+        order.addTrade(trade);
         return this;
     }
 

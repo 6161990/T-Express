@@ -7,7 +7,7 @@ public class Order {
     private String customer;
     private List<Trade> trades = new ArrayList<>();
 
-    public void addTrader(Trade trade){
+    public void addTrade(Trade trade){
         trades.add(trade);
     }
 

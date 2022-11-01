@@ -3,6 +3,7 @@ package com.yoon.TExpress.modernJavaInAction.ten;
 import org.junit.jupiter.api.Test;
 
 import static com.yoon.TExpress.modernJavaInAction.ten.MethodChainingOrderBuilder.forCustomer;
+import static com.yoon.TExpress.modernJavaInAction.ten.NestFunctionOrderBuilder.*;
 
 class StockTradeTest {
 
@@ -21,7 +22,7 @@ class StockTradeTest {
         trade1.setStock(stock1);
         trade1.setPrice(125.00);
         trade1.setQuantity(80);
-        order.addTrader(trade1);
+        order.addTrade(trade1);
 
         Trade trade2 = new Trade();
         trade2.setTradeType(TradeType.SELL);
@@ -33,7 +34,7 @@ class StockTradeTest {
         trade2.setStock(stock2);
         trade2.setPrice(375.00);
         trade2.setQuantity(50);
-        order.addTrader(trade2);
+        order.addTrade(trade2);
     }
 
     @Test
@@ -53,7 +54,17 @@ class StockTradeTest {
                 .on("NASDAQ")
                 .at(375_00)
                 .end();
+    }
 
-
+    @Test
+    void step3_중첩된함수() {
+        // 도메인 계층 구조를 그대로 반영
+        // 정적 메서드에 인수목록을 넘겨야함
+        Order order = order("BigBank",
+                            buy(80,
+                                stock("IBM", on("NYSE")), at(125.00)),
+                            sell(50,
+                                stock("GOOGLE", on("NASDAQ")), at(375.00))
+                     );
     }
 }
