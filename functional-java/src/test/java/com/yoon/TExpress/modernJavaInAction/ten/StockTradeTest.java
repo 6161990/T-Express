@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.yoon.TExpress.modernJavaInAction.ten.MethodChainingOrderBuilder.forCustomer;
 import static com.yoon.TExpress.modernJavaInAction.ten.NestFunctionOrderBuilder.*;
+import static com.yoon.TExpress.modernJavaInAction.ten.forLambda.LambdaOrderBuilder.orderForLambda;
 
 class StockTradeTest {
 
@@ -54,6 +55,8 @@ class StockTradeTest {
                 .on("NASDAQ")
                 .at(375_00)
                 .end();
+
+        System.out.println(order);
     }
 
     @Test
@@ -66,5 +69,32 @@ class StockTradeTest {
                             sell(50,
                                 stock("GOOGLE", on("NASDAQ")), at(375.00))
                      );
+
+        System.out.println(order);
+    }
+
+    @Test
+    void step4_람다표현식을_이용한_함수_시퀀싱() {
+        Order order = orderForLambda(o -> {
+            o.forCustomer("BigBank");
+            o.buy( t -> {
+                t.quantity(80);
+                t.price(125.00);
+                t.stock(s -> {
+                    s.symbol("IBM");
+                    s.market("NYSE");
+                });
+            });
+            o.sell ( t -> {
+                t.quantity(80);
+                t.price(125.00);
+                t.stock(s -> {
+                    s.symbol("IBM");
+                    s.market("NYSE");
+                });
+            });
+        });
+
+        System.out.println(order);
     }
 }
