@@ -2,6 +2,8 @@ package com.yoon.TExpress.modernJavaInAction.ten;
 
 import org.junit.jupiter.api.Test;
 
+import static com.yoon.TExpress.modernJavaInAction.ten.MethodChainingOrderBuilder.forCustomer;
+
 class StockTradeTest {
 
     @Test
@@ -36,6 +38,10 @@ class StockTradeTest {
 
     @Test
     void step2_메서드체인() {
+        // 사용자가 미리 지정된 절차에 따라 플루언트 API 메서드를 호출하도록 강제
+        // 다음 거래를 설정하기 전에 기존 거래를 올바로 설정하게 된다.
+        // 주문에 사용한 파라미터가 빌더 내부로 국한된다.
+        // -> 정적 메서드 사용을 최소화하고 메서드 이름이 인수의 이름을 대신하도록 만듦
         Order order = forCustomer("BigBank")
                 .buy(80)
                 .stock("IBM")
@@ -47,5 +53,7 @@ class StockTradeTest {
                 .on("NASDAQ")
                 .at(375_00)
                 .end();
+
+
     }
 }
