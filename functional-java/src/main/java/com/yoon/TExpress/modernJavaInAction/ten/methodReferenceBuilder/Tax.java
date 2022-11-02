@@ -1,6 +1,4 @@
-package com.yoon.TExpress.modernJavaInAction.ten.methodReference;
-
-import com.yoon.TExpress.modernJavaInAction.ten.Order;
+package com.yoon.TExpress.modernJavaInAction.ten.methodReferenceBuilder;
 
 public class Tax {
 

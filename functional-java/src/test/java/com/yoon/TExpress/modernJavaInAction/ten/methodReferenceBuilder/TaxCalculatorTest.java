@@ -1,10 +1,10 @@
-package com.yoon.TExpress.modernJavaInAction.ten.methodReference;
+package com.yoon.TExpress.modernJavaInAction.ten.methodReferenceBuilder;
 
 import com.yoon.TExpress.modernJavaInAction.ten.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.yoon.TExpress.modernJavaInAction.ten.methodReference.TaxCalculator.calculate;
+import static com.yoon.TExpress.modernJavaInAction.ten.methodReferenceBuilder.TaxCalculator.calculate;
 import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.*;
 import static org.assertj.core.api.Assertions.assertThat;
 

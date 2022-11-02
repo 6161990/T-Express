@@ -1,4 +1,4 @@
-package com.yoon.TExpress.modernJavaInAction.ten.forLambda;
+package com.yoon.TExpress.modernJavaInAction.ten.lambdaBuillder;
 
 import com.yoon.TExpress.modernJavaInAction.ten.Trade;
 

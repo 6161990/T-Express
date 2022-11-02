@@ -1,11 +1,11 @@
 package com.yoon.TExpress.modernJavaInAction.ten;
 
-import com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder;
+import com.yoon.TExpress.modernJavaInAction.ten.nestFunctionOrderBuilder.NestFunctionOrderBuilder;
 import org.junit.jupiter.api.Test;
 
-import static com.yoon.TExpress.modernJavaInAction.ten.MethodChainingOrderBuilder.forCustomer;
-import static com.yoon.TExpress.modernJavaInAction.ten.NestFunctionOrderBuilder.*;
-import static com.yoon.TExpress.modernJavaInAction.ten.forLambda.LambdaOrderBuilder.orderForLambda;
+import static com.yoon.TExpress.modernJavaInAction.ten.methodChainingBuilder.MethodChainingOrderBuilder.forCustomer;
+import static com.yoon.TExpress.modernJavaInAction.ten.nestFunctionOrderBuilder.NestFunctionOrderBuilder.*;
+import static com.yoon.TExpress.modernJavaInAction.ten.lambdaBuillder.LambdaOrderBuilder.orderForLambda;
 import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.buy;
 import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.forCustomer2;
 import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.sell;

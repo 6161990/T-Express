@@ -1,4 +1,4 @@
-package com.yoon.TExpress.modernJavaInAction.ten.methodReference;
+package com.yoon.TExpress.modernJavaInAction.ten.methodReferenceBuilder;
 
 import com.yoon.TExpress.modernJavaInAction.ten.Order;
 

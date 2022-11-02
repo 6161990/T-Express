@@ -1,4 +1,7 @@
-package com.yoon.TExpress.modernJavaInAction.ten;
+package com.yoon.TExpress.modernJavaInAction.ten.methodChainingBuilder;
+
+import com.yoon.TExpress.modernJavaInAction.ten.Trade;
+import com.yoon.TExpress.modernJavaInAction.ten.methodChainingBuilder.MethodChainingOrderBuilder;
 
 public class TradeBuilderWithStock {
 
