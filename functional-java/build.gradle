@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id "io.freefair.lombok" version "6.5.0-rc1"
-
+    id 'me.champeau.jmh' version '0.6.6'
 }
 
 group 'com.yoon.TExpress'
@@ -11,7 +11,16 @@ repositories {
     mavenCentral()
 }
 
+jmh {
+    fork = 1
+    warmupIterations = 1
+    iterations = 1
+}
+
 dependencies {
+    testImplementation group: 'org.openjdk.jmh', name: 'jmh-generator-annprocess', version: '1.17.4'
+    testImplementation group: 'org.openjdk.jmh', name: 'jmh-core', version: '1.17.4'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
