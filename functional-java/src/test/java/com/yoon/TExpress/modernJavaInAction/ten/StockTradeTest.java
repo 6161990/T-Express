@@ -110,11 +110,13 @@ class StockTradeTest {
                            .on("NYSE")
                            .at(125_00)),
                 sell( t -> t.quantity(50)
-                            .stock("IBM")
-                            .on("NYSE")
+                            .stock("GOOGLE")
+                            .on("NASDAQ")
                             .at(125_00))
                 );
 
         System.out.println(order);
     }
+
+
 }
