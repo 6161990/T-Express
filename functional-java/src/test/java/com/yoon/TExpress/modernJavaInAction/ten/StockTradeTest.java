@@ -1,10 +1,14 @@
 package com.yoon.TExpress.modernJavaInAction.ten;
 
+import com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder;
 import org.junit.jupiter.api.Test;
 
 import static com.yoon.TExpress.modernJavaInAction.ten.MethodChainingOrderBuilder.forCustomer;
 import static com.yoon.TExpress.modernJavaInAction.ten.NestFunctionOrderBuilder.*;
 import static com.yoon.TExpress.modernJavaInAction.ten.forLambda.LambdaOrderBuilder.orderForLambda;
+import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.buy;
+import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.forCustomer2;
+import static com.yoon.TExpress.modernJavaInAction.ten.mixedBuilder.MixedBuilder.sell;
 
 class StockTradeTest {
 
@@ -64,9 +68,9 @@ class StockTradeTest {
         // 도메인 계층 구조를 그대로 반영
         // 정적 메서드에 인수목록을 넘겨야함
         Order order = order("BigBank",
-                            buy(80,
+                            NestFunctionOrderBuilder.buy(80,
                                 stock("IBM", on("NYSE")), at(125.00)),
-                            sell(50,
+                            NestFunctionOrderBuilder.sell(50,
                                 stock("GOOGLE", on("NASDAQ")), at(375.00))
                      );
 
@@ -94,6 +98,22 @@ class StockTradeTest {
                 });
             });
         });
+
+        System.out.println(order);
+    }
+
+    @Test
+    void step5_여러_DSL패턴_조합하기() {
+        Order order = forCustomer2("BigBank", // 최상위 수준 주문의 속성을 지정하는 중첩함수
+                buy(t -> t.quantity(80)  // 한 개의 주문을 만드는 람다 표현식
+                           .stock("IBM")
+                           .on("NYSE")
+                           .at(125_00)),
+                sell( t -> t.quantity(50)
+                            .stock("IBM")
+                            .on("NYSE")
+                            .at(125_00))
+                );
 
         System.out.println(order);
     }
