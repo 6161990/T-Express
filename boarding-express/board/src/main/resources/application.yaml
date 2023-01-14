@@ -1,0 +1,35 @@
+# 로깅으로 확인하고 있기 때문에 스프링 관련 debug 는 false 로!
+debug: false
+
+# actuator 의 endpoints 중에 감춰져있는 애들을 모두 활성화. 개발 단계에서 볼 수 있는 endpoints 를 모두 확인하기 위함.
+management.endpoints.web.exposure.include: "*"
+
+
+logging:
+  level:
+    com.yoon.boardingExpress: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace #jpa 사용할 때 쿼리를 확인해볼 수 있는데, 바인딩 파라미터까지 볼 수 있게 함.
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/board
+    username: test
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true # 테스트용 sql 문을 통해 디폴트 데이터 생성하게끔 (내부적으로 resources 폴더를 참고하여 만듦)
+    hibernate.ddl-auto: create # @Entity 를 참고하여 ddl 을 자동으로 생성
+    #open-in-view: false
+    show-sql: true
+    properties:
+      # hibernate (JPA 구현체) : spring 이 hibernate 의 모든 기능을 추상화시킨 것이 아니기 때문에, 복잡하게 필요한 부분은 이렇게 직접 properties 를 통하여 명시해 주어야한다.
+      hibernate.format_sql: true # 쿼리를 예쁘게 포맷
+      hibernate.default_batch_fetch_size: 100 # n+1 이슈 관련 : 열 개의 쿼리를 ID in 쿼리를 통해 한번의 select 로 바꿔줌. 최대 100개로 묶어서 bulk select 하는 것을 허용한다.
+  sql.init.mode: always # data.sql 에 있는 데이터를 항상 실제 db 에 밀어 넣게끔 한다.
+
+---
+
+spring:
+  config.activate.on-profile: test
+  datasource.url: jdbc:h2:mem:testdb
