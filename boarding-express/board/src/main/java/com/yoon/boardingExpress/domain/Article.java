@@ -15,7 +15,7 @@ import java.util.Objects;
 @ToString
 @Entity
 @Table(indexes = {
-        @Index(columnList = "writer"),
+        @Index(columnList = "writer_id"),
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt")
@@ -26,7 +26,8 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private Writer writer; // Todo 필요한가 확인
 
     @Setter
@@ -43,9 +44,9 @@ public class Article {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+/*    @Column(nullable = false)
     @CreatedBy
-    private Long writerId;
+    private Long writerId;*/
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
