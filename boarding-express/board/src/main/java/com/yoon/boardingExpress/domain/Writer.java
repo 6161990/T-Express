@@ -1,5 +1,6 @@
 package com.yoon.boardingExpress.domain;
 
+
 public class Writer {
     private Long id;
     private String name;
