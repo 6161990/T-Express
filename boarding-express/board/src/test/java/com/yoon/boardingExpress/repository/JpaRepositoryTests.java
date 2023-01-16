@@ -34,23 +34,22 @@ class JpaRepositoryTests {
     @Autowired
     private WriterRepository writerRepository;
 
+
     @Test
-    void articleCommentRepository_findAll() {
-        List<ArticleComment> actual = articleCommentRepository.findAll();
+    void writerCommentRepository_findAll() {
+        List<Writer> actual = writerRepository.findAll();
 
         assertThat(actual).isNotNull();
         assertThat(actual.size()).isEqualTo(100);
     }
 
     @Test
-    void articleCommentRepository_save() {
-        Writer writer = writerRepository.save(ANY_WRITER);
-        Article article = articleRepository.save(ANY_ARTICLE);
-        long prevCount = articleCommentRepository.count();
+    void writerCommentRepository_save() {
+        long prevCount = writerRepository.count();
 
-        articleCommentRepository.save(ArticleComment.of(article, writer, "test"));
+        writerRepository.save(ANY_WRITER);
 
-        assertThat(articleCommentRepository.findAll().size()).isEqualTo(prevCount+1);
+        assertThat(writerRepository.findAll().size()).isEqualTo(prevCount+1);
     }
 
     @Test
@@ -71,6 +70,25 @@ class JpaRepositoryTests {
         assertThat(articleRepository.findAll().size()).isEqualTo(prevCount+1);
     }
 
+
+    @Test
+    void articleCommentRepository_findAll() {
+        List<ArticleComment> actual = articleCommentRepository.findAll();
+
+        assertThat(actual).isNotNull();
+        assertThat(actual.size()).isEqualTo(100);
+    }
+
+    @Test
+    void articleCommentRepository_save() {
+        Writer writer = writerRepository.save(ANY_WRITER);
+        Article article = articleRepository.save(ANY_ARTICLE);
+        long prevCount = articleCommentRepository.count();
+
+        articleCommentRepository.save(ArticleComment.of(article, writer, "test"));
+
+        assertThat(articleCommentRepository.findAll().size()).isEqualTo(prevCount+1);
+    }
 
     @EnableJpaAuditing
     @TestConfiguration
