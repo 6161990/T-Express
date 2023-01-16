@@ -3,6 +3,7 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.util.Set;
         @Index(columnList = "email"),
         @Index(columnList = "phoneNumber")
 })
+@EntityListeners(AuditingEntityListener.class)
 public class Writer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,27 +39,28 @@ public class Writer {
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "writer")
     private final Set<Article> articles = new LinkedHashSet<>();
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "writer")
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-
+    @Column(nullable = false)
     private LocalDateTime signedAt;
 
     protected Writer() {}
 
-    public static Writer of(String name, String email, String phoneNumber) {
-        return new Writer(name, email, phoneNumber);
+    public static Writer of(String name, String email, String phoneNumber, LocalDateTime signedAt) {
+        return new Writer(name, email, phoneNumber, signedAt);
     }
 
-    private Writer(String name, String email, String phoneNumber) {
+    private Writer(String name, String email, String phoneNumber, LocalDateTime signedAt) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.signedAt = signedAt;
     }
 
     @Override

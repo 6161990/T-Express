@@ -3,10 +3,9 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.core.annotation.Order;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,6 +15,7 @@ import java.util.Set;
 
 @Getter
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {
         @Index(columnList = "writer_id"),
@@ -30,8 +30,8 @@ public class Article {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(nullable = false)
-    private Writer writer; // Todo 필요한가 확인
+    @JoinColumn(name = "writer_id")
+    private Writer writer;
 
     @Setter
     @Column(nullable = false)
@@ -61,11 +61,12 @@ public class Article {
 
     protected Article() {}
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title,content,hashtag);
+    public static Article of(Writer writer, String title, String content, String hashtag) {
+        return new Article(writer, title,content,hashtag);
     }
 
-    private Article(String title, String content, String hashtag) {
+    private Article(Writer writer, String title, String content, String hashtag) {
+        this.writer = writer;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
