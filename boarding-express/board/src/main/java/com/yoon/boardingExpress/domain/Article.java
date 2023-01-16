@@ -3,13 +3,16 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -40,6 +43,11 @@ public class Article {
 
     @Setter
     private String hashtag;
+
+    @ToString.Exclude
+    @OrderBy("id")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
     @CreatedDate
     private LocalDateTime createdAt;

@@ -6,7 +6,9 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString
@@ -32,6 +34,17 @@ public class Writer {
     @Setter
     @Column(nullable = false)
     private String phoneNumber;
+
+    @ToString.Exclude
+    @OrderBy("id")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    private final Set<Article> articles = new LinkedHashSet<>();
+
+    @ToString.Exclude
+    @OrderBy("id")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
+    private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
+
 
     private LocalDateTime signedAt;
 
