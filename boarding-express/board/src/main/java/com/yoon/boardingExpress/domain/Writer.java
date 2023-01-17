@@ -39,12 +39,12 @@ public class Writer {
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private final Set<Article> articles = new LinkedHashSet<>();
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
     @Column(nullable = false)

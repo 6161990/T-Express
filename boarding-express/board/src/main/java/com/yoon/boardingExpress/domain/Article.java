@@ -52,10 +52,6 @@ public class Article {
     @CreatedDate
     private LocalDateTime createdAt;
 
-/*    @Column(nullable = false)
-    @CreatedBy
-    private Long writerId;*/
-
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
