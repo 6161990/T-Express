@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -61,6 +62,34 @@ class JpaRepositoryTests {
         writerRepository.save(ANY_WRITER);
 
         assertThat(writerRepository.findAll().size()).isEqualTo(prevCount+1);
+    }
+
+    @Test
+    void writerRepository_update() {
+        Writer writer = writerRepository.findById(100L).orElseThrow();
+        String updatedName = "이작가";
+        writer.setName(updatedName);
+
+        Writer actual = writerRepository.saveAndFlush(writer);
+
+        assertThat(actual).hasFieldOrPropertyWithValue("name", updatedName);
+    }
+
+    @Test
+    void writerRepository_delete() {
+        Writer writer = writerRepository.findById(100L).orElseThrow();
+        long prevWriterCount = writerRepository.count();
+        long prevArticleCount = articleRepository.count();
+        long prevArticleCommentCount = articleCommentRepository.count();
+        Set<Article> articles = writer.getArticles();
+        int deletedArticleSize = articles.size();
+        long deletedArticleCommentSize = articles.stream().map(Article::getArticleComments).count();
+
+        writerRepository.delete(writer);
+
+        assertThat(writerRepository.count()).isEqualTo(prevWriterCount-1);
+        assertThat(articleRepository.count()).isEqualTo(prevArticleCount - deletedArticleSize);
+        assertThat(articleCommentRepository.count()).isEqualTo(prevArticleCommentCount - deletedArticleCommentSize);
     }
 
     @Test
@@ -128,6 +157,26 @@ class JpaRepositoryTests {
         assertThat(articleCommentRepository.findAll().size()).isEqualTo(prevCount+1);
     }
 
+    @Test
+    void articleCommentRepository_update() {
+        ArticleComment articleComment = articleCommentRepository.findById(100L).orElseThrow();
+        String updatedContent = "재밌다아~";
+        articleComment.setContent(updatedContent);
+
+        ArticleComment actual = articleCommentRepository.saveAndFlush(articleComment);
+
+        assertThat(actual).hasFieldOrPropertyWithValue("content", updatedContent);
+    }
+
+    @Test
+    void articleCommentRepository_delete() {
+        ArticleComment articleComment = articleCommentRepository.findById(7L).orElseThrow();
+        long prevArticleCommentCount = articleCommentRepository.count();
+
+        articleCommentRepository.delete(articleComment);
+
+        assertThat(articleCommentRepository.count()).isEqualTo(prevArticleCommentCount - 1);
+    }
 }
 
 

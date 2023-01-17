@@ -1,6 +1,7 @@
 package com.yoon.boardingExpress.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -32,6 +33,7 @@ public class ArticleComment {
     @JoinColumn(name = "writer_id")
     private Writer writer;
 
+    @Setter
     @Column(nullable = false, length = 1000)
     private String content;
 
