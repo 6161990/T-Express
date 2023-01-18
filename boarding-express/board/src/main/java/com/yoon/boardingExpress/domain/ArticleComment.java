@@ -3,12 +3,9 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -19,7 +16,7 @@ import java.util.Objects;
 @Table(indexes = {
         @Index(columnList = "writer_id")
 })
-public class ArticleComment {
+public class ArticleComment extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,12 +33,6 @@ public class ArticleComment {
     @Setter
     @Column(nullable = false, length = 1000)
     private String content;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     protected ArticleComment() {}
 

@@ -3,19 +3,14 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @ToString
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {
         @Index(columnList = "writer_id"),
@@ -23,7 +18,7 @@ import java.util.Set;
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt")
 })
-public class Article {
+public class Article extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,12 +43,6 @@ public class Article {
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     protected Article() {}
 
