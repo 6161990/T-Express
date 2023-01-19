@@ -6,7 +6,7 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-HELP.md
+HELP.md가g
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
