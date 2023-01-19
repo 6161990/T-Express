@@ -13,6 +13,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# query dsl gitignore
+/src/main/generated
+
 .DS_Store
 ### test data ouput ###
 user.json
