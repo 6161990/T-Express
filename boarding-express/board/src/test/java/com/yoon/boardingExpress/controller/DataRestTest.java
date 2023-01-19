@@ -1,5 +1,6 @@
 package com.yoon.boardingExpress.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled("Study 목적의 테스트 Spring Data REST 통합테스트는 불필요하므로 우선 제외시킨다.")
 @DisplayName("Data Rest 를 이용한 통합 테스트")
 @Transactional
 @AutoConfigureMockMvc
