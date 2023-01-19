@@ -27,7 +27,10 @@ spring:
       hibernate.format_sql: true # 쿼리를 예쁘게 포맷
       hibernate.default_batch_fetch_size: 100 # n+1 이슈 관련 : 열 개의 쿼리를 ID in 쿼리를 통해 한번의 select 로 바꿔줌. 최대 100개로 묶어서 bulk select 하는 것을 허용한다.
   sql.init.mode: always # data.sql 에 있는 데이터를 항상 실제 db 에 밀어 넣게끔 한다.
-
+  data:
+    rest:
+      base-path:  /api
+      detection-strategy: annotated # REST 소스의 노출 전략을 어떻게 가져갈 것인가
 ---
 
 #spring:
