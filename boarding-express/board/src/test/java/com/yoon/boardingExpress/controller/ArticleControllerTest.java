@@ -28,7 +28,6 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"));
     }
 
-    @Disabled("구현중")
     @Test
     void article_detail_page() throws Exception {
         mockMvc.perform(get("/articles/1"))
