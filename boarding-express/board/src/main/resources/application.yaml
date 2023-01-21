@@ -31,6 +31,9 @@ spring:
     rest:
       base-path:  /api
       detection-strategy: annotated # REST 소스의 노출 전략을 어떻게 가져갈 것인가
+  thymeleaf3:
+    decoupled-logic: true
+
 ---
 
 #spring:

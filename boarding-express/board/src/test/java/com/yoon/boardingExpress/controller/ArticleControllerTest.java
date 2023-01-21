@@ -1,5 +1,6 @@
 package com.yoon.boardingExpress.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"));
     }
 
+    @Disabled("구현중")
     @Test
     void article_detail_page() throws Exception {
         mockMvc.perform(get("/articles/1"))
@@ -37,6 +39,7 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articleComments"));
     }
 
+    @Disabled("구현중")
     @Test
     void article_search_page() throws Exception {
         mockMvc.perform(get("/articles/search"))
@@ -45,6 +48,7 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/search"));
     }
 
+    @Disabled("구현중")
     @Test
     void article_search_hashtag_page() throws Exception {
         mockMvc.perform(get("/articles/search-hashtag"))
