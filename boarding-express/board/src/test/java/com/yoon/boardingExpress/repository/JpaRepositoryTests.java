@@ -3,21 +3,14 @@ package com.yoon.boardingExpress.repository;
 import com.yoon.boardingExpress.config.JpaConfig;
 import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.ArticleComment;
-import com.yoon.boardingExpress.domain.Writer;
+import com.yoon.boardingExpress.domain.UserAccount;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -34,8 +27,8 @@ why? @DataJpaTest 는 자동으로 자신이 지정한 testDB 를 띄워버린�
 @DataJpaTest
 class JpaRepositoryTests {
 
-    private static final Writer ANY_WRITER = Writer.of("name", "email", "phoneNumber", LocalDateTime.now());
-    private static final Article ANY_ARTICLE = Article.of(ANY_WRITER, "t","c","h");
+    private static final UserAccount ANY_USER_ACCOUNT = UserAccount.of("lala",  "pass", "email","nickname", "phoneNumber", "memo");
+    private static final Article ANY_ARTICLE = Article.of(ANY_USER_ACCOUNT, "t","c","h");
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -44,50 +37,50 @@ class JpaRepositoryTests {
     private ArticleCommentRepository articleCommentRepository;
 
     @Autowired
-    private WriterRepository writerRepository;
+    private UserAccountRepository userAccountRepository;
 
 
     @Test
-    void writerCommentRepository_findAll() {
-        List<Writer> actual = writerRepository.findAll();
+    void userAccountRepository_findAll() {
+        List<UserAccount> actual = userAccountRepository.findAll();
 
         assertThat(actual).isNotNull();
-        assertThat(actual.size()).isEqualTo(100);
+        assertThat(actual.size()).isEqualTo(101);
     }
 
     @Test
-    void writerCommentRepository_save() {
-        long prevCount = writerRepository.count();
+    void userAccountRepository_save() {
+        long prevCount = userAccountRepository.count();
 
-        writerRepository.save(ANY_WRITER);
+        userAccountRepository.save(ANY_USER_ACCOUNT);
 
-        assertThat(writerRepository.findAll().size()).isEqualTo(prevCount+1);
+        assertThat(userAccountRepository.findAll().size()).isEqualTo(prevCount+1);
     }
 
     @Test
-    void writerRepository_update() {
-        Writer writer = writerRepository.findById(100L).orElseThrow();
+    void userAccountRepository_update() {
+        UserAccount userAccount = userAccountRepository.findById(100L).orElseThrow();
         String updatedName = "이작가";
-        writer.setName(updatedName);
+        userAccount.setName(updatedName);
 
-        Writer actual = writerRepository.saveAndFlush(writer);
+        UserAccount actual = userAccountRepository.saveAndFlush(userAccount);
 
         assertThat(actual).hasFieldOrPropertyWithValue("name", updatedName);
     }
 
     @Test
     void writerRepository_delete() {
-        Writer writer = writerRepository.findById(100L).orElseThrow();
-        long prevWriterCount = writerRepository.count();
+        UserAccount userAccount = userAccountRepository.findById(100L).orElseThrow();
+        long prevUserCount = userAccountRepository.count();
         long prevArticleCount = articleRepository.count();
         long prevArticleCommentCount = articleCommentRepository.count();
-        Set<Article> articles = writer.getArticles();
+        Set<Article> articles = userAccount.getArticles();
         int deletedArticleSize = articles.size();
         long deletedArticleCommentSize = articles.stream().map(Article::getArticleComments).count();
 
-        writerRepository.delete(writer);
+        userAccountRepository.delete(userAccount);
 
-        assertThat(writerRepository.count()).isEqualTo(prevWriterCount-1);
+        assertThat(userAccountRepository.count()).isEqualTo(prevUserCount-1);
         assertThat(articleRepository.count()).isEqualTo(prevArticleCount - deletedArticleSize);
         assertThat(articleCommentRepository.count()).isEqualTo(prevArticleCommentCount - deletedArticleCommentSize);
     }
@@ -102,10 +95,10 @@ class JpaRepositoryTests {
 
     @Test
     void articleRepository_save() {
-        Writer writer = writerRepository.save(ANY_WRITER);
+        UserAccount userAccount = userAccountRepository.save(ANY_USER_ACCOUNT);
         long prevCount = articleRepository.count();
 
-        articleRepository.save(Article.of(writer, "title", "content", "#romans"));
+        articleRepository.save(Article.of(userAccount, "title", "content", "#romans"));
 
         assertThat(articleRepository.findAll().size()).isEqualTo(prevCount+1);
     }
@@ -148,11 +141,11 @@ class JpaRepositoryTests {
 
     @Test
     void articleCommentRepository_save() {
-        Writer writer = writerRepository.save(ANY_WRITER);
+        UserAccount userAccount = userAccountRepository.save(ANY_USER_ACCOUNT);
         Article article = articleRepository.save(ANY_ARTICLE);
         long prevCount = articleCommentRepository.count();
 
-        articleCommentRepository.save(ArticleComment.of(article, writer, "test"));
+        articleCommentRepository.save(ArticleComment.of(article, userAccount, "test"));
 
         assertThat(articleCommentRepository.findAll().size()).isEqualTo(prevCount+1);
     }

@@ -13,7 +13,7 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(indexes = {
-        @Index(columnList = "writer_id"),
+        @Index(columnList = "user_account_id"),
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt")
@@ -25,8 +25,8 @@ public class Article extends AuditingFields{
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "writer_id")
-    private Writer writer;
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
 
     @Setter
     @Column(nullable = false)
@@ -46,12 +46,12 @@ public class Article extends AuditingFields{
 
     protected Article() {}
 
-    public static Article of(Writer writer, String title, String content, String hashtag) {
-        return new Article(writer, title,content,hashtag);
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title,content,hashtag);
     }
 
-    private Article(Writer writer, String title, String content, String hashtag) {
-        this.writer = writer;
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;

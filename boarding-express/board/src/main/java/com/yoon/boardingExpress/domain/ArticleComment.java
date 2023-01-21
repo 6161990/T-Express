@@ -14,7 +14,7 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {
-        @Index(columnList = "writer_id")
+        @Index(columnList = "user_account_id")
 })
 public class ArticleComment extends AuditingFields{
 
@@ -27,8 +27,8 @@ public class ArticleComment extends AuditingFields{
     private Article article;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "writer_id")
-    private Writer writer;
+    @JoinColumn(name = "user_account_id")
+    private UserAccount userAccount;
 
     @Setter
     @Column(nullable = false, length = 1000)
@@ -36,13 +36,13 @@ public class ArticleComment extends AuditingFields{
 
     protected ArticleComment() {}
 
-    public static ArticleComment of(Article article, Writer writer, String content) {
-        return new ArticleComment(article, writer, content);
+    public static ArticleComment of(Article article, UserAccount userAccount, String content) {
+        return new ArticleComment(article, userAccount, content);
     }
 
-    private ArticleComment(Article article, Writer writer, String content) {
+    private ArticleComment(Article article, UserAccount userAccount, String content) {
         this.article = article;
-        this.writer = writer;
+        this.userAccount = userAccount;
         this.content = content;
     }
 

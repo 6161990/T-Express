@@ -20,8 +20,8 @@ public interface ArticleRepository extends
     @Override
     default void customize(QuerydslBindings bindings, QArticle root) {
         bindings.excludeUnlistedProperties(true); // 리스팅 하지 않은 필드에 대해서는 검색 기능 구현을 제외한다.
-        bindings.including(root.writer, root.content, root.hashtag, root.title, root.createdAt);
-        bindings.bind(root.writer.name).first(StringExpression::containsIgnoreCase);
+        bindings.including(root.userAccount, root.content, root.hashtag, root.title, root.createdAt);
+        bindings.bind(root.userAccount.name).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase);

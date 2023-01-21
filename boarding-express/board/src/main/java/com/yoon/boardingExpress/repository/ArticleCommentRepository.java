@@ -19,8 +19,8 @@ public interface ArticleCommentRepository extends
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root) {
         bindings.excludeUnlistedProperties(true); // 리스팅 하지 않은 필드에 대해서는 검색 기능 구현을 제외한다.
-        bindings.including(root.writer, root.article);
-        bindings.bind(root.writer.name).first(StringExpression::containsIgnoreCase);
+        bindings.including(root.userAccount, root.article);
+        bindings.bind(root.userAccount.name).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.article.title).first(StringExpression::containsIgnoreCase);
     }
 }
