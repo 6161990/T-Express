@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class AuditingFields {
+public abstract class AuditingFields {
     /** 공통 필드를 관리하는 두 가지 방법(선호도에 따라 공통 필드가 아니라 중복이더라고 1:1 매핑으로 두는 경우도 있다)
      * 1. @Embedded 클래스를 만들면 여기 클래스안에 정의된 필드가 해당 클래스의 필드로 테이블에 들어가게 된다.
      * 2. @MappedSuperclass  */
