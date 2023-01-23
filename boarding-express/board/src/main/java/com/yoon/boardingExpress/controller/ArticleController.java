@@ -26,4 +26,14 @@ public class ArticleController {
         return "articles/detail";
     }
 
+    @GetMapping("/search")
+    public String search(){
+        return "articles/search";
+    }
+
+    @GetMapping("/search-hashtag")
+    public String search_hashtag(){
+        return "articles/search-hashtag";
+    }
+
 }
