@@ -2,6 +2,7 @@ package com.yoon.boardingExpress.service;
 
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
+import com.yoon.boardingExpress.dto.ArticleUpdateDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,11 +22,19 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleDto find(Long id) {
+    public ArticleDto find(Long articleId) {
         return ArticleDto.of(null, null, null, null, null);
     }
 
     public void saveArticle(ArticleDto dto) {
+
+    }
+
+    public void updateArticle(long articleId, ArticleUpdateDto dto) {
+
+    }
+
+    public void deleteArticle(long articleId) {
 
     }
 }

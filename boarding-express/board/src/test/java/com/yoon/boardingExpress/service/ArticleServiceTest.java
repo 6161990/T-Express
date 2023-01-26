@@ -4,6 +4,7 @@ import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
+import com.yoon.boardingExpress.dto.ArticleUpdateDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +31,7 @@ class ArticleServiceTest {
 
     @Test
     void 게시글_검색() {
-        Page<ArticleDto> actual  = sut.searchArticles(SearchType.TITLE, "search");
+        Page<ArticleDto> actual = sut.searchArticles(SearchType.TITLE, "search");
 
         assertThat(actual).isNotNull();
     }
@@ -49,5 +50,23 @@ class ArticleServiceTest {
         sut.saveArticle(ArticleDto.of(LocalDateTime.now(), UserAccount.of("user", "password", "email", "name", "phone", "memo"), "title", "content", "hashtag"));
 
         then(articleRepository).should().save(any(Article.class));
+    }
+
+    @Test
+    void 게시글_수정() {
+        given(articleRepository.save(any(Article.class))).willReturn(any(Article.class));
+
+        sut.updateArticle(1L, ArticleUpdateDto.of("t", "c", "h"));
+
+        then(articleRepository).should().save(any(Article.class));
+    }
+
+    @Test
+    void 게시글_삭제() {
+        willDoNothing().given(articleRepository).delete(any(Article.class));
+
+        sut.deleteArticle(1L);
+
+        then(articleRepository).should().delete(any(Article.class));
     }
 }
