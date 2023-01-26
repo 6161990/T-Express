@@ -24,4 +24,8 @@ public class ArticleService {
     public ArticleDto find(Long id) {
         return ArticleDto.of(null, null, null, null, null);
     }
+
+    public void saveArticle(ArticleDto dto) {
+
+    }
 }

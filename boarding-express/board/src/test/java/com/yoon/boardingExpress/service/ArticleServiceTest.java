@@ -1,6 +1,7 @@
 package com.yoon.boardingExpress.service;
 
 import com.yoon.boardingExpress.domain.Article;
+import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
@@ -11,9 +12,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ArticleServiceTest {
@@ -36,5 +40,14 @@ class ArticleServiceTest {
         ArticleDto actual = sut.find(1L);
 
         assertThat(actual).isNotNull();
+    }
+
+    @Test
+    void 게시글_생성() {
+        given(articleRepository.save(any(Article.class))).willReturn(any(Article.class));
+
+        sut.saveArticle(ArticleDto.of(LocalDateTime.now(), UserAccount.of("user", "password", "email", "name", "phone", "memo"), "title", "content", "hashtag"));
+
+        then(articleRepository).should().save(any(Article.class));
     }
 }
