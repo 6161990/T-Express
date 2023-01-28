@@ -43,6 +43,6 @@ public class ArticleCommentService {
     }
 
     public List<ArticleCommentDto> searchArticleComment(long articleId) {
-        return null;
+        return List.of();
     }
 }
