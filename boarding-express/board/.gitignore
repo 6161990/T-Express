@@ -16,6 +16,9 @@ build/
 # query dsl gitignore
 /src/main/generated
 
+# jpa buddy
+.jpb/
+
 .DS_Store
 ### test data ouput ###
 user.json
