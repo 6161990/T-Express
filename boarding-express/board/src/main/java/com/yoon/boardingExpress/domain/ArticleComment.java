@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {
@@ -22,10 +22,12 @@ public class ArticleComment extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @JoinColumn(name = "article_id")
     @ManyToOne(optional = false)
     private Article article;
 
+    @Setter
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;

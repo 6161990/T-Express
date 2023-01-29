@@ -3,6 +3,7 @@ package com.yoon.boardingExpress.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -10,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Entity
 @Table(indexes = {
         @Index(columnList = "user_account_id"),
@@ -24,6 +25,7 @@ public class Article extends AuditingFields{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
@@ -40,7 +42,7 @@ public class Article extends AuditingFields{
     private String hashtag;
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
