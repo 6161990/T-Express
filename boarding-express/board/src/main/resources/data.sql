@@ -1,7 +1,7 @@
 -- 테스트 계정
 -- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
 insert into user_account (id, user_id, password, name, email, phone_number,memo, created_at, updated_at) values
-    (1004, 'test', 'test', 'Test', 'test@mail.com', '020101010', 'I am test.', now(), now());
+    (1004, 'test', 'test', 'test', 'test@mail.com', '01077787778', 'I am test.', now(), now());
 
 insert into User_account (id, user_id, password, name, email, phone_number, memo, created_at, updated_at) values (101, 'nisi volutpat eleifend', 'tristique in tempus', 'lsambiedge0', 'ccapron0@cdbaby.com', '3533690421', 'a suscipit', '2023-01-01', '2022-09-10');
 insert into User_account (id, user_id, password, name, email, phone_number, memo, created_at, updated_at) values (102, 'sit amet sapien', 'tellus nisi eu', 'adominec1', 'sslott1@xrea.com', '2585086558', 'metus', '2022-12-25', '2022-09-19');
