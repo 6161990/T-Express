@@ -1,12 +1,9 @@
 package com.yoon.boardingExpress.service;
 
-import com.yoon.boardingExpress.domain.ArticleComment;
-import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleCommentDto;
 import com.yoon.boardingExpress.repository.ArticleCommentRepository;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +18,8 @@ public class ArticleCommentService {
     private final ArticleCommentRepository articleCommentRepository;
 
     @Transactional(readOnly = true)
-    public Page<ArticleComment> searchArticleComment(SearchType searchType, String searchKeyword) {
-        return Page.empty();
-    }
-
-    @Transactional(readOnly = true)
-    public ArticleCommentDto find(long id) {
-        return ArticleCommentDto.of(null,null,null, null);
+    public List<ArticleCommentDto> searchArticleComments(Long articleId) {
+        return List.of();
     }
 
     public void saveArticleComment(ArticleCommentDto dto) {
@@ -38,11 +30,8 @@ public class ArticleCommentService {
 
     }
 
-    public void deleteArticleComment(long id) {
+    public void deleteArticleComment(Long id) {
 
     }
 
-    public List<ArticleCommentDto> searchArticleComment(long articleId) {
-        return List.of();
-    }
 }

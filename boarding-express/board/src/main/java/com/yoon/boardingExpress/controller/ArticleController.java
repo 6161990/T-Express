@@ -33,7 +33,7 @@ public class ArticleController {
 
     @GetMapping("/search-hashtag")
     public String search_hashtag(){
-        return "articles/search-hashtag";
+        return "articles/search-hashtag.html";
     }
 
 }
