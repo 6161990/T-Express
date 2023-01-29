@@ -20,7 +20,7 @@ spring:
   jpa:
     defer-datasource-initialization: true # 테스트용 sql 문을 통해 디폴트 데이터 생성하게끔 (내부적으로 resources 폴더를 참고하여 만듦)
     hibernate.ddl-auto: create # @Entity 를 참고하여 ddl 을 자동으로 생성
-    #open-in-view: false
+    open-in-view: false
     show-sql: true
     properties:
       # hibernate (JPA 구현체) : spring 이 hibernate 의 모든 기능을 추상화시킨 것이 아니기 때문에, 복잡하게 필요한 부분은 이렇게 직접 properties 를 통하여 명시해 주어야한다.
