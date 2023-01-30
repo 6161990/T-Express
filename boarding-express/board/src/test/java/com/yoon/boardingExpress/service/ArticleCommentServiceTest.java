@@ -4,7 +4,7 @@ import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.ArticleComment;
 import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.dto.ArticleCommentDto;
-import com.yoon.boardingExpress.dto.ArticleDto;
+import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleCommentRepository;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
@@ -13,9 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,47 +36,129 @@ class ArticleCommentServiceTest {
 
     @Test
     void 댓글리스트_조회() {
-        long articleId = 1L;
-        given(articleRepository.findById(articleId))
-                .willReturn(Optional.of(Article.of(UserAccount.of("user", "password", "email", "name", "phone", "memo"), "t", "c", "h")));
+        Long articleId = 1L;
+        ArticleComment expected = createArticleComment("content");
 
-        List<ArticleCommentDto> actual = sut.searchArticleComment(articleId);
+        given(articleCommentRepository.findByArticle_Id(articleId)).willReturn(List.of(expected));
 
-        assertThat(actual).isNotNull();
+        List<ArticleCommentDto> actual = sut.searchArticleComments(articleId);
+
+        assertThat(actual).hasSize(1).first().hasFieldOrPropertyWithValue("content", expected.getContent());
         then(articleRepository).should().findById(articleId);
     }
 
     @Test
-    void 댓글조회() {
-        ArticleCommentDto actual = sut.find(1L);
+    void 댓글작성() {
+        ArticleCommentDto dto = createArticleCommentDto("댓글");
 
-        assertThat(actual).isNotNull();
+        given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
+        given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
+
+        sut.saveArticleComment(dto);
+
+        then(articleRepository).should().getReferenceById(dto.articleId());
+        then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
     @Test
-    void 댓글작성() {
-        given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(any(ArticleComment.class));
+    void 존재하지_않는_게시글에_댓글_저장_시도() {
+        ArticleCommentDto dto = createArticleCommentDto("댓글");
 
-        sut.saveArticleComment(ArticleCommentDto.of(LocalDateTime.now(), LocalDateTime.now(), ArticleDto.of(LocalDateTime.now(), UserAccount.of("user", "password", "email", "name", "phone", "memo"), "title", "content", "hashtag"), "content"));
+        given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
 
-        then(articleCommentRepository).should().save(any(ArticleComment.class));
+        sut.saveArticleComment(dto);
+
+        then(articleRepository).should().getReferenceById(dto.articleId());
+        then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
     @Test
     void 댓글수정() {
-        given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(any(ArticleComment.class));
+        String prevContent = "prevContent";
+        String updatedContent = "updatedContent";
+        ArticleComment articleComment = createArticleComment(prevContent);
+        ArticleCommentDto dto = createArticleCommentDto(updatedContent);
 
-        sut.updateArticleComment(ArticleCommentDto.of(LocalDateTime.now(), LocalDateTime.now(), ArticleDto.of(LocalDateTime.now(), UserAccount.of("user", "password", "email", "name", "phone", "memo"), "title", "content", "hashtag"), "content"));
+        given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
 
-        then(articleCommentRepository).should().save(any(ArticleComment.class));
+        sut.updateArticleComment(dto);
+
+        assertThat(articleComment.getContent())
+                .isNotEqualTo(prevContent)
+                .isEqualTo(updatedContent);
+        then(articleCommentRepository).should().getReferenceById(dto.id());
     }
 
     @Test
-    void 댓글삭제() {
-        willDoNothing().given(articleCommentRepository).delete(any(ArticleComment.class));
+    void 댓글이_존재하지않을때_댓글_수정_시도() {
+        ArticleCommentDto dto = createArticleCommentDto("댓글");
+        given(articleCommentRepository.getReferenceById(dto.id())).willThrow(EntityNotFoundException.class);
 
-        sut.deleteArticleComment(1L);
+        sut.updateArticleComment(dto);
 
-        then(articleCommentRepository).should().delete(any(ArticleComment.class));
+        then(articleCommentRepository).should().getReferenceById(dto.id());
+    }
+
+    @Test
+    void 댓글_삭제() {
+        Long articleCommentId = 1L;
+        willDoNothing().given(articleCommentRepository).deleteById(articleCommentId);
+
+        sut.deleteArticleComment(articleCommentId);
+
+        then(articleCommentRepository).should().deleteById(articleCommentId);
+    }
+
+    private ArticleCommentDto createArticleCommentDto(String content) {
+        return ArticleCommentDto.of(
+                1L,
+                1L,
+                createUserAccountDto(),
+                content,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+    }
+
+    private UserAccountDto createUserAccountDto() {
+        return UserAccountDto.of(
+                1L,
+                "test",
+                "test",
+                "test@mail.com",
+                "test",
+                "01077787778",
+                "This is memo",
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+    }
+
+    private ArticleComment createArticleComment(String content) {
+        return ArticleComment.of(
+                Article.of(createUserAccount(), "title", "content", "hashtag"),
+                createUserAccount(),
+                content
+        );
+    }
+
+    private UserAccount createUserAccount() {
+        return UserAccount.of(
+                "test",
+                "test",
+                "test@mail.com",
+                "test",
+                "01077787778",
+                null
+        );
+    }
+
+    private Article createArticle() {
+        return Article.of(
+                createUserAccount(),
+                "title",
+                "content",
+                "#java"
+        );
     }
 }
