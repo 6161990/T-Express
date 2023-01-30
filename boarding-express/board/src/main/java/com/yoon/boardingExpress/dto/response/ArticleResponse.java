@@ -1,4 +1,6 @@
-package com.yoon.boardingExpress.dto;
+package com.yoon.boardingExpress.dto.response;
+
+import com.yoon.boardingExpress.dto.ArticleDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
