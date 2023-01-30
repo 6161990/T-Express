@@ -18,7 +18,7 @@ public interface ArticleCommentRepository extends
         QuerydslPredicateExecutor<ArticleComment>,
         QuerydslBinderCustomizer<QArticleComment> {
 
-    List<ArticleComment> findByArticle_Id(Long articleId);
+    List<ArticleComment> findByArticle_Id(Long articleId); // 게시글 id 를 통해 comment 를 조회하려면 _ (언더바) 를 이용하면 연관관계를 맺고 있는 article 을 알게 된다.
 
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root) {
