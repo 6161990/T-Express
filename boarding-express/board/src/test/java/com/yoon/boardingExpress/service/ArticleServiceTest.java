@@ -5,7 +5,6 @@ import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleCommentDto;
 import com.yoon.boardingExpress.dto.ArticleDto;
-import com.yoon.boardingExpress.dto.ArticleUpdateDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
