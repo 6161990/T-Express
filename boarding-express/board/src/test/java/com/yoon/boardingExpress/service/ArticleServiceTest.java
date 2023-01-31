@@ -5,6 +5,7 @@ import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleCommentDto;
 import com.yoon.boardingExpress.dto.ArticleDto;
+import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
@@ -50,12 +51,12 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
         Page<ArticleDto> articles = sut.searchArticles(searchType, searchKeyword, pageable);
 
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitle(searchKeyword, pageable);
+        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
 
     @Test
@@ -64,7 +65,7 @@ class ArticleServiceTest {
         Article article = createArticle();
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
 
-        ArticleCommentDto dto = sut.getArticle(1L);
+        ArticleWithCommentsDto dto = sut.getArticle(1L);
 
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
