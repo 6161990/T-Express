@@ -3,7 +3,6 @@ package com.yoon.boardingExpress.service;
 import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.domain.type.SearchType;
-import com.yoon.boardingExpress.dto.ArticleCommentDto;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
