@@ -10,19 +10,19 @@ import java.util.stream.Collectors;
 public record ArticleWithCommentsDto(
         Long id,
         UserAccountDto userAccountDto,
-        Set<ArticleCommentDto>articleCommentDtos,
+        Set<ArticleCommentDto> articleCommentDtos,
         String title,
         String content,
         String hashtag,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
-    public static ArticleWithCommentsDto of(Long id, UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtos, String title, String content, String hashtag, LocalDateTime createdAt, String createdBy, LocalDateTime updatedAt) {
+    public static ArticleWithCommentsDto of(Long id, UserAccountDto userAccountDto, Set<ArticleCommentDto> articleCommentDtos, String title, String content, String hashtag, LocalDateTime createdAt, LocalDateTime updatedAt) {
         return new ArticleWithCommentsDto(id, userAccountDto, articleCommentDtos, title, content, hashtag, createdAt, updatedAt);
     }
 
     public static ArticleWithCommentsDto from(Article entity) {
-        return new ArticleWithCommentsDto(
+        return ArticleWithCommentsDto.of(
                 entity.getId(),
                 UserAccountDto.from(entity.getUserAccount()),
                 entity.getArticleComments().stream()
