@@ -3,81 +3,64 @@
     <attr sel="#header" th:replace="header :: header" />
     <attr sel="#footer" th:replace="footer :: footer" />
 
-    <attr sel="main" th:object="${articles}">
-        <attr sel="#search-form" th:action="@{/articles}" th:method="get" />
-        <attr sel="#search-type" th:remove="all-but-first">
-            <attr sel="option[0]"
-                  th:each="searchType : ${searchTypes}"
-                  th:value="${searchType.name}"
-                  th:text="${searchType.description}"
-                  th:selected="${param.searchType != null && (param.searchType.toString == searchType.name)}"
+    <attr sel="#article-main" th:object="${article}">
+        <attr sel="#article-header/h1" th:text="*{title}" />
+        <attr sel="#name" th:text="*{name}" />
+        <attr sel="#email" th:text="*{email}" />
+        <attr sel="#created-at" th:datetime="*{createdAt}" th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
+        <attr sel="#hashtag" th:each="hashtag : ${article.hashtags}">
+            <attr sel="a"
+                  th:text="'#' + ${hashtag}"
+                  th:href="@{/articles(searchType=${searchTypeHashtag},searchValue=${hashtag})}"
             />
         </attr>
-        <attr sel="#search-value" th:value="${param.searchValue}" />
 
-        <attr sel="#article-table">
-            <attr sel="thead/tr">
-                <attr sel="th.title/a" th:text="'제목'" th:href="@{/articles(
-            page=${articles.number},
-            sort='title' + (*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : '') : ''),
-            searchType=${param.searchType},
-            searchValue=${param.searchValue}
-        )}"/>
-                <attr sel="th.hashtag/a" th:text="'해시태그'" th:href="@{/articles(
-            page=${articles.number},
-            sort='hashtags' + (*{sort.getOrderFor('hashtags')} != null ? (*{sort.getOrderFor('hashtags').direction.name} != 'DESC' ? ',desc' : '') : ''),
-            searchType=${param.searchType},
-            searchValue=${param.searchValue}
-        )}"/>
-                <attr sel="th.user-id/a" th:text="'작성자'" th:href="@{/articles(
-            page=${articles.number},
-            sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : ''),
-            searchType=${param.searchType},
-            searchValue=${param.searchValue}
-        )}"/>
-                <attr sel="th.created-at/a" th:text="'작성일'" th:href="@{/articles(
-            page=${articles.number},
-            sort='createdAt' + (*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : '') : ''),
-            searchType=${param.searchType},
-            searchValue=${param.searchValue}
-        )}"/>
+        <attr sel="#article-content/pre" th:text="*{content}" />
+
+        <attr sel="#article-buttons" th:if="${#authorization.expression('isAuthenticated()')} and *{userId} == ${#authentication.name}">
+            <attr sel="#delete-article-form" th:action="'/articles/' + *{id} + '/delete'" th:method="post">
+                <attr sel="#update-article" th:href="'/articles/' + *{id} + '/form'" />
             </attr>
+        </attr>
 
-            <attr sel="tbody" th:remove="all-but-first">
-                <attr sel="tr[0]" th:each="article : ${articles}">
-                    <attr sel="td.title/a" th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}" />
-                    <attr sel="td.hashtag/span" th:each="hashtag : ${article.hashtags}">
-                        <attr sel="a"
-                              th:text="'#' + ${hashtag}"
-                              th:href="@{/articles(searchType=${searchTypeHashtag},searchValue=${hashtag})}"
-                        />
+        <attr sel=".article-id" th:name="articleId" th:value="*{id}" />
+        <attr sel=".comment-form" th:action="@{/comments/new}" th:method="post">
+            <attr sel=".comment-textbox" th:name="content" />
+        </attr>
+
+        <attr sel="#article-comments" th:remove="all-but-first">
+            <attr sel=".parent-comment[0]" th:each="articleComment : ${articleComments}">
+                <attr sel=".comment-delete-form" th:action="'/comments/' + ${articleComment.id} + '/delete'" th:method="post">
+                    <attr sel="div/strong" th:text="${articleComment.name}" />
+                    <attr sel="div/small/time" th:datetime="${articleComment.createdAt}" th:text="${#temporals.format(articleComment.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
+                    <attr sel="div/p" th:text="${articleComment.content}" />
+                    <attr sel="button" th:if="${#authorization.expression('isAuthenticated()')} and ${articleComment.userId} == ${#authentication.name}" />
+                </attr>
+                <attr sel="ul" th:if="${!articleComment.childComments.isEmpty}" th:remove="all-but-first">
+                    <attr sel=".child-comment[0]" th:each="childComment : ${articleComment.childComments}">
+                        <attr sel=".comment-delete-form" th:action="'/comments/' + ${childComment.id} + '/delete'" th:method="post">
+                            <attr sel="div/strong" th:text="${childComment.name}" />
+                            <attr sel="div/small/time" th:datetime="${childComment.createdAt}" th:text="${#temporals.format(childComment.createdAt, 'yyyy-MM-dd HH:mm:ss')}" />
+                            <attr sel="div/p" th:text="${childComment.content}" />
+                            <attr sel="button" th:if="${#authorization.expression('isAuthenticated()')} and ${childComment.userId} == ${#authentication.name}" />
+                        </attr>
                     </attr>
-                    <attr sel="td.user-id" th:text="${article.nickname}" />
-                    <attr sel="td.created-at/time" th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}" />
                 </attr>
             </attr>
+            <attr sel=".parent-comment-id" th:name="parentCommentId" th:value="${articleComment.id}" />
         </attr>
 
-        <!--<attr sel="#write-article" sec:authorize="isAuthenticated()" th:href="@{/articles/form}" />-->
-
         <attr sel="#pagination">
-            <attr sel="li[0]/a"
-                  th:text="'previous'"
-                  th:href="@{/articles(page=${articles.number - 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
-                  th:class="'page-link' + (${articles.number} <= 0 ? ' disabled' : '')"
-            />
-            <attr sel="li[1]" th:class="page-item" th:each="pageNumber : ${paginationBarNumbers}">
-                <attr sel="a"
-                      th:text="${pageNumber + 1}"
-                      th:href="@{/articles(page=${pageNumber}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
-                      th:class="'page-link' + (${pageNumber} == ${articles.number} ? ' disabled' : '')"
+            <attr sel="ul">
+                <attr sel="li[0]/a"
+                      th:href="*{id} - 1 <= 0 ? '#' : |/articles/*{id - 1}|"
+                      th:class="'page-link' + (*{id} - 1 <= 0 ? ' disabled' : '')"
+                />
+                <attr sel="li[1]/a"
+                      th:href="*{id} + 1 > ${totalCount} ? '#' : |/articles/*{id + 1}|"
+                      th:class="'page-link' + (*{id} + 1 > ${totalCount} ? ' disabled' : '')"
                 />
             </attr>
-            <attr sel="li[2]/a"
-                  th:text="'next'"
-                  th:href="@{/articles(page=${articles.number + 1}, searchType=${param.searchType}, searchValue=${param.searchValue})}"
-                  th:class="'page-link' + (${articles.number} >= ${articles.totalPages - 1} ? ' disabled' : '')"
-            />
         </attr>
     </attr>
 </thlogic>
