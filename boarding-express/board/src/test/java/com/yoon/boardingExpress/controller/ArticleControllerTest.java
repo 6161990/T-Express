@@ -4,7 +4,6 @@ import com.yoon.boardingExpress.config.SecurityConfig;
 import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
-import com.yoon.boardingExpress.dto.HashtagDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.service.ArticleService;
 import org.junit.jupiter.api.Disabled;
