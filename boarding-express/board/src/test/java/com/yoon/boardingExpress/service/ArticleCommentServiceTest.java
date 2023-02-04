@@ -44,7 +44,7 @@ class ArticleCommentServiceTest {
         List<ArticleCommentDto> actual = sut.searchArticleComments(articleId);
 
         assertThat(actual).hasSize(1).first().hasFieldOrPropertyWithValue("content", expected.getContent());
-        then(articleRepository).should().findById(articleId);
+        then(articleCommentRepository).should().findByArticle_Id(articleId);
     }
 
     @Test
