@@ -74,6 +74,17 @@ class ArticleServiceTest {
     }
 
     @Test
+    void 게시글_수_조회() {
+        long expected = 0L;
+        given(articleRepository.count()).willReturn(expected);
+
+        long actual = sut.articleCount();
+
+        assertThat(actual).isEqualTo(expected);
+        then(articleRepository).should().count();
+    }
+
+    @Test
     void 존재하지_않는_게시글_조회시_예외발생() {
         Long articleId = 0L;
 
