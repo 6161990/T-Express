@@ -2,6 +2,7 @@ package com.yoon.boardingExpress.controller;
 
 import com.yoon.boardingExpress.config.SecurityConfig;
 import com.yoon.boardingExpress.service.ArticleService;
+import com.yoon.boardingExpress.service.PaginationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +24,9 @@ public class AuthControllerTest {
 
     @MockBean
     private ArticleService articleService;
+
+    @MockBean
+    private PaginationService paginationService;
 
     @Test
     void login_page() throws Exception {
