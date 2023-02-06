@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(indexes = {
         @Index(columnList = "name"),
         @Index(columnList = "phoneNumber"),
-        @Index(columnList = "userId"),
+        @Index(columnList = "userId", unique = true),
         @Index(columnList = "email", unique = true)
 })
 @Entity
