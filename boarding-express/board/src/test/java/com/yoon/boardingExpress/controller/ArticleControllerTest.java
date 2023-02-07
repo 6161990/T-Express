@@ -6,6 +6,7 @@ import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
+import com.yoon.boardingExpress.repository.ArticleRepository;
 import com.yoon.boardingExpress.service.ArticleService;
 import com.yoon.boardingExpress.service.PaginationService;
 import org.junit.jupiter.api.Disabled;
@@ -14,14 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +61,7 @@ class ArticleControllerTest {
     }
 
     @Test
-    void article_list_page_with_searchType_and_searchKeyword() throws Exception {
+    void article_list_page_with_searchType_and_searchValue() throws Exception {
         SearchType searchType = SearchType.TITLE;
         String searchValue = "title";
         given(articleService.searchArticles(eq(searchType), eq(searchValue), any(Pageable.class))).willReturn(Page.empty());
@@ -180,7 +179,7 @@ class ArticleControllerTest {
                 "test",
                 "test",
                 "test",
-                "test@mail.com",
+                "testtest@mail.com",
                 "test",
                 "01099999999",
                 LocalDateTime.now(),
