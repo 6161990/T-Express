@@ -1,26 +1,25 @@
 package com.yoon.boardingExpress.controller;
 
 import com.yoon.boardingExpress.config.SecurityConfig;
-import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.type.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
-import com.yoon.boardingExpress.repository.ArticleRepository;
 import com.yoon.boardingExpress.service.ArticleService;
 import com.yoon.boardingExpress.service.PaginationService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -129,7 +128,6 @@ class ArticleControllerTest {
         then(articleService).should().articleCount();
     }
 
-    @Disabled
     @Test
     void article_search_page() throws Exception {
         mockMvc.perform(get("/articles/search"))
@@ -138,13 +136,12 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/search"));
     }
 
-    @Disabled
     @Test
     void article_search_hashtag_page() throws Exception {
         mockMvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("articles/search-hashtag.html"));
+                .andExpect(view().name("articles/search-hashtag"));
     }
 
 

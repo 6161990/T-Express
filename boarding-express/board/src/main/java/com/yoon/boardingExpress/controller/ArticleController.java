@@ -1,14 +1,11 @@
 package com.yoon.boardingExpress.controller;
 
 import com.yoon.boardingExpress.domain.type.SearchType;
-import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.response.ArticleResponse;
 import com.yoon.boardingExpress.dto.response.ArticleWithCommentsResponse;
 import com.yoon.boardingExpress.service.ArticleService;
 import com.yoon.boardingExpress.service.PaginationService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -58,11 +55,13 @@ public class ArticleController {
 
     @GetMapping("/search")
     public String search(){
+        // TODO
         return "articles/search";
     }
 
-    @GetMapping("/search-")
+    @GetMapping("/search-hashtag")
     public String search_hashtag(){
+        // TODO
         return "articles/search-hashtag";
     }
 
