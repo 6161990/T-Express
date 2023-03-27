@@ -7,6 +7,7 @@ import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
+import com.yoon.boardingExpress.repository.querydsl.ArticleRepositoryCustom;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +36,7 @@ class ArticleServiceTest {
     @Mock
     private ArticleRepository articleRepository;
 
-    @Test
+     @Test
     void 검색어없이_게시글_검색하면_게시글_페이지반환() {
         Pageable pageable = Pageable.ofSize(20);
         given(articleRepository.findAll(pageable)).willReturn(Page.empty());
@@ -59,6 +61,28 @@ class ArticleServiceTest {
     }
 
     @Test
+    void 검색어없이_해시태그_검색하면_빈_페이지반환() {
+        Pageable pageable = Pageable.ofSize(20);
+
+        Page<ArticleDto> articles = sut.searchArticlesViaHashtag(null, pageable);
+
+        assertThat(articles).isEqualTo(Page.empty(pageable));
+        then(articleRepository).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void 해시태그_검색어로_게시글_검색() {
+        String hashtag = "#java";
+        Pageable pageable = Pageable.ofSize(20);
+        given(articleRepository.findByHashtag(hashtag, pageable)).willReturn(Page.empty());
+
+        Page<ArticleDto> articles = sut.searchArticlesViaHashtag(hashtag, pageable);
+
+        assertThat(articles).isEmpty();
+        then(articleRepository).should().findByHashtag(hashtag, pageable);
+    }
+
+    @Test
     void 게시글_조회() {
         Long articleId = 1L;
         Article article = createArticle();
@@ -71,6 +95,17 @@ class ArticleServiceTest {
                 .hasFieldOrPropertyWithValue("content", article.getContent())
                 .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
         then(articleRepository).should().findById(articleId);
+    }
+
+    @Test
+    void 해시태그를_조회하면_유니크한_해시태그_리스트를_반환한다() {
+        List<String> expectedHashtags = List.of("#java", "#spring", "#jpa");
+        given(articleRepository.findAllDistinctHashtags()).willReturn(expectedHashtags);
+
+        List<String> hashtags = sut.getHashtags();
+
+        assertThat(hashtags).isEqualTo(expectedHashtags);
+        then(articleRepository).should().findAllDistinctHashtags();
     }
 
     @Test
