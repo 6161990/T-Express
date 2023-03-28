@@ -14,17 +14,13 @@ import java.util.Set;
 @Table(indexes = {
         @Index(columnList = "name"),
         @Index(columnList = "phoneNumber"),
-        @Index(columnList = "userId", unique = true),
         @Index(columnList = "email", unique = true)
 })
 @Entity
 public class UserAccount extends AuditingFields {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Setter
-    @Column(nullable = false, length = 50)
+    @Id
+    @Column(length = 50)
     private String userId;
 
     @Setter
@@ -48,12 +44,12 @@ public class UserAccount extends AuditingFields {
     private String memo;
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("userAccount.userId")
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
     private final Set<Article> articles = new LinkedHashSet<>();
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("userAccount.userId")
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
@@ -79,11 +75,11 @@ public class UserAccount extends AuditingFields {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAccount userAccount = (UserAccount) o;
-        return id != null && id.equals(userAccount.id);
+        return userId != null && userId.equals(userAccount.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(userId);
     }
 }

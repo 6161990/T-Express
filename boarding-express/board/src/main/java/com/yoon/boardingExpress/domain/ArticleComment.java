@@ -13,9 +13,7 @@ import java.util.Objects;
 @ToString(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-@Table(indexes = {
-        @Index(columnList = "user_account_id")
-})
+@Table
 public class ArticleComment extends AuditingFields{
 
     @Id
@@ -29,7 +27,7 @@ public class ArticleComment extends AuditingFields{
 
     @Setter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_account_id")
+    @JoinColumn(name = "user_id")
     private UserAccount userAccount;
 
     @Setter

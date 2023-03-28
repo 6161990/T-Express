@@ -13,7 +13,6 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Entity
 @Table(indexes = {
-        @Index(columnList = "user_account_id"),
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt")
@@ -26,7 +25,7 @@ public class Article extends AuditingFields{
 
     @Setter
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_account_id")
+    @JoinColumn(name = "user_id")
     private UserAccount userAccount;
 
     @Setter
