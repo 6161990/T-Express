@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static com.yoon.boardingExpress.domain.type.SearchType.HASHTAG;
+
 @Controller
 @RequestMapping("/articles")
 @RequiredArgsConstructor
@@ -60,8 +62,20 @@ public class ArticleController {
     }
 
     @GetMapping("/search-hashtag")
-    public String search_hashtag(){
-        // TODO
+    public String search_hashtag(
+            @RequestParam(required = false) String searchValue,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            ModelMap map){
+
+        Page<ArticleResponse> articles = articleService.searchArticlesViaHashtag(searchValue, pageable).map(ArticleResponse::from);
+        List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articles.getTotalPages());
+        List<String> hashtags = articleService.getHashtags();
+
+        map.addAttribute("articles", articles);
+        map.addAttribute("hashtags", hashtags);
+        map.addAttribute("paginationBarNumbers", barNumbers);
+        map.addAttribute("searchType", HASHTAG);
+
         return "articles/search-hashtag";
     }
 
