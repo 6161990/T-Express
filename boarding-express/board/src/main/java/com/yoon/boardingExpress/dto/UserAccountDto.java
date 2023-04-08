@@ -18,6 +18,10 @@ public record UserAccountDto(
         return new UserAccountDto(id, userPassword, email, name, phoneNumber, memo, createdAt, updatedAt);
     }
 
+    public static UserAccountDto of(String userId, String userPassword, String email, String name, String memo) {
+        return new UserAccountDto(userId, userPassword, email, name, memo, null, null, null);
+    }
+
     public static UserAccountDto from(UserAccount entity) {
         return new UserAccountDto(
                 entity.getId(),
