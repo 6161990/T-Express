@@ -26,7 +26,7 @@ public record ArticleWithCommentsResponse(
     public static ArticleWithCommentsResponse from(ArticleWithCommentsDto dto) {
         String name = dto.userAccountDto().name();
         if (name == null || name.isBlank()) {
-            name = dto.userAccountDto().userId();
+            name = dto.userAccountDto().id();
         }
 
         return new ArticleWithCommentsResponse(dto.id(),

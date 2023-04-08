@@ -1,4 +1,4 @@
-package com.yoon.boardingExpress.domain.type;
+package com.yoon.boardingExpress.domain.constant;
 
 import lombok.Getter;
 

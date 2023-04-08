@@ -27,7 +27,7 @@ why? @DataJpaTest 는 자동으로 자신이 지정한 testDB 를 띄워버린�
 @DataJpaTest
 class JpaRepositoryTests {
 
-    private static final UserAccount ANY_USER_ACCOUNT = UserAccount.of("lala",  "pass", "email","nickname", "phoneNumber", "memo");
+    private static final UserAccount ANY_USER_ACCOUNT = UserAccount.of("aallaway2o",  "pass", "email","nickname", "phoneNumber", "memo");
     private static final Article ANY_ARTICLE = Article.of(ANY_USER_ACCOUNT, "t","c","h");
 
     @Autowired
@@ -59,7 +59,7 @@ class JpaRepositoryTests {
 
     @Test
     void userAccountRepository_update() {
-        UserAccount userAccount = userAccountRepository.findById(100L).orElseThrow();
+        UserAccount userAccount = userAccountRepository.findById("aallaway2o").orElseThrow();
         String updatedName = "이작가";
         userAccount.setName(updatedName);
 
@@ -70,7 +70,7 @@ class JpaRepositoryTests {
 
     @Test
     void writerRepository_delete() {
-        UserAccount userAccount = userAccountRepository.findById(100L).orElseThrow();
+        UserAccount userAccount = userAccountRepository.findById("aallaway2o").orElseThrow();
         long prevUserCount = userAccountRepository.count();
         long prevArticleCount = articleRepository.count();
         long prevArticleCommentCount = articleCommentRepository.count();

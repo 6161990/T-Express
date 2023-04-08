@@ -1,10 +1,12 @@
 package com.yoon.boardingExpress.service;
 
 import com.yoon.boardingExpress.domain.Article;
-import com.yoon.boardingExpress.domain.type.SearchType;
+import com.yoon.boardingExpress.domain.UserAccount;
+import com.yoon.boardingExpress.domain.constant.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
+import com.yoon.boardingExpress.repository.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,7 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserAccountRepository userAccountRepository;
 
     @Transactional(readOnly = true)
     public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
@@ -32,26 +35,34 @@ public class ArticleService {
         return switch (searchType) {
             case TITLE -> articleRepository.findByTitleContaining(searchKeyword, pageable).map(ArticleDto::from);
             case CONTENT -> articleRepository.findByContentContaining(searchKeyword, pageable).map(ArticleDto::from) ;
-            case ID -> articleRepository.findByUserAccount_UserIdContaining(searchKeyword, pageable).map(ArticleDto::from);
+            case ID -> articleRepository.findByUserAccount_IdContaining(searchKeyword, pageable).map(ArticleDto::from);
             case HASHTAG -> articleRepository.findByHashtag("#"+searchKeyword, pageable).map(ArticleDto::from);
             case NAME -> articleRepository.findByUserAccount_NameContaining(searchKeyword, pageable).map(ArticleDto::from);
         };
     }
 
     @Transactional(readOnly = true)
-    public ArticleWithCommentsDto getArticle(Long articleId) {
+    public ArticleWithCommentsDto getArticleWithComments(Long articleId) {
         return articleRepository.findById(articleId)
                 .map(ArticleWithCommentsDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("The Article is Not Exist. ArticleId is" + articleId));
     }
 
-    public void saveArticle(ArticleDto dto) {
-        articleRepository.save(dto.toEntity());
+    @Transactional(readOnly = true)
+    public ArticleDto getArticle(Long articleId) {
+        return articleRepository.findById(articleId)
+                .map(ArticleDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("The Article is Not Exist. ArticleId is" + articleId));
     }
 
-    public void updateArticle(ArticleDto dto) {
+    public void saveArticle(ArticleDto dto) {
+        UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().id());
+        articleRepository.save(dto.toEntity(userAccount));
+    }
+
+    public void updateArticle(Long articleId, ArticleDto dto) {
         try {
-            Article article = articleRepository.getReferenceById(dto.id()); /** referenceById 를 하면 id 로 해당 데이터를 가져오는 select 쿼리 없이 reference 를 바로 가져오게된다. */
+            Article article = articleRepository.getReferenceById(articleId); /** referenceById 를 하면 id 로 해당 데이터를 가져오는 select 쿼리 없이 reference 를 바로 가져오게된다. */
             if(dto.title() != null) {article.setTitle(dto.title());}
             if(dto.content() != null) {article.setContent(dto.content());}
             article.setHashtag(dto.hashtag());

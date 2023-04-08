@@ -10,7 +10,7 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface UserAccountRepository extends JpaRepository<UserAccount, Long>,
+public interface UserAccountRepository extends JpaRepository<UserAccount, String>,
         QuerydslPredicateExecutor<UserAccount>, /**  <Entity> 에 명시한 모든 필드에 대해서 검색기능을 구현해준다. */
         QuerydslBinderCustomizer<QUserAccount> /**  위 구현 + 검색에 대한 세부적인 설정을 가능하게해준다. */
 {

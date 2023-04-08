@@ -7,7 +7,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 
 /**
  * data rest 기본 설정은 id를 감추는 것인데,
- * 회원 계정에 한해서 `userId`가 노출되게끔 해줘야 함
+ * 회원 계정에 한해서 `id`가 노출되게끔 해줘야 함
  * */
 
 @Configuration

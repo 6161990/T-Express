@@ -23,7 +23,7 @@ public record ArticleResponse(
     public static ArticleResponse from(ArticleDto dto) {
         String name = dto.userAccountDto().name();
         if (name == null || name.isBlank()) {
-            name = dto.userAccountDto().userId();
+            name = dto.userAccountDto().id();
         }
         return new ArticleResponse(dto.id(), dto.title(), dto.content(), dto.hashtag(), dto.createdAt(), dto.userAccountDto().email(), name);
     }

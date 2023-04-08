@@ -2,12 +2,12 @@ package com.yoon.boardingExpress.service;
 
 import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.UserAccount;
-import com.yoon.boardingExpress.domain.type.SearchType;
+import com.yoon.boardingExpress.domain.constant.SearchType;
 import com.yoon.boardingExpress.dto.ArticleDto;
 import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleRepository;
-import com.yoon.boardingExpress.repository.querydsl.ArticleRepositoryCustom;
+import com.yoon.boardingExpress.repository.UserAccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.util.ReflectionTestUtils;
 
 
 import javax.persistence.EntityNotFoundException;
@@ -35,6 +36,9 @@ class ArticleServiceTest {
 
     @Mock
     private ArticleRepository articleRepository;
+
+    @Mock
+    private UserAccountRepository userAccountRepository;
 
      @Test
     void 검색어없이_게시글_검색하면_게시글_페이지반환() {
@@ -83,17 +87,60 @@ class ArticleServiceTest {
     }
 
     @Test
-    void 게시글_조회() {
+    void 게시글_조회하면_댓글과_함께_반환한다() {
         Long articleId = 1L;
         Article article = createArticle();
         given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
 
-        ArticleWithCommentsDto dto = sut.getArticle(1L);
+        ArticleWithCommentsDto dto = sut.getArticleWithComments(articleId);
 
         assertThat(dto)
                 .hasFieldOrPropertyWithValue("title", article.getTitle())
                 .hasFieldOrPropertyWithValue("content", article.getContent())
                 .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
+        then(articleRepository).should().findById(articleId);
+    }
+
+    @Test
+    void 댓글_달린_게시글이_없으면_예외를_던진다() {
+        Long articleId = 1L;
+        given(articleRepository.findById(articleId)).willReturn(Optional.empty());
+
+        Throwable t = catchThrowable(() -> sut.getArticleWithComments(articleId));
+
+        assertThat(t)
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("The Article is Not Exist. ArticleId is" + articleId);
+        then(articleRepository).should().findById(articleId);
+    }
+
+
+    @Test
+    void 게시글을_조회하면_게시글을_반환한다_without_comments() {
+        Long articleId = 1L;
+        Article article = createArticle();
+
+        given(articleRepository.findById(articleId)).willReturn(Optional.of(article));
+
+        ArticleDto articleDto = sut.getArticle(articleId);
+
+        assertThat(articleDto)
+                .hasFieldOrPropertyWithValue("title", article.getTitle())
+                .hasFieldOrPropertyWithValue("content", article.getContent())
+                .hasFieldOrPropertyWithValue("hashtag", article.getHashtag());
+        then(articleRepository).should().findById(articleId);
+    }
+
+    @Test
+    void 존재하지_않는_게시글_조회시_예외발생() {
+        Long articleId = 0L;
+
+        given(articleRepository.findById(articleId)).willReturn(Optional.empty());
+
+        Throwable t = catchThrowable(() -> sut.getArticleWithComments(articleId));
+
+        assertThat(t).isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("The Article is Not Exist. ArticleId is" + articleId);
         then(articleRepository).should().findById(articleId);
     }
 
@@ -120,25 +167,14 @@ class ArticleServiceTest {
     }
 
     @Test
-    void 존재하지_않는_게시글_조회시_예외발생() {
-        Long articleId = 0L;
-
-        given(articleRepository.findById(articleId)).willReturn(Optional.empty());
-
-        Throwable t = catchThrowable(() -> sut.getArticle(articleId));
-
-        assertThat(t).isInstanceOf(EntityNotFoundException.class)
-                .hasMessage("The Article is Not Exist. ArticleId is" + articleId);
-        then(articleRepository).should().findById(articleId);
-    }
-
-    @Test
     void 게시글_생성() {
         ArticleDto dto = createArticleDto();
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(createUserAccount());
         given(articleRepository.save(any(Article.class))).willReturn(createArticle());
 
         sut.saveArticle(dto);
 
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
         then(articleRepository).should().save(any(Article.class));
     }
 
@@ -148,7 +184,7 @@ class ArticleServiceTest {
         ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
         given(articleRepository.getReferenceById(dto.id())).willReturn(article);
 
-        sut.updateArticle(dto);
+        sut.updateArticle(dto.id(), dto);
 
         assertThat(article)
                 .hasFieldOrPropertyWithValue("title", dto.title())
@@ -162,7 +198,7 @@ class ArticleServiceTest {
         ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
         given(articleRepository.getReferenceById(dto.id())).willThrow(EntityNotFoundException.class);
 
-        sut.updateArticle(dto);
+        sut.updateArticle(dto.id(), dto);
 
         then(articleRepository).should().getReferenceById(dto.id());
     }
@@ -190,12 +226,14 @@ class ArticleServiceTest {
     }
 
     private Article createArticle() {
-        return Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
                 "content",
-                "#java"
-        );
+                "#java");
+        ReflectionTestUtils.setField(article, "id", 1L);
+
+        return article;
     }
 
     private ArticleDto createArticleDto() {

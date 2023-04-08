@@ -21,7 +21,7 @@ public class UserAccount extends AuditingFields {
 
     @Id
     @Column(length = 50)
-    private String userId;
+    private String id;
 
     @Setter
     @Column(nullable = false)
@@ -44,12 +44,12 @@ public class UserAccount extends AuditingFields {
     private String memo;
 
     @ToString.Exclude
-    @OrderBy("userAccount.userId")
+    @OrderBy("userAccount.id")
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
     private final Set<Article> articles = new LinkedHashSet<>();
 
     @ToString.Exclude
-    @OrderBy("userAccount.userId")
+    @OrderBy("userAccount.id")
     @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
@@ -61,8 +61,8 @@ public class UserAccount extends AuditingFields {
         return new UserAccount(userId, userPassword, email, name, phoneNumber, memo);
     }
 
-    private UserAccount(String userId, String password, String name, String email, String phoneNumber, String memo) {
-        this.userId = userId;
+    private UserAccount(String id, String password, String name, String email, String phoneNumber, String memo) {
+        this.id = id;
         this.password = password;
         this.name = name;
         this.email = email;
@@ -75,11 +75,11 @@ public class UserAccount extends AuditingFields {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAccount userAccount = (UserAccount) o;
-        return userId != null && userId.equals(userAccount.userId);
+        return id != null && id.equals(userAccount.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId);
+        return Objects.hash(id);
     }
 }

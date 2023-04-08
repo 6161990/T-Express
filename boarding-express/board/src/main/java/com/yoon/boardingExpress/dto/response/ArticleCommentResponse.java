@@ -20,7 +20,7 @@ public record ArticleCommentResponse(
     public static ArticleCommentResponse from(ArticleCommentDto dto) {
         String name = dto.userAccountDto().name();
         if (name == null || name.isBlank()) {
-            name = dto.userAccountDto().userId();
+            name = dto.userAccountDto().id();
         }
         return new ArticleCommentResponse(
                 dto.id(),
