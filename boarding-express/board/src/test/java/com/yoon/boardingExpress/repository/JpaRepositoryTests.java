@@ -27,7 +27,7 @@ why? @DataJpaTest 는 자동으로 자신이 지정한 testDB 를 띄워버린�
 @DataJpaTest
 class JpaRepositoryTests {
 
-    private static final UserAccount ANY_USER_ACCOUNT = UserAccount.of("aallaway2o",  "pass", "email","nickname", "phoneNumber", "memo");
+    private static final UserAccount ANY_USER_ACCOUNT = UserAccount.of("aallaway92o",  "pass", "email","nickname", "phoneNumber", "memo");
     private static final Article ANY_ARTICLE = Article.of(ANY_USER_ACCOUNT, "t","c","h");
 
     @Autowired
