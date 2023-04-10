@@ -7,6 +7,7 @@ import com.yoon.boardingExpress.dto.ArticleCommentDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleCommentRepository;
 import com.yoon.boardingExpress.repository.ArticleRepository;
+import com.yoon.boardingExpress.repository.UserAccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -34,6 +35,9 @@ class ArticleCommentServiceTest {
     @Mock
     ArticleRepository articleRepository;
 
+    @Mock
+    UserAccountRepository userAccountRepository;
+
     @Test
     void 댓글리스트_조회() {
         Long articleId = 1L;
@@ -52,12 +56,14 @@ class ArticleCommentServiceTest {
         ArticleCommentDto dto = createArticleCommentDto("댓글");
 
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
         sut.saveArticleComment(dto);
 
         then(articleRepository).should().getReferenceById(dto.articleId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
     }
 
     @Test
@@ -65,10 +71,10 @@ class ArticleCommentServiceTest {
         ArticleCommentDto dto = createArticleCommentDto("댓글");
 
         given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
-
         sut.saveArticleComment(dto);
 
         then(articleRepository).should().getReferenceById(dto.articleId());
+        then(userAccountRepository).shouldHaveNoInteractions();
         then(articleCommentRepository).shouldHaveNoInteractions();
     }
 
