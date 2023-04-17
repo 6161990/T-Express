@@ -1,16 +1,19 @@
 package com.yoon.boardingExpress.repository;
 
-import com.yoon.boardingExpress.config.JpaConfig;
 import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.ArticleComment;
 import com.yoon.boardingExpress.domain.UserAccount;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -23,7 +26,7 @@ why? @DataJpaTest 는 자동으로 자신이 지정한 testDB 를 띄워버린�
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 이게 너무 길면 yaml 에 test.database.replace : none 전역적으로 지정해주면된다. */
 
-@Import(JpaConfig.class)
+@Import(JpaRepositoryTests.TestJpaConfig.class)
 @DataJpaTest
 class JpaRepositoryTests {
 
@@ -169,6 +172,17 @@ class JpaRepositoryTests {
         articleCommentRepository.delete(articleComment);
 
         assertThat(articleCommentRepository.count()).isEqualTo(prevArticleCommentCount - 1);
+    }
+
+
+    @EnableJpaAuditing
+    @TestConfiguration // test 할 때만 해당 빈을 등록하는 방
+    public static class TestJpaConfig {
+
+        @Bean
+        public AuditorAware<String> auditorAware(){
+            return () -> Optional.of("yoon"); // test 시에만 security 무시
+        }
     }
 }
 
