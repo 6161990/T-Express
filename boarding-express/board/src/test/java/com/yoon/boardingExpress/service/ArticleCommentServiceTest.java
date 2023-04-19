@@ -108,11 +108,12 @@ class ArticleCommentServiceTest {
     @Test
     void 댓글_삭제() {
         Long articleCommentId = 1L;
-        willDoNothing().given(articleCommentRepository).deleteById(articleCommentId);
+        String userId = "userId";
+        willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_Id(articleCommentId, userId);
 
-        sut.deleteArticleComment(articleCommentId);
+        sut.deleteArticleComment(articleCommentId, userId);
 
-        then(articleCommentRepository).should().deleteById(articleCommentId);
+        then(articleCommentRepository).should().deleteByIdAndUserAccount_Id(articleCommentId, userId);
     }
 
     private ArticleCommentDto createArticleCommentDto(String content) {

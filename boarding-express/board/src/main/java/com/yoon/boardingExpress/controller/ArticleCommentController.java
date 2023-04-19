@@ -2,8 +2,10 @@ package com.yoon.boardingExpress.controller;
 
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.dto.request.ArticleCommentRequest;
+import com.yoon.boardingExpress.dto.security.BoardPrincipal;
 import com.yoon.boardingExpress.service.ArticleCommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,22 +19,22 @@ public class ArticleCommentController {
     private final ArticleCommentService articleCommentService;
 
     @PostMapping("/new")
-    public String newComments(ArticleCommentRequest request){
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleCommentService.saveArticleComment(request.toDto(UserAccountDto.of(
-                "yoon", "yoon", "yoon@mail.com", null, null
-        )));
+    public String newComments(@AuthenticationPrincipal BoardPrincipal boardPrincipal,
+                              ArticleCommentRequest request) {
+            articleCommentService.saveArticleComment(request.toDto(boardPrincipal.toDto()));
 
-
-        return "redirect:/articles/"+request.articleId();
+            return "redirect:/articles/" + request.articleId();
     }
 
     @PostMapping ("/{commentId}/delete")
-    public String deleteComments(@PathVariable Long commentId, Long articleId) {
-        // TODO: 인증 정보를 넣어줘야 한다.
-        articleCommentService.deleteArticleComment(commentId);
+    public String deleteArticleComment(
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            Long articleId
+    ) {
+        articleCommentService.deleteArticleComment(commentId, boardPrincipal.getUsername());
 
-        return "redirect:/articles/"+articleId;
+        return "redirect:/articles/" + articleId;
     }
 
 }

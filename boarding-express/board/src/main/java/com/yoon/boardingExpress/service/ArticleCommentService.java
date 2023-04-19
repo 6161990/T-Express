@@ -4,7 +4,6 @@ import com.yoon.boardingExpress.domain.Article;
 import com.yoon.boardingExpress.domain.ArticleComment;
 import com.yoon.boardingExpress.domain.UserAccount;
 import com.yoon.boardingExpress.dto.ArticleCommentDto;
-import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.repository.ArticleCommentRepository;
 import com.yoon.boardingExpress.repository.ArticleRepository;
 import com.yoon.boardingExpress.repository.UserAccountRepository;
@@ -55,8 +54,9 @@ public class ArticleCommentService {
         }
     }
 
-    public void deleteArticleComment(Long id) {
-        articleCommentRepository.deleteById(id);
+    public void deleteArticleComment(Long articleCommentId, String userId) {
+        articleCommentRepository.deleteByIdAndUserAccount_Id(articleCommentId, userId);
     }
+
 
 }

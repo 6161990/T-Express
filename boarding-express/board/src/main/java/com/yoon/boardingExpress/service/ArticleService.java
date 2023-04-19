@@ -63,18 +63,23 @@ public class ArticleService {
     public void updateArticle(Long articleId, ArticleDto dto) {
         try {
             Article article = articleRepository.getReferenceById(articleId); /** referenceById 를 하면 id 로 해당 데이터를 가져오는 select 쿼리 없이 reference 를 바로 가져오게된다. */
-            if(dto.title() != null) {article.setTitle(dto.title());}
-            if(dto.content() != null) {article.setContent(dto.content());}
+            UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().id());
+
+            if (article.getUserAccount().equals(userAccount)) {
+                if (dto.title() != null) { article.setTitle(dto.title()); }
+                if (dto.content() != null) { article.setContent(dto.content()); }
+                article.setHashtag(dto.hashtag());
+            }
             article.setHashtag(dto.hashtag());
             /** @Transaction 이 걸려있기 때문에 영속성 컨텍스트가 살아 있어서 내부적으로 변경을 감지하기때문에 save 쿼리를 내보내지 않아도 됨*/
         } catch (EntityNotFoundException e){
-            log.warn("The Article is Not Exist. ArticleId is {}", dto.id());
+            log.warn("The Article is Not Exist. ArticleId is {} - {}", dto.id(), e.getLocalizedMessage());
         }
 
     }
 
-    public void deleteArticle(Long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(Long articleId, String userId) {
+        articleRepository.deleteByIdAndUserAccount_Id(articleId, userId);
     }
 
     public long articleCount() {

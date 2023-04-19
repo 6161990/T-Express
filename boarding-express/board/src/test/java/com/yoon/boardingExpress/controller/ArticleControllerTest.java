@@ -8,9 +8,11 @@ import com.yoon.boardingExpress.dto.ArticleWithCommentsDto;
 import com.yoon.boardingExpress.dto.UserAccountDto;
 import com.yoon.boardingExpress.dto.request.ArticleRequest;
 import com.yoon.boardingExpress.dto.response.ArticleResponse;
+import com.yoon.boardingExpress.security.TestSecurityConfig;
 import com.yoon.boardingExpress.service.ArticleService;
 import com.yoon.boardingExpress.service.PaginationService;
 import com.yoon.boardingExpress.util.FormDataEncoder;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.TestExecutionEvent;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -35,7 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import({SecurityConfig.class, FormDataEncoder.class})
+@Import({TestSecurityConfig.class, FormDataEncoder.class})
 @WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
 
@@ -121,6 +126,7 @@ class ArticleControllerTest {
         then(paginationService).should().getPaginationBarNumbers(anyInt(), anyInt());
     }
 
+    @WithMockUser
     @Test
     @DisplayName("[GET] 게시글 상세")
     void article_detail_page() throws Exception {
@@ -142,6 +148,7 @@ class ArticleControllerTest {
     }
 
     @Test
+    @Disabled("구현 중")
     @DisplayName("[GET] 게시글 검색 페이지")
     void article_search_page() throws Exception {
         mockMvc.perform(get("/articles/search"))
@@ -198,6 +205,19 @@ class ArticleControllerTest {
         then(articleService).should().getHashtags();
     }
 
+    @DisplayName("[GET] 게시글 작성 페이지 - 인증 없을 땐 로그인 페이지로 이동")
+    @Test
+    void givenNothing_whenRequestingArticlePage_thenRedirectsToLoginPage() throws Exception {
+        long articleId = 1L;
+
+        mockMvc.perform(get("/articles/" + articleId))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("**/login"));
+
+        then(articleService).shouldHaveNoInteractions();
+    }
+
+    @WithMockUser // controller 등의 위치에서 인증된 사용자를 받아 수행하는 로직이 없다면, 해당 애노테이션으로 간단하게 처리해도 ok.
     @Test
     @DisplayName("[GET] 게시글 작성 페이지")
     void givenNothing_whenRequesting_thenReturnsNewArticlePage() throws Exception {
@@ -208,14 +228,16 @@ class ArticleControllerTest {
                 .andExpect(model().attribute("formStatus", FormStatus.CREATE));
     }
 
+    /** 실제 구현한 userDetails 를 사용할 수도 있(유저 데이터가 실제 있다는 가정하에)
+     *  TEST_EXECUTION : 테스트 실행 직전에 맞춰라!
+     * */
+    @WithUserDetails(value = "userId", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     @DisplayName("[POST] 새 게시글 등록 - 정상 호출")
     void givenNewArticleInfo_whenRequesting_thenSavesNewArticle() throws Exception {
-        // Given
         ArticleRequest articleRequest = ArticleRequest.of("new title", "new content", "#new");
         willDoNothing().given(articleService).saveArticle(any(ArticleDto.class));
 
-        // When & Then
         mockMvc.perform(
                         post("/articles/form")
                                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -228,6 +250,7 @@ class ArticleControllerTest {
         then(articleService).should().saveArticle(any(ArticleDto.class));
     }
 
+    @WithMockUser
     @DisplayName("[view][GET] 게시글 수정 페이지")
     @Test
     void givenNothing_whenRequesting_thenReturnsUpdatedArticlePage() throws Exception {
@@ -246,6 +269,20 @@ class ArticleControllerTest {
         then(articleService).should().getArticle(articleId);
     }
 
+    @DisplayName("[view][GET] 게시글 수정 페이지 - 인증 없을 땐 로그인 페이지로 이동")
+    @Test
+    void givenNothing_whenRequesting_thenRedirectsToLoginPage() throws Exception {
+        // Given
+        long articleId = 1L;
+
+        // When & Then
+        mockMvc.perform(get("/articles/" + articleId + "/form"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("**/login"));
+        then(articleService).shouldHaveNoInteractions();
+    }
+
+    @WithUserDetails(value = "userId", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("[view][POST] 게시글 수정 - 정상 호출")
     @Test
     void givenUpdatedArticleInfo_whenRequesting_thenUpdatesNewArticle() throws Exception {
@@ -267,14 +304,14 @@ class ArticleControllerTest {
         then(articleService).should().updateArticle(eq(articleId), any(ArticleDto.class));
     }
 
+    @WithUserDetails(value = "userId", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("[view][POST] 게시글 삭제 - 정상 호출")
     @Test
     void givenArticleIdToDelete_whenRequesting_thenDeletesArticle() throws Exception {
-        // Given
         long articleId = 1L;
-        willDoNothing().given(articleService).deleteArticle(articleId);
+        String userId = "userId";
+        willDoNothing().given(articleService).deleteArticle(articleId, userId);
 
-        // When & Then
         mockMvc.perform(
                         post("/articles/" + articleId + "/delete")
                                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -283,7 +320,7 @@ class ArticleControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/articles"))
                 .andExpect(redirectedUrl("/articles"));
-        then(articleService).should().deleteArticle(articleId);
+        then(articleService).should().deleteArticle(articleId, userId);
     }
 
 

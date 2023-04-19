@@ -183,6 +183,7 @@ class ArticleServiceTest {
         Article article = createArticle();
         ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
         given(articleRepository.getReferenceById(dto.id())).willReturn(article);
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(dto.userAccountDto().toEntity());
 
         sut.updateArticle(dto.id(), dto);
 
@@ -191,6 +192,7 @@ class ArticleServiceTest {
                 .hasFieldOrPropertyWithValue("content", dto.content())
                 .hasFieldOrPropertyWithValue("hashtag", dto.hashtag());
         then(articleRepository).should().getReferenceById(dto.id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
     }
 
     @Test
@@ -206,11 +208,12 @@ class ArticleServiceTest {
     @Test
     void 게시글_삭제() {
         Long articleId = 1L;
-        willDoNothing().given(articleRepository).deleteById(articleId);
+        String userId = "userId";
+        willDoNothing().given(articleRepository).deleteByIdAndUserAccount_Id(articleId, userId);
 
-        sut.deleteArticle(articleId);
+        sut.deleteArticle(articleId, userId);
 
-        then(articleRepository).should().deleteById(articleId);
+        then(articleRepository).should().deleteByIdAndUserAccount_Id(articleId, userId);
     }
 
 
