@@ -31,7 +31,7 @@
         )}"/>
                 <attr sel="th.user-id/a" th:text="'작성자'" th:href="@{/articles(
             page=${articles.number},
-            sort='userAccount.userId' + (*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : '') : ''),
+            sort='userAccount.Id' + (*{sort.getOrderFor('userAccount.Id')} != null ? (*{sort.getOrderFor('userAccount.Id').direction.name} != 'DESC' ? ',desc' : '') : ''),
             searchType=${param.searchType},
             searchValue=${param.searchValue}
         )}"/>
@@ -58,7 +58,7 @@
             </attr>
         </attr>
 
-        <!--<attr sel="#write-article" sec:authorize="isAuthenticated()" th:href="@{/articles/form}" />-->
+        <attr sel="#write-article" sec:authorize="isAuthenticated()" th:href="@{/articles/form}" />
 
         <attr sel="#pagination">
             <attr sel="li[0]/a"
