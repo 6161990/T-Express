@@ -1,0 +1,5 @@
+app:
+  unleash:
+    app-name: ${spring.application.name:unleash-onboarding-java}
+    instance-id: ${HOSTNAME:unleash-onboarding-instance}
+    sdk-key: ${UNLEASH_SDK_KEY:*:production.314e9322c3bd0c348ce6222faaa8f80dca49e275a6f3dfec3687363a}
